@@ -1,5 +1,3 @@
-diocabe
-
 #include "frontend/mainwindow.h"
 #include <QRadioButton>
 #include <QApplication>

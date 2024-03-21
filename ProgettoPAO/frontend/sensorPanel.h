@@ -4,12 +4,12 @@
 #include <QVBoxLayout>
 #ifndef SENSOR_PANEL_H
 #define SENSOR_PANEL_H
+#include "frontend/infoPanel.h"
 
 class SensorPanel: public QWidget {
     Q_OBJECT
 private:
-    //QIcon* icon;
-    //QPushButton* refresh;
+    InfoPanel* i;
 public:
     //SensorPanel(const Sensor&);
     void update();
