@@ -2,25 +2,30 @@
 #include <QIcon>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "backend/sensors.h"
-#include <string>
 #ifndef SENSOR_PANEL_H
 #define SENSOR_PANEL_H
 
 class SensorPanel: public QWidget {
     Q_OBJECT
 private:
-    double* info;//inizializzzare con getValue
-    QVBoxLayout* mainLayout;
-    QIcon* icon;
-    QPushButton* refresh;
+    //QIcon* icon;
+    //QPushButton* refresh;
 public:
-    SensorPanel(const Sensor&,const std::string& iconPath = "resources/defaultIcon.boh");
+    //SensorPanel(const Sensor&);
     void update();
+    SensorPanel(QWidget* parent = 0);
 };
 
 
 #endif
+
+
+
+
+
+
+
+
 /*
 
 

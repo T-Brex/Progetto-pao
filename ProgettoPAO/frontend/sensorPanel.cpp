@@ -1,9 +1,18 @@
 #include "frontend/sensorPanel.h"
+#include <QLabel>
 
-SensorPanel::SensorPanel(const Sensor& s,const std::string& iconPath = "resources/defaultIcon.boh")
-    : info(s.getValue()){/*assegnare icona*/}
-
-SensorPanel::update(){/*aggiornare valori}
+SensorPanel::SensorPanel(QWidget* parent): QWidget(parent)
+{
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    QPushButton *button1 = new QPushButton("One");
+    layout->addWidget(button1);
+    layout->addStretch();
+    QPushButton *button2 = new QPushButton("Two");
+    layout->addWidget(button2);
+}
+//SensorPanel::SensorPanel(const Sensor& s,const std::string& iconPath i){}
+/*
+void SensorPanel::update(){aggiornare valori}
 
 
 class SensorPanel: public QWidget {

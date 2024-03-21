@@ -127,8 +127,9 @@ compiler_moc_header_make_all: release/moc_mainwindow.cpp release/moc_sensorPanel
 compiler_moc_header_clean:
 	-$(DEL_FILE) release\moc_mainwindow.cpp release\moc_sensorPanel.cpp
 release/moc_mainwindow.cpp: ../../frontend/mainwindow.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		../../frontend/sensorPanel.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtguiglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qglobal.h \
@@ -153,7 +154,6 @@ release/moc_mainwindow.cpp: ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qversiontagging.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtgui-config.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgets-config.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qwindowdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qobjectdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnamespace.h \
@@ -254,8 +254,19 @@ release/moc_mainwindow.cpp: ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/QSizeF \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/QTransform \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnativeinterface.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/QIcon \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QVBoxLayout \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qboxlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qgridlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
 		release/moc_predefs.h \
 		D:/Qt/6.2.11/mingw_64/bin/moc.exe
 	D:\Qt\6.2.11\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/carta/Desktop/qtprojects/ProgettoPAO/build/Desktop_Qt_6_2_11_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.2.11/mingw_64/mkspecs/win32-g++ -IC:/Users/carta/Desktop/qtprojects/ProgettoPAO -ID:/Qt/6.2.11/mingw_64/include -ID:/Qt/6.2.11/mingw_64/include/QtWidgets -ID:/Qt/6.2.11/mingw_64/include/QtGui -ID:/Qt/6.2.11/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\frontend\mainwindow.h -o release\moc_mainwindow.cpp
@@ -397,7 +408,6 @@ release/moc_sensorPanel.cpp: ../../frontend/sensorPanel.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayout.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayoutitem.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qgridlayout.h \
-		../../backend/sensors.h \
 		release/moc_predefs.h \
 		D:/Qt/6.2.11/mingw_64/bin/moc.exe
 	D:\Qt\6.2.11\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/carta/Desktop/qtprojects/ProgettoPAO/build/Desktop_Qt_6_2_11_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.2.11/mingw_64/mkspecs/win32-g++ -IC:/Users/carta/Desktop/qtprojects/ProgettoPAO -ID:/Qt/6.2.11/mingw_64/include -ID:/Qt/6.2.11/mingw_64/include/QtWidgets -ID:/Qt/6.2.11/mingw_64/include/QtGui -ID:/Qt/6.2.11/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\frontend\sensorPanel.h -o release\moc_sensorPanel.cpp
@@ -421,8 +431,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 release/main.o: ../../main.cpp ../../frontend/mainwindow.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		../../frontend/sensorPanel.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtguiglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qglobal.h \
@@ -447,7 +458,6 @@ release/main.o: ../../main.cpp ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qversiontagging.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtgui-config.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgets-config.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qwindowdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qobjectdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnamespace.h \
@@ -548,11 +558,21 @@ release/main.o: ../../main.cpp ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/QSizeF \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/QTransform \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnativeinterface.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/QIcon \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QVBoxLayout \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qboxlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qgridlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QRadioButton \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qradiobutton.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QApplication \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qapplication.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qcoreapplication.h \
@@ -577,8 +597,9 @@ release/main.o: ../../main.cpp ../../frontend/mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\..\main.cpp
 
 release/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		../../frontend/sensorPanel.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtguiglobal.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qglobal.h \
@@ -603,7 +624,6 @@ release/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h 
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qversiontagging.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtgui-config.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtwidgets-config.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qwindowdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qobjectdefs.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnamespace.h \
@@ -704,8 +724,19 @@ release/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h 
 		D:/Qt/6.2.11/mingw_64/include/QtCore/QSizeF \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/QTransform \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qnativeinterface.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
-		D:/Qt/6.2.11/mingw_64/include/QtGui/qicon.h
+		D:/Qt/6.2.11/mingw_64/include/QtGui/QIcon \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QVBoxLayout \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qboxlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qgridlayout.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\..\frontend\mainwindow.cpp
 
 release/simulation.o: ../../frontend/simulation.cpp 
@@ -851,7 +882,11 @@ release/sensorPanel.o: ../../frontend/sensorPanel.cpp ../../frontend/sensorPanel
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayout.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlayoutitem.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qgridlayout.h \
-		../../backend/sensors.h
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QLabel \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlabel.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qpicture.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextdocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\sensorPanel.o ..\..\frontend\sensorPanel.cpp
 
 release/sensors.o: ../../backend/sensors.cpp ../../backend/sensors.h
