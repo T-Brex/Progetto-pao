@@ -9,6 +9,7 @@ SensorPanel::SensorPanel(QWidget* parent): QWidget(parent)
     layout->addStretch();
     QPushButton *button2 = new QPushButton("Two");
     layout->addWidget(button2);
+
 }
 //SensorPanel::SensorPanel(const Sensor& s,const std::string& iconPath i){}
 /*

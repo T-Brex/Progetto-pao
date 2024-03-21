@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'sensorPanel.h'
+** Meta object code from reading C++ file 'infoPanel.h'
 **
 ** Created by: The Qt Meta Object Compiler version 68 (Qt 6.2.11)
 **
@@ -7,12 +7,12 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../../../frontend/sensorPanel.h"
+#include "../../../frontend/infoPanel.h"
 #include <QtGui/qtextcursor.h>
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'sensorPanel.h' doesn't include <QObject>."
+#error "The header file 'infoPanel.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
 #error "This file was generated using the moc from 6.2.11. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -22,21 +22,21 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_SensorPanel_t {
+struct qt_meta_stringdata_InfoPanel_t {
     uint offsetsAndSizes[2];
-    char stringdata0[12];
+    char stringdata0[10];
 };
 #define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_SensorPanel_t::offsetsAndSizes) + ofs), len 
-static const qt_meta_stringdata_SensorPanel_t qt_meta_stringdata_SensorPanel = {
+    uint(sizeof(qt_meta_stringdata_InfoPanel_t::offsetsAndSizes) + ofs), len 
+static const qt_meta_stringdata_InfoPanel_t qt_meta_stringdata_InfoPanel = {
     {
-        QT_MOC_LITERAL(0, 11)   // "SensorPanel"
+        QT_MOC_LITERAL(0, 9)   // "InfoPanel"
     },
-    "SensorPanel"
+    "InfoPanel"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_SensorPanel[] = {
+static const uint qt_meta_data_InfoPanel[] = {
 
  // content:
       10,       // revision
@@ -52,7 +52,7 @@ static const uint qt_meta_data_SensorPanel[] = {
        0        // eod
 };
 
-void SensorPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void InfoPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -60,14 +60,14 @@ void SensorPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     (void)_a;
 }
 
-const QMetaObject SensorPanel::staticMetaObject = { {
+const QMetaObject InfoPanel::staticMetaObject = { {
     QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_SensorPanel.offsetsAndSizes,
-    qt_meta_data_SensorPanel,
+    qt_meta_stringdata_InfoPanel.offsetsAndSizes,
+    qt_meta_data_InfoPanel,
     qt_static_metacall,
     nullptr,
-qt_incomplete_metaTypeArray<qt_meta_stringdata_SensorPanel_t
-, QtPrivate::TypeAndForceComplete<SensorPanel, std::true_type>
+qt_incomplete_metaTypeArray<qt_meta_stringdata_InfoPanel_t
+, QtPrivate::TypeAndForceComplete<InfoPanel, std::true_type>
 
 
 
@@ -76,20 +76,20 @@ qt_incomplete_metaTypeArray<qt_meta_stringdata_SensorPanel_t
 } };
 
 
-const QMetaObject *SensorPanel::metaObject() const
+const QMetaObject *InfoPanel::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *SensorPanel::qt_metacast(const char *_clname)
+void *InfoPanel::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_SensorPanel.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_InfoPanel.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int SensorPanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int InfoPanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     return _id;
