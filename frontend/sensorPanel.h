@@ -9,11 +9,14 @@
 class SensorPanel: public QWidget {
     Q_OBJECT
 private:
-    InfoPanel* i;
+    Sensor* sensor;
+    QLabel* name;
+    QLabel* value;
 public:
     //SensorPanel(const Sensor&);
     void update();
     SensorPanel(QWidget* parent = 0);
+    SensorPanel(const SensorPanel& s,QWidget* parent = 0);
 };
 
 

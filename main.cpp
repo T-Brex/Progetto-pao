@@ -1,20 +1,14 @@
-#include "frontend/mainwindow.h"
-#include <QRadioButton>
 #include <QApplication>
-#include <QMenuBar>
-
+#include <QRadioButton>
+#include "frontend/mainwindow.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    SensorPanel s;
 
 
-    MainWindow w;
-    SensorPanel s(&w);
-    w.setWindowTitle("Sensoooooori");
-   // QMenuBar menuBar(&w);
-    w.addToolBar("Titolo Tool Barr");
 
-
+    MainWindow w(&s);
 
     w.resize(960, 480);
     w.show();

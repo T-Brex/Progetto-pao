@@ -5,9 +5,7 @@
 class InfoPanel: public QWidget {
     Q_OBJECT
 private:
-    Sensor* sensor;
-    QLabel* name;
-    QLabel* value;
+
 
 
 public:

@@ -4,26 +4,24 @@
 SensorPanel::SensorPanel(QWidget* parent): QWidget(parent)
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
-    QPushButton *button1 = new QPushButton("One");
-    layout->addWidget(button1);
+    QPushButton *edit = new QPushButton("edit");
+    layout->addWidget(edit);
+    QPushButton *del = new QPushButton("delete");
+    layout->addWidget(del);
     layout->addStretch();
-    QPushButton *button2 = new QPushButton("Two");
-    layout->addWidget(button2);
+    layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    name= new QLabel("name");
+    layout->addWidget(name);
+    value = new QLabel("value");
+    layout->addWidget(value);
+    layout->setContentsMargins(5,5,5,5);
+    this->setMaximumSize(100,100);
+    this->setAutoFillBackground(true);
+    QPalette pal = Qt::green;
+    this->setPalette(pal);
+}
+SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent){
 
 }
-//SensorPanel::SensorPanel(const Sensor& s,const std::string& iconPath i){}
-/*
-void SensorPanel::update(){aggiornare valori}
 
-
-class SensorPanel: public QWidget {
-    Q_OBJECT
-private:
-    double* info;//inizializzzare con getValue
-    QVBoxLayout* mainLayout;
-    QIcon* icon;
-    QPushButton* refresh;
-public:
-    SensorPanel(const Sensor&,const std::string& iconPath = "resources/defaultIcon.boh");
-    void update();
-};*/
+//void SensorPanel::update(){aggiornare valori}

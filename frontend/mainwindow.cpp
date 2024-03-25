@@ -11,9 +11,6 @@ MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(SensorPanel* s,QWidget *parent): QMainWindow(parent)
 {
-
     setCentralWidget(s);
 }
-
-
 
