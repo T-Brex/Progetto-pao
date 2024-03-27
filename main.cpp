@@ -4,11 +4,12 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SensorPanel s;
+    Dust ss ("nome");
 
 
 
-    MainWindow w(&s);
+
+    MainWindow w(&ss);
 
     w.resize(960, 480);
     w.show();

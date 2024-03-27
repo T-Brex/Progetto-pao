@@ -1,27 +1,42 @@
 #include "frontend/sensorPanel.h"
 #include <QLabel>
-
-SensorPanel::SensorPanel(QWidget* parent): QWidget(parent)
+#include <QString>
+SensorPanel::SensorPanel( const Sensor& s, QWidget* parent): QWidget(parent)
 {
+
     QVBoxLayout* layout = new QVBoxLayout(this);
-    QPushButton *edit = new QPushButton("edit");
-    layout->addWidget(edit);
-    QPushButton *del = new QPushButton("delete");
-    layout->addWidget(del);
-    layout->addStretch();
+
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    name= new QLabel("name");
-    layout->addWidget(name);
-    value = new QLabel("value");
-    layout->addWidget(value);
-    layout->setContentsMargins(5,5,5,5);
-    this->setMaximumSize(100,100);
+    layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
+    this->setMaximumSize(100,150);        // (w,h)
     this->setAutoFillBackground(true);
     QPalette pal = Qt::green;
     this->setPalette(pal);
-}
-SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent){
+
+    name = new QLabel ( QString::fromStdString(s.getName()));
+    layout->addWidget(name);
+    QPixmap icon(":resources/wind.ico");
+    ico = new QLabel();
+    ico->setPixmap(icon.scaledToHeight(50));
+    layout->addWidget(ico);
+
+    layout->addStretch();
+
+    for(unsigned int i = 0; i<(s.getValue()).size(); i++){
+        values = new QLabel( QString::number((s.getValue()[i])) );
+        layout->addWidget(values);
+    }
+
+
+
 
 }
+
+SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent): QWidget(parent), name(s.name), values(s.values), ico(s.ico){
+
+}
+
+
+
 
 //void SensorPanel::update(){aggiornare valori}

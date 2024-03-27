@@ -3,7 +3,7 @@
 
 #endif // SENSORS_H
 #include <string>
-
+#include<vector>
 class Sensor{
 private:
     std::string name;
@@ -11,8 +11,8 @@ public:
     Sensor(const std::string&);
     const std::string& getName() const;
     void modifyName(const std::string&);
-    virtual double* getValue() const = 0 ;
-    virtual double* updateValue() = 0 ;
+    virtual std::vector<double> getValue() const = 0 ;
+    virtual void updateValue() = 0 ;
     virtual ~Sensor();
 };
 
@@ -24,8 +24,8 @@ private:
 public:
     Dust(const std::string&);
     Dust(const Dust&);
-    double* updateValue() ;
-    double* getValue() const;
+    void updateValue() ;
+    std::vector<double> getValue() const;
 
 
 };
@@ -38,8 +38,8 @@ private:
 public:
     Humidity(const std::string&);
     Humidity(const Humidity&);
-    double* updateValue() ;
-    double* getValue() const;
+    void updateValue() ;
+    std::vector<double> getValue() const;
 };
 
 
@@ -49,8 +49,8 @@ private:
 public:
     Wind(const std::string&);
     Wind(const Wind&);
-    double* updateValue() ;
-    double* getValue() const;
+    void updateValue() ;
+    std::vector<double> getValue() const;
 };
 
 
@@ -60,17 +60,18 @@ private:
 public:
     Termometer(const std::string&);
     Termometer(const Termometer&);
-    double* updateValue() ;
-    double* getValue() const;
+    void updateValue() ;
+    std::vector<double> getValue() const;
 };
 
 
 class AirQuality:public Dust, public Humidity, public Wind, public Termometer{
 private:
+    double quality;
 public:
     AirQuality(const std::string&);
     AirQuality(const AirQuality&);
-    double* updateValue() ;
-    double* getValue() const;         //restituisce tutti gli attributi   (Attenzione all'immondizia)
+    void updateValue() ;
+    std::vector<double> getValue() const;         //restituisce tutti gli attributi   (Attenzione all'immondizia)
     double getQuality() ;             //restituisce la qualità dell'aria
 };

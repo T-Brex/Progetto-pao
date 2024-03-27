@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    MainWindow(SensorPanel* s, QWidget *parent = nullptr);
+    MainWindow(Sensor* s, QWidget *parent = nullptr);
     ~MainWindow();
 
 
