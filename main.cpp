@@ -1,14 +1,13 @@
 #include <QApplication>
 #include <QRadioButton>
+#include <iostream>
 #include "frontend/mainwindow.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Dust ss ("nome");
+    AirQuality ss ("nome");
 
-
-
-
+    std::cout<<ss.getType();
     MainWindow w(&ss);
 
     w.resize(960, 480);

@@ -1,6 +1,6 @@
 #include "backend/sensors.h"
 
-Sensor::Sensor(const std::string& n):name(n){}
+Sensor::Sensor(const std::string& n):name(n){type="Sensor";}
 
 const std::string& Sensor::getName() const{return name;}
 void Sensor::modifyName(const std::string& n){
@@ -9,14 +9,14 @@ void Sensor::modifyName(const std::string& n){
 Sensor::~Sensor(){}
 
 //-------------------------------------------dust
-Dust::Dust(const std::string &n):Sensor(n){
-    pm10=0; pm25=0;
+Dust::Dust(const std::string &n):Sensor(n),pm10(0),pm25(0){
+    this->updateType("Dust");
 }
 
 Dust::Dust(const Dust& d):
     Sensor(d.getName()),
     pm10(d.pm10),
-    pm25(d.pm25){}
+    pm25(d.pm25){this->updateType("Dust");}
 
 
 void Dust::updateValue(){
@@ -31,14 +31,14 @@ std::vector<double> Dust::getValue() const{
 
 
 //-------------------------------------------humidity
-Humidity::Humidity(const std::string &n):Sensor(n){
-    humidity=0; percentage=0;
+Humidity::Humidity(const std::string &n):Sensor(n),humidity(0),percentage(0){
+    this->updateType("Humidity");
 }
 
 Humidity::Humidity(const Humidity& h):
     Sensor(h.getName()),
     humidity(h.humidity),
-    percentage(h.percentage){}
+    percentage(h.percentage){this->updateType("Humidity");}
 
 
 void Humidity::updateValue(){
@@ -55,40 +55,40 @@ std::vector<double> Humidity::getValue() const{
 
 //-------------------------------------------wind
 
-Wind::Wind(const std::string &n):Sensor(n){
-    wind=0;
+Wind::Wind(const std::string &n):Sensor(n),wind(0){
+    this->updateType("Wind");
 }
 
 Wind::Wind(const Wind& w):
     Sensor(w.getName()),
-    wind(w.wind){}
+    wind(w.wind){this->updateType("Wind");}
 
 void Wind::updateValue(){
     wind = rand() % 10;
 }
 
 std::vector<double> Wind::getValue() const{
-    std::vector<double> v(wind);
+    std::vector<double> v= {wind};
     return v;}
 
 
 
 //-------------------------------------------termometer
 
-Termometer::Termometer(const std::string &n):Sensor(n){
-    temperature=0;
+Termometer::Termometer(const std::string &n):Sensor(n),temperature(0){
+    this->updateType("Termometer");
 }
 
 Termometer::Termometer(const Termometer& t):
     Sensor(t.getName()),
-    temperature(t.temperature){}
+    temperature(t.temperature){this->updateType("Termometer");}
 
 void Termometer::updateValue(){
     temperature = rand() % 10;
    }
 
 std::vector<double> Termometer::getValue() const{
-    std::vector<double> v(temperature);
+    std::vector<double> v = {temperature};
     return v;
     }
 
@@ -98,9 +98,13 @@ std::vector<double> Termometer::getValue() const{
 
 
 
-AirQuality::AirQuality(const std::string& n):Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n){}
+AirQuality::AirQuality(const std::string& n):
+    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n)
+    {this->updateType("AirQuality");}
 
-AirQuality::AirQuality(const AirQuality& a):Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a){}
+AirQuality::AirQuality(const AirQuality& a):
+    Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a)
+    {this->updateType("AirQuality");}
 
 std::vector<double> AirQuality::getValue() const{
     std::vector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};

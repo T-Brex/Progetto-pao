@@ -7,6 +7,7 @@
 class Sensor{
 private:
     std::string name;
+    std::string type;
 public:
     Sensor(const std::string&);
     const std::string& getName() const;
@@ -14,6 +15,8 @@ public:
     virtual std::vector<double> getValue() const = 0 ;
     virtual void updateValue() = 0 ;
     virtual ~Sensor();
+    virtual void updateType(const std::string& s){type =s;}
+    virtual std::string getType() const {return type;}
 };
 
 
