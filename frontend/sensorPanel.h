@@ -19,6 +19,7 @@ public:
     //virtual void update();
     SensorPanel(const Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
+
 };
 /*
 class DustPanel: public SensorPanel{
