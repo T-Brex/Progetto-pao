@@ -11,12 +11,12 @@ int main(int argc, char *argv[])
     std::cout<<ss.getType();
 
 
-    /*  Prova con sensor*/
 
+
+    //prova con Sensor
     QVector<Sensor*> s;
     Humidity *hum=new Humidity("hum");
     Termometer *term=new Termometer("term");
-
     s.push_front(hum);
     s.push_front(term);
 
@@ -39,13 +39,13 @@ int main(int argc, char *argv[])
     blayout->addWidget(button1);
     blayout->addWidget(button2);
 
-    QWidget *sensorsPanel=SensorPanel::getSensorsLayout(sp);
+    QWidget *sensorsPanel=SensorPanel::getSensorsWidget(sp);
     QVector<QWidget *> frame;
     //frame.push_front()
     frame.push_front(b);
     frame.push_front(sensorsPanel);
 
-    MainWindow w(frame);
+    MainWindow w(sp);
     w.resize(1240, 768);
     w.show();
     return a.exec();
