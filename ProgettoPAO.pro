@@ -23,7 +23,8 @@ HEADERS += \
     frontend/sensorPanel.h \
     backend/sensors.h
 
-RESOURCES = resources.qrc
+RESOURCES = resources.qrc \
+    resources.qrc
 
 
 

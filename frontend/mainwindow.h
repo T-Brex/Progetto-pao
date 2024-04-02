@@ -22,7 +22,7 @@ public:
     MainWindow(QVector<SensorPanel*>, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*>, QWidget *parent  = nullptr);
     ~MainWindow();
-    QWidget* setSensorsPanel(QVector<SensorPanel*>);
+
 
 
 };
