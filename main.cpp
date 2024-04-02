@@ -5,28 +5,48 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     AirQuality ss ("nome");
 
     std::cout<<ss.getType();
 
+
+    /*  Prova con sensor*/
+
+    QVector<Sensor*> s;
+    Humidity *hum=new Humidity("hum");
+    Termometer *term=new Termometer("term");
+
+    s.push_front(hum);
+    s.push_front(term);
+
+
+
+    /*  Prova con sensorPanel*/
     QVector<SensorPanel*> sp;
     SensorPanel *ventoPanel= new SensorPanel(Wind("ven"));
     SensorPanel *polvPanel = new SensorPanel(Dust("polv"));
 
-    QVector<Sensor*> s;
-    Wind *ven=new Wind("ven");
-    Dust *polv=new Dust("polv");
-
-    s.push_front(ven);
-    s.push_front(polv);
-
     sp.push_front(ventoPanel);
     sp.push_front(polvPanel);
 
-    MainWindow w(s);
 
-    w.resize(960, 480);
+    /*Prova con sezioni*/
+    QWidget *b = new QWidget;
+    QLayout* blayout = new QHBoxLayout(b);
+    QPushButton *button1 = new QPushButton("One");
+    QPushButton *button2 = new QPushButton("Two");
+    blayout->addWidget(button1);
+    blayout->addWidget(button2);
+
+    QWidget *sensorsPanel=SensorPanel::getSensorsLayout(sp);
+    QVector<QWidget *> frame;
+    //frame.push_front()
+    frame.push_front(b);
+    frame.push_front(sensorsPanel);
+
+    MainWindow w(frame);
+    w.resize(1240, 768);
     w.show();
     return a.exec();
 }
-//

@@ -32,7 +32,7 @@ MainWindow::MainWindow(QVector<Sensor*> s,QWidget *parent): QMainWindow(parent)
     QVector<SensorPanel*> sp;
     for(auto i=0;i<s.size();i++){
         sp.push_front(new SensorPanel(*s[i]));
-        //sarebbe da modificare il costruttore di sensorPanel in modo tale che prenda un vector d
+
     }
     QWidget *sensorsPanel = setSensorsPanel(sp);
     layout->addWidget(sensorsPanel);
@@ -58,6 +58,16 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
     setCentralWidget(window);
 }
 
+MainWindow::MainWindow(QVector<QWidget*> sezioni, QWidget *parent): QMainWindow(parent){
+    QWidget *window = new QWidget(this);
+    QHBoxLayout *layout = new QHBoxLayout(window);
+
+    for(auto i=0;i<sezioni.size();i++){
+        layout->addWidget(sezioni[i]);
+    }
+
+    setCentralWidget(window);
+}
 QWidget* MainWindow::setSensorsPanel(QVector<SensorPanel*> sp){
 
     QWidget *panels = new QWidget;

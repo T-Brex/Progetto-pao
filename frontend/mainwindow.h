@@ -18,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
+    MainWindow(QVector<QWidget*> sezioni, QWidget *parent = nullptr);
     ~MainWindow();
     QWidget* setSensorsPanel(QVector<SensorPanel*>);
 
