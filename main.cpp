@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 
 
 
+
     //prova con Sensor
     QVector<Sensor*> s;
     Humidity *hum=new Humidity("hum");
@@ -26,27 +27,40 @@ int main(int argc, char *argv[])
     QVector<SensorPanel*> sp;
     SensorPanel *ventoPanel= new SensorPanel(Wind("ven"));
     SensorPanel *polvPanel = new SensorPanel(Dust("polv"));
-
     sp.push_front(ventoPanel);
     sp.push_front(polvPanel);
 
 
-    /*Prova con sezioni*/
+    /*
+    QWidget *sensorsPanel = new QWidget;
+    QHBoxLayout* panelsLayout = new QHBoxLayout(sensorsPanel);
+                                                                        ========        SensorPanel::getSensorsWidget(sp)
+    for(auto i=0;i<sp.size();i++){
+        panelsLayout->addWidget(sp[i]);
+    }
+    */
+
+    //prova con un solo sensore
+    SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
+
+     /*Prova con sezioni*/
     QWidget *b = new QWidget;
     QLayout* blayout = new QHBoxLayout(b);
+    //QPushButton deriva da QWidget, quindi frame potrebbe ricevere direttamente i button
     QPushButton *button1 = new QPushButton("One");
     QPushButton *button2 = new QPushButton("Two");
     blayout->addWidget(button1);
     blayout->addWidget(button2);
 
-    QWidget *sensorsPanel=SensorPanel::getSensorsWidget(sp);
-    QVector<QWidget *> frame;
-    //frame.push_front()
-    frame.push_front(b);
-    frame.push_front(sensorsPanel);
 
-    MainWindow w(sp);
-    w.resize(1240, 768);
+    QVector<QWidget *> frame;
+    frame.push_front(button1);
+    frame.push_front(airQ);
+    frame.push_front(b);
+    frame.push_front(SensorPanel::getSensorsWidget(sp));
+
+    MainWindow w(frame);
+    w.resize(960, 480);
     w.show();
     return a.exec();
 }

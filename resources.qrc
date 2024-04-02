@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/AirQuality.ico</file>
+        <file>resources/Termometer.ico</file>
+        <file>resources/Wind.ico</file>
+	<file>resources/Humidity.ico</file>
+	<file>resources/Dust.ico</file>
+    </qresource>
+</RCC>

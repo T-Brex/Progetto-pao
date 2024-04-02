@@ -32,6 +32,12 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), layout(new QHBoxLayout(window))
+/*frame è un n vettore di widget collegato ad un layout, such that:     QWidget *sensorsPanel = new QWidget;
+                                                                        QHBoxLayout* panelsLayout = new QHBoxLayout(sensorsPanel);
+                                                                        for(auto i=0;i<sp.size();i++){
+                                                                            panelsLayout->addWidget(sp[i]);
+                                                                        }
+*/
 {
 
     for(auto i=0;i<frame.size();i++){

@@ -19,9 +19,7 @@ public:
     //virtual void update();
     SensorPanel(const Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
-    static QWidget* getSensorsWidget(QVector<SensorPanel*> sp);
-
-
+    static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
 };
 /*
 class DustPanel: public SensorPanel{
