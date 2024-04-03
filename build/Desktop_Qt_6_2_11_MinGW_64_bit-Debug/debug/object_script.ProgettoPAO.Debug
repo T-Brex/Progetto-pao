@@ -1,0 +1,10 @@
+debug/infoSensor.o
+debug/main.o
+debug/mainwindow.o
+debug/simulation.o
+debug/editor.o
+debug/sensorPanel.o
+debug/sensors.o
+debug/qrc_resources.o
+debug/moc_mainwindow.o
+debug/moc_sensorPanel.o

@@ -24,7 +24,7 @@ HEADERS += \
     backend/sensors.h
 
 RESOURCES = resources.qrc \
-    resources.qrc
+
 
 
 

@@ -17,12 +17,10 @@ MainWindow::~MainWindow() {}
 MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
 {
     //trasformazione da Sensor a SensorPanel
-    QVector<SensorPanel*> sp;
     for(auto i=0;i<s.size();i++){
-        sp.push_front(new SensorPanel(*s[i]));
-    }
 
-    sensLayout->addWidget(SensorPanel::getSensorsWidget(sp));
+        sensLayout->addWidget(new SensorPanel(*s[i]));
+    }
     setCentralWidget(window);
 
 }
@@ -36,12 +34,13 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),
-    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
+    layoutsWidget(new QStackedWidget(this)),sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
     menuBar(new QMenuBar(this)),fileMenu(new QMenu(menuBar)),
-    simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Nuovo Sensore"))),
-    layoutsWidget(new QStackedWidget(this))
+    simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Salva")))
 {
-    //MENUBAR
+    /*
+     *
+     * MENUBAR*/
 
     setMenuBar(menuBar);
 
@@ -71,9 +70,12 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
         // Gestire l'azione di Apri qui
     });
     QObject::connect(saveAct, &QAction::triggered, [&](){
-        // Gestire l'azione di Apri qui
+        // Gestire l'azione di Salva qui
     });
-    //LAYOUTS
+
+    /*
+     *
+     * LAYOUTS*/
 
     //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
