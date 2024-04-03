@@ -14,13 +14,24 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 private:
     QWidget *window;
-    QHBoxLayout *layout;
+    QGridLayout *sensLayout;
+    QHBoxLayout *simuLayout;
+
+    QMenuBar *menuBar;
+    QMenu *fileMenu;
+    QAction* simulazioneAct;
+    QAction *sensoriAct;
+    QAction* newAct;
+    QAction* importAct;
+    QAction* saveAct;
+
 
 public:
     MainWindow(QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
+
     ~MainWindow();
 
 

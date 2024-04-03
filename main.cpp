@@ -2,6 +2,10 @@
 #include <QRadioButton>
 #include <iostream>
 #include "frontend/mainwindow.h"
+
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -60,6 +64,9 @@ int main(int argc, char *argv[])
     frame.push_front(SensorPanel::getSensorsWidget(sp));
 
     MainWindow w(frame);
+    w.setWindowTitle("Sensori");
+
+
     w.resize(960, 480);
     w.show();
     return a.exec();
