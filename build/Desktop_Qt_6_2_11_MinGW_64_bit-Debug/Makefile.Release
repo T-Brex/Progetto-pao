@@ -126,7 +126,6 @@ release/qrc_resources.cpp: ../../resources.qrc \
 		../../resources/Dust.ico \
 		../../resources/Humidity.ico \
 		../../resources/AirQuality.ico \
-		../../resources/Wind.ico \
 		../../resources/Wind.ico
 	D:\Qt\6.2.11\mingw_64\bin\rcc.exe -name resources --no-zstd ..\..\resources.qrc -o release\qrc_resources.cpp
 
@@ -777,7 +776,30 @@ release/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h 
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextdocument.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QApplication \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qapplication.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qcoreapplication.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qeventloop.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qfuture.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qfutureinterface.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qmutex.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qresultstore.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qfuture_impl.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qthreadpool.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qthread.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qdeadlinetimer.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qelapsedtimer.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qrunnable.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qexception.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qpromise.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qguiapplication.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qinputmethod.h \
+		D:/Qt/6.2.11/mingw_64/include/QtCore/qlocale.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QRadioButton \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qradiobutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\..\frontend\mainwindow.cpp
 
 release/simulation.o: ../../frontend/simulation.cpp 

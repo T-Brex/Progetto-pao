@@ -46,7 +46,7 @@ SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent): QWidget(parent)
 QWidget* SensorPanel::getSensorsWidget(const QVector<SensorPanel*>& sp){
 
     QWidget *panels = new QWidget;
-    QHBoxLayout* panelsLayout = new QHBoxLayout(panels);
+    QVBoxLayout* panelsLayout = new QVBoxLayout(panels);
 
     for(auto i=0;i<sp.size();i++){
         panelsLayout->addWidget(sp[i]);

@@ -14,12 +14,6 @@ int main(int argc, char *argv[])
 
 
 
-    //prova con Sensor
-    QVector<Sensor*> s;
-    Humidity *hum=new Humidity("hum");
-    Termometer *term=new Termometer("term");
-    s.push_front(hum);
-    s.push_front(term);
 
 
 
@@ -59,7 +53,22 @@ int main(int argc, char *argv[])
     frame.push_front(b);
     frame.push_front(SensorPanel::getSensorsWidget(sp));
 
-    MainWindow w(frame);
+
+
+
+
+
+
+
+
+
+    //prova con Sensor
+    QVector<Sensor*> s={new Humidity("hum"), new Termometer("term")};
+
+
+
+
+    MainWindow w(s);
     w.resize(960, 480);
     w.show();
     return a.exec();

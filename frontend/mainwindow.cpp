@@ -14,12 +14,13 @@ MainWindow::~MainWindow() {}
 MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), layout(new QHBoxLayout(window))
 {
     //trasformazione da Sensor a SensorPanel
-    QVector<SensorPanel*> sp;
+
     for(auto i=0;i<s.size();i++){
-        sp.push_front(new SensorPanel(*s[i]));
+
+        layout->addWidget(new SensorPanel(*s[i]));
     }
 
-    layout->addWidget(SensorPanel::getSensorsWidget(sp));
+    //layout->addWidget(SensorPanel::getSensorsWidget(sp));
     setCentralWidget(window);
 
 }
