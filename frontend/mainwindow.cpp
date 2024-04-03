@@ -4,6 +4,7 @@
 #include <QRadioButton>
 #include <QMenuBar>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
 {
@@ -34,28 +35,32 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
-    QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window)),
-    menuBar(new QMenuBar(this)),fileMenu(new QMenu(menuBar))/*,
-    simulazioneAct(new QAction(fileMenu)),sensoriAct(new QAction(fileMenu)),newAct(new QAction(fileMenu)),importAct(new QAction(fileMenu)),saveAct(new QAction(fileMenu))*/
+    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),
+    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
+    menuBar(new QMenuBar(this)),fileMenu(new QMenu(menuBar)),
+    simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Nuovo Sensore"))),
+    layoutsWidget(new QStackedWidget(this))
 {
+    //MENUBAR
+
     setMenuBar(menuBar);
-    simulazioneAct = menuBar->addAction("&Simulazione");
-    sensoriAct = fileMenu->addAction(tr("&Sensori"));
 
+    menuBar->addAction(simulazioneAct);
     fileMenu = menuBar->addMenu(tr("&File"));
-
-    newAct = fileMenu->addAction(tr("&Nuovo Drone"));
-    importAct = fileMenu->addAction(tr("&Importa Drone"));
-    saveAct = fileMenu->addAction(tr("&Salva"));
+    fileMenu->addAction(newAct);
+    fileMenu->addAction(importAct);
+    fileMenu->addAction(saveAct);
 
     QObject::connect(simulazioneAct, &QAction::triggered, [&](){
         menuBar->insertAction(simulazioneAct,sensoriAct);
         menuBar->removeAction(simulazioneAct);
+        layoutsWidget->setCurrentIndex(1);
     });
 
     QObject::connect(sensoriAct, &QAction::triggered, [&](){
         menuBar->insertAction(sensoriAct,simulazioneAct);
         menuBar->removeAction(sensoriAct);
+        layoutsWidget->setCurrentIndex(0);
     });
 
     QObject::connect(newAct, &QAction::triggered, [&](){
@@ -68,10 +73,19 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     QObject::connect(saveAct, &QAction::triggered, [&](){
         // Gestire l'azione di Apri qui
     });
+    //LAYOUTS
 
+    //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
         sensLayout->addWidget(frame[i]);
     }
+    layoutsWidget->addWidget(sensWidget);
+
+    //costruzione layout simulazione
+    simuLayout->addWidget(new QPushButton("SUCA"));
+    layoutsWidget->addWidget(simuWidget);
+
+    mainLayout->addWidget(layoutsWidget);
 
     setCentralWidget(window);
 }

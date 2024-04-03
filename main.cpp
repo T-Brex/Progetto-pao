@@ -56,12 +56,11 @@ int main(int argc, char *argv[])
     blayout->addWidget(button1);
     blayout->addWidget(button2);
 
-
+    //sp.push_front(airQ);
     QVector<QWidget *> frame;
-    frame.push_front(button1);
-    frame.push_front(airQ);
-    frame.push_front(b);
+
     frame.push_front(SensorPanel::getSensorsWidget(sp));
+    frame.push_front(airQ);
 
     MainWindow w(frame);
     w.setWindowTitle("Sensori");
