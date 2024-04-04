@@ -10,13 +10,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    AirQuality ss ("nome");
-
-    std::cout<<ss.getType();
-
-
-
-
 
     //prova con Sensor
     QVector<Sensor*> s;
@@ -34,15 +27,6 @@ int main(int argc, char *argv[])
     sp.push_front(ventoPanel);
     sp.push_front(polvPanel);
 
-
-    /*
-    QWidget *sensorsPanel = new QWidget;
-    QHBoxLayout* panelsLayout = new QHBoxLayout(sensorsPanel);
-                                                                        ========        SensorPanel::getSensorsWidget(sp)
-    for(auto i=0;i<sp.size();i++){
-        panelsLayout->addWidget(sp[i]);
-    }
-    */
 
     //prova con un solo sensore
     SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));

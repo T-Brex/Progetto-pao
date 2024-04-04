@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "qmenubar.h"
 #include "sensorPanel.h"
 #include <QMainWindow>
 #include <QStackedWidget>
@@ -14,26 +15,25 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
+    class MenuBar;
+
     QWidget *window;
     QLayout* mainLayout;
 
-    QStackedWidget *layoutsWidget;
+
     QWidget *sensWidget;
     QGridLayout *sensLayout;
     QWidget *simuWidget;
     QHBoxLayout *simuLayout;
+    static QStackedWidget *layoutsWidget;
+    MenuBar *menuBar;
 
 
-    QMenuBar *menuBar;
-    QMenu *fileMenu;
-    QAction* simulazioneAct;
-    QAction *sensoriAct;
-    QAction* newAct;
-    QAction* importAct;
-    QAction* saveAct;
+
 
 
 public:
+
     MainWindow(QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
