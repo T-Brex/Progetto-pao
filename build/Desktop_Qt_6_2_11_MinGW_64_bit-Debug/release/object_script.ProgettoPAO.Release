@@ -1,4 +1,4 @@
-release/infoSensor.o
+release/searchMenu.o
 release/main.o
 release/mainwindow.o
 release/simulation.o
@@ -7,4 +7,5 @@ release/sensorPanel.o
 release/sensors.o
 release/qrc_resources.o
 release/moc_mainwindow.o
+release/moc_searchMenu.o
 release/moc_sensorPanel.o

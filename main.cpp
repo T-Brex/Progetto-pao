@@ -2,6 +2,7 @@
 #include <QRadioButton>
 #include <iostream>
 #include "frontend/mainwindow.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
 
 
 
-
+    SearchMenu *sm=new SearchMenu();
 
 
 
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
 
 
 
-    MainWindow w(s);
+    MainWindow w(sm);
     w.resize(960, 480);
     w.show();
     return a.exec();

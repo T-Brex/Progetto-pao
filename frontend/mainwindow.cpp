@@ -1,13 +1,24 @@
 #include "mainwindow.h"
+
 #include "frontend/sensorPanel.h"
 #include <QApplication>
 #include <QRadioButton>
 
+MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
+    : QMainWindow(parent)
+{
+
+    setCentralWidget(menu);
+}
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),window(new QWidget(this)), layout(new QHBoxLayout(window))
 {
+
     setCentralWidget(window);
 }
+
 
 MainWindow::~MainWindow() {}
 

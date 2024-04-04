@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "sensorPanel.h"
+#include "frontend/sensorPanel.h"
 #include <QMainWindow>
-
+#include "frontend/searchMenu.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,6 +18,7 @@ private:
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
