@@ -1,26 +1,27 @@
 #include "menubar.h"
-//#include "mainwindow.h"
+#include "qstackedwidget.h"
+#include "mainwindow.h"
 
-MenuBar::MenuBar(QWidget* parent):
-    QMenuBar(parent),menuBar(new QMenuBar(this)),fileMenu(new QMenu(menuBar)),
+MenuBar::MenuBar():
+    fileMenu(new QMenu(this)),
     simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Salva")))
 {
-    menuBar->addAction(simulazioneAct);
-    fileMenu = menuBar->addMenu(tr("&File"));
+    this->addAction(simulazioneAct);
+    fileMenu = this->addMenu(tr("&File"));
     fileMenu->addAction(newAct);
     fileMenu->addAction(importAct);
     fileMenu->addAction(saveAct);
-
+    //QStackedWidget* layouts=MainWindow::layoutsWidget;
     QObject::connect(simulazioneAct, &QAction::triggered, [&](){
-        menuBar->insertAction(simulazioneAct,sensoriAct);
-        menuBar->removeAction(simulazioneAct);
-        //layoutsWidget->setCurrentIndex(1);
+        this->insertAction(simulazioneAct,sensoriAct);
+        this->removeAction(simulazioneAct);
+        //MainWindow::layoutsWidget->setCurrentIndex(1);
     });
 
     QObject::connect(sensoriAct, &QAction::triggered, [&](){
-        menuBar->insertAction(sensoriAct,simulazioneAct);
-        menuBar->removeAction(sensoriAct);
-        //layoutsWidget->setCurrentIndex(0);
+        this->insertAction(sensoriAct,simulazioneAct);
+        this->removeAction(sensoriAct);
+        //MainWindow::layoutsWidget->setCurrentIndex(0);
     });
 
     QObject::connect(newAct, &QAction::triggered, [&](){

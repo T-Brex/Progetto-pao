@@ -6,7 +6,7 @@
 
 class MenuBar : public QMenuBar
 {
-private:
+public:
     QMenuBar *menuBar;
     QMenu *fileMenu;
     QAction* simulazioneAct;
@@ -14,8 +14,9 @@ private:
     QAction* newAct;
     QAction* importAct;
     QAction* saveAct;
-public:
-    MenuBar(QWidget* parent = 0);
+
+    friend class MainWindow;
+    MenuBar();
 };
 
 #endif // MENUBAR_H

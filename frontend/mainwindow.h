@@ -39,9 +39,10 @@ public:
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
-    void createMenuBar();
-
     ~MainWindow();
+    QStackedWidget* getLayoutsWidget(){
+        return layoutsWidget;
+    }
 
 
 

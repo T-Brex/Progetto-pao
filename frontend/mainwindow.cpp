@@ -41,14 +41,11 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),
 
-    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),layoutsWidget(new QStackedWidget(this)),
-    menuBar(new MenuBar(this))
+    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),layoutsWidget(new QStackedWidget),
+    menuBar(new MenuBar)
     {
 
     setMenuBar(menuBar);
-
-
-
 
 
     //costruzione layout sensori
@@ -62,7 +59,6 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     layoutsWidget->addWidget(simuWidget);
 
     mainLayout->addWidget(layoutsWidget);
-
     setCentralWidget(window);
 }
 
