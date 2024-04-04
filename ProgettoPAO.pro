@@ -9,14 +9,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    frontend/menubar.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
     frontend/simulation.cpp \
     frontend/editor.cpp \
-    frontend/sensorPanel.cpp \
-    frontend/menubar.cpp \
+    frontend/sensorPanel.cpp \ 
     backend/sensors.cpp \
-    menubar.cpp
 
 HEADERS += \
     frontend/mainwindow.h \
@@ -25,7 +24,6 @@ HEADERS += \
     frontend/editor.h \
     frontend/sensorPanel.h \
     backend/sensors.h \
-    menubar.h
 
 RESOURCES = resources.qrc \
     resources.qrc

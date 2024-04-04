@@ -6,8 +6,16 @@
 
 class MenuBar : public QMenuBar
 {
+private:
+    QMenuBar *menuBar;
+    QMenu *fileMenu;
+    QAction* simulazioneAct;
+    QAction *sensoriAct;
+    QAction* newAct;
+    QAction* importAct;
+    QAction* saveAct;
 public:
-    MenuBar();
+    MenuBar(QWidget* parent = 0);
 };
 
 #endif // MENUBAR_H

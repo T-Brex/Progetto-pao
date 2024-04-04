@@ -6,7 +6,7 @@
 
 
 //forse meglio togliere la staticità e creare l'amicizia tra menu e window!
-QStackedWidget* MainWindow::layoutsWidget= new QStackedWidget();
+//QStackedWidget* MainWindow::layoutsWidget= new QStackedWidget();
 
 
 
@@ -41,20 +41,15 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),
 
-    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),menuBar(new MenuBar)
-    //layoutsWidget(new QStackedWidget(this))
+    sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),layoutsWidget(new QStackedWidget(this)),
+    menuBar(new MenuBar(this))
     {
-    /*
-     *
-     * MENUBAR*/
 
     setMenuBar(menuBar);
 
 
 
-    /*
-     *
-     * LAYOUTS*/
+
 
     //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
