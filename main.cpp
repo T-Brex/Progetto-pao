@@ -1,21 +1,16 @@
 #include <QApplication>
 #include <QRadioButton>
-#include <iostream>
 #include "frontend/mainwindow.h"
+
+
+
+//#include <QMenuBar>
+//#include <QMenu>
+//#include <QAction>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    AirQuality ss ("nome");
-
-    std::cout<<ss.getType();
-
-
-
-
-
-
 
 
     /*  Prova con sensorPanel*/
@@ -26,50 +21,34 @@ int main(int argc, char *argv[])
     sp.push_front(polvPanel);
 
 
-    /*
-    QWidget *sensorsPanel = new QWidget;
-    QHBoxLayout* panelsLayout = new QHBoxLayout(sensorsPanel);
-                                                                        ========        SensorPanel::getSensorsWidget(sp)
-    for(auto i=0;i<sp.size();i++){
-        panelsLayout->addWidget(sp[i]);
-    }
-    */
-
     //prova con un solo sensore
     SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
 
-     /*Prova con sezioni*/
+
+     /*Prova con bottoni*/
     QWidget *b = new QWidget;
     QLayout* blayout = new QHBoxLayout(b);
-    //QPushButton deriva da QWidget, quindi frame potrebbe ricevere direttamente i button
     QPushButton *button1 = new QPushButton("One");
     QPushButton *button2 = new QPushButton("Two");
     blayout->addWidget(button1);
     blayout->addWidget(button2);
 
-
+    //Prova con sezioni
     QVector<QWidget *> frame;
-    frame.push_front(button1);
-    frame.push_front(airQ);
-    frame.push_front(b);
     frame.push_front(SensorPanel::getSensorsWidget(sp));
+    frame.push_front(airQ);
+
+
+/*    SearchMenu *sm=new SearchMenu();
+      MainWindow w(sm);
+*/
 
 
 
 
+    MainWindow w(frame);
+    w.setWindowTitle("Sensori");
 
-
-    SearchMenu *sm=new SearchMenu();
-
-
-
-    //prova con Sensor
-    QVector<Sensor*> s={new Humidity("hum"), new Termometer("term")};
-
-
-
-
-    MainWindow w(sm);
     w.resize(960, 480);
     w.show();
     return a.exec();

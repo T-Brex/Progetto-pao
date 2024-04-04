@@ -1,12 +1,13 @@
 #ifndef SENSOR_PANEL_H
 #define SENSOR_PANEL_H
-#include<QString>
-#include "backend\sensors.h"
+
+#include <QString>
 #include <QIcon>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QLabel>
+#include "backend\sensors.h"
 
 class SensorPanel: public QWidget {
     Q_OBJECT
