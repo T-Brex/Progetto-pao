@@ -46,7 +46,7 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     {
 
     setMenuBar(menuBar);
-
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
 
     //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
@@ -62,5 +62,21 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     setCentralWidget(window);
 }
 
+void MainWindow::changeLayout(){
+    if(layoutsWidget->currentIndex()==0){
+        layoutsWidget->setCurrentIndex(1);
+        //menuBar->insertAction(menuBar->simulazioneAct,menuBar->sensoriAct);
+        //menuBar->removeAction(menuBar->simulazioneAct);
+        menuBar->changeLayoutAct->setText(tr("sensori"));
 
+
+
+    }else{
+        layoutsWidget->setCurrentIndex(0);
+        //menuBar->insertAction(menuBar->sensoriAct,menuBar->simulazioneAct);
+        //menuBar->removeAction(menuBar->sensoriAct);
+        menuBar->changeLayoutAct->setText(tr("simulazione"));
+
+    }
+};
 

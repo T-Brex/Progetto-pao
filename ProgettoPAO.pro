@@ -15,7 +15,7 @@ SOURCES += \
     frontend/mainwindow.cpp \
     frontend/simulation.cpp \
     frontend/editor.cpp \
-    frontend/sensorPanel.cpp \ 
+    frontend/sensorPanel.cpp \
     backend/sensors.cpp \
 
 HEADERS += \
@@ -25,7 +25,7 @@ HEADERS += \
     frontend/simulation.h \
     frontend/editor.h \
     frontend/sensorPanel.h \
-    backend/sensors.h \
+    backend/sensors.h
 
 RESOURCES = resources.qrc \
     resources.qrc

@@ -34,7 +34,7 @@ private:
 
 
 public:
-    friend class MenuBar;
+    //friend class MenuBar;
     MainWindow(QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
@@ -43,7 +43,8 @@ public:
     QStackedWidget* getLayoutsWidget(){
         return layoutsWidget;
     }
-
+public slots:
+    void changeLayout();
 
 
 };
