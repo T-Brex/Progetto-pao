@@ -39,16 +39,16 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-/*    SearchMenu *sm=new SearchMenu();
+    SearchMenu *sm=new SearchMenu();
       MainWindow w(sm);
-*/
 
 
 
 
+/*
     MainWindow w(frame);
     w.setWindowTitle("Sensori");
-
+*/
     w.resize(960, 480);
     w.show();
     return a.exec();
