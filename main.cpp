@@ -1,9 +1,19 @@
 #include <QApplication>
 #include <QRadioButton>
 #include "frontend/mainwindow.h"
+<<<<<<< HEAD
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+=======
+
+
+
+//#include <QMenuBar>
+//#include <QMenu>
+//#include <QAction>
+
+>>>>>>> rich
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -33,10 +43,25 @@ int main(int argc, char *argv[])
     QVector<QWidget *> frame;
     frame.push_front(SensorPanel::getSensorsWidget(sp));
     frame.push_front(airQ);
+<<<<<<< HEAD
 
 
     MainWindow w(frame);
     w.setWindowTitle("Sensori");
+=======
+
+
+    SearchMenu *sm=new SearchMenu();
+      MainWindow w(sm);
+
+
+
+
+/*
+    MainWindow w(frame);
+    w.setWindowTitle("Sensori");
+*/
+>>>>>>> rich
     w.resize(960, 480);
     w.show();
     return a.exec();
