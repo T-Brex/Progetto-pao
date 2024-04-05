@@ -17,6 +17,16 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 
+    //prova con Sensor
+    QVector<Sensor*> s;
+    Humidity *hum=new Humidity("hum");
+    Termometer *term=new Termometer("term");
+    s.push_front(hum);
+    s.push_front(term);
+
+
+
+
     /*  Prova con sensorPanel*/
     QVector<SensorPanel*> sp;
     SensorPanel *ventoPanel= new SensorPanel(Wind("ven"));
@@ -48,11 +58,10 @@ int main(int argc, char *argv[])
 
 
     SearchMenu *sm=new SearchMenu();
-      MainWindow w(sm);
-      w.setWindowTitle("Sensori");
+    MainWindow w(sm);
+    w.setWindowTitle("Sensori");
 
-
-    w.resize(960, 480);
+    w.resize(1280, 1024);
     w.show();
     return a.exec();
 }
