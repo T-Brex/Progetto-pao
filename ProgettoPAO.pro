@@ -8,8 +8,7 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES = \
-
+SOURCES += \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
@@ -20,8 +19,7 @@ SOURCES = \
     frontend/sensorPanel.cpp \
     backend/sensors.cpp \
 
-HEADERS = \
-
+HEADERS += \
     frontend/layoutswidget.h \
     frontend/mainwindow.h \
     frontend/searchMenu.h \
@@ -29,7 +27,7 @@ HEADERS = \
     frontend/simulation.h \
     frontend/editor.h \
     frontend/sensorPanel.h \
-    backend/sensors.h \
+    backend/sensors.h
 
 RESOURCES = resources.qrc \
 
@@ -40,6 +38,3 @@ RESOURCES = resources.qrc \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    resources/dati.json \
