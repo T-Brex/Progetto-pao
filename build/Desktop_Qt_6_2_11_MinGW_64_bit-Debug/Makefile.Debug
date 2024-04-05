@@ -292,6 +292,8 @@ debug/moc_mainwindow.cpp: ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h \
 		../../frontend/searchMenu.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QLineEdit \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlineedit.h \
@@ -299,8 +301,6 @@ debug/moc_mainwindow.cpp: ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextformat.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qpen.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h \
 		debug/moc_predefs.h \
 		D:/Qt/6.2.11/mingw_64/bin/moc.exe
 	D:\Qt\6.2.11\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/carta/Desktop/qtprojects/Progetto-pao/build/Desktop_Qt_6_2_11_MinGW_64_bit-Debug/debug/moc_predefs.h -ID:/Qt/6.2.11/mingw_64/mkspecs/win32-g++ -IC:/Users/carta/Desktop/qtprojects/Progetto-pao -ID:/Qt/6.2.11/mingw_64/include -ID:/Qt/6.2.11/mingw_64/include/QtWidgets -ID:/Qt/6.2.11/mingw_64/include/QtGui -ID:/Qt/6.2.11/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\frontend\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -931,6 +931,8 @@ debug/main.o: ../../main.cpp D:/Qt/6.2.11/mingw_64/include/QtWidgets/QApplicatio
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h \
 		../../frontend/searchMenu.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QLineEdit \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlineedit.h \
@@ -938,8 +940,12 @@ debug/main.o: ../../main.cpp D:/Qt/6.2.11/mingw_64/include/QtWidgets/QApplicatio
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextformat.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qpen.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMenuBar \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmenubar.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmenu.h \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/qaction.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMenu \
+		D:/Qt/6.2.11/mingw_64/include/QtGui/QAction
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\..\main.cpp
 
 debug/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h \
@@ -1090,6 +1096,8 @@ debug/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QMainWindow \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qmainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
+		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h \
 		../../frontend/searchMenu.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QLineEdit \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qlineedit.h \
@@ -1097,8 +1105,6 @@ debug/mainwindow.o: ../../frontend/mainwindow.cpp ../../frontend/mainwindow.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextformat.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qpen.h \
 		D:/Qt/6.2.11/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QStackedWidget \
-		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qstackedwidget.h \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/QApplication \
 		D:/Qt/6.2.11/mingw_64/include/QtWidgets/qapplication.h \
 		D:/Qt/6.2.11/mingw_64/include/QtCore/qcoreapplication.h \

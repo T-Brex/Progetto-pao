@@ -5,8 +5,8 @@
 #include <QRadioButton>
 #include <QMenuBar>
 
-<<<<<<< HEAD
-=======
+
+
 
 MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
     : QMainWindow(parent)
@@ -15,7 +15,7 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
     setCentralWidget(menu);
 }
 
->>>>>>> rich
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
