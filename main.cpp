@@ -4,10 +4,6 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>                                                                                                                                                                                                                                                          Copy code
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include "backend/json-develop/include/nlohmann/json.hpp"
 
 
 
@@ -49,7 +45,7 @@ int main(int argc, char *argv[])
     /*
      *
      *
-     * PROVA JSON */
+     * PROVA JSON
 
     std::ifstream file(" "); resou
 
@@ -99,7 +95,7 @@ int main(int argc, char *argv[])
     for (auto& utente : utenti) {
         delete utente;
     }
-
+    */
 
 
 
