@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     //frame.push_front(airQ);
 
 
-    MainWindow w(sp);
+    MainWindow w(frame);
 
 
 

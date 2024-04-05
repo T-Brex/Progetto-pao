@@ -5,35 +5,44 @@
 SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent)
 {
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QHBoxLayout* layout = new QHBoxLayout(this);
 
 
-    layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    layout->setAlignment(Qt::AlignCenter | Qt::AlignCenter);
     layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
-    this->setMaximumSize(300,300);        // (w,h)
-
+/*
+    QFrame* frame = new QFrame(this);
+    frame->setLayout(layout);
+    frame->setAutoFillBackground(true);
+    frame->setPalette(Qt::blue);
+*/
+    this->setMaximumSize(300,75);        // (w,h)
     this->setAutoFillBackground(true);
-    QPalette pal = Qt::green;
-    this->setPalette(pal);
+    this->setPalette(Qt::lightGray);
 
     name = new QLabel ( QString::fromStdString(sensor.getName()));
+    name->setAlignment(Qt::AlignCenter);
     layout->addWidget(name);
 
     QString path(":resources/"+ QString::fromStdString(sensor.getType()) +".ico");
     QPixmap icon(path);
     ico = new QLabel();
     ico->setPixmap(icon.scaledToHeight(50));
+    ico->setAlignment(Qt::AlignCenter);
     layout->addWidget(ico);
 
-
-    layout->addWidget(new QLabel(QString::fromStdString(sensor.getType())));
-    layout->addStretch();
+    QLabel* sensorType = new QLabel(QString::fromStdString(sensor.getType()));
+    sensorType->setAlignment(Qt::AlignCenter);
+    layout->addWidget(sensorType);
+    //layout->addStretch();
 
     values = new QLabel( QString::number((sensor.getValue()[0])) );
+    values->setAlignment(Qt::AlignCenter);
     layout->addWidget(values);
 
     for(unsigned int i = 1; i<(sensor.getValue()).size(); i++){
         values = new QLabel( QString::number((sensor.getValue()[i])) );
+        values->setAlignment(Qt::AlignCenter);
         layout->addWidget(values);
     }
 }
