@@ -4,7 +4,6 @@
 #include <QRadioButton>
 #include <QMenuBar>
 
-<<<<<<< HEAD
 
 
 
@@ -16,8 +15,7 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 }
 
 
-=======
->>>>>>> bcc5aa2c06d10949ca3c34fcd4ade0d9746772cc
+
 
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)

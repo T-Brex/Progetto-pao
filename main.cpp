@@ -4,12 +4,11 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> bcc5aa2c06d10949ca3c34fcd4ade0d9746772cc
+
+
 //#include <QMenuBar>
 //#include <QMenu>
 //#include <QAction>
@@ -54,25 +53,10 @@ int main(int argc, char *argv[])
     //Prova con sezioni
     QVector<QWidget *> frame;
     frame.push_front(SensorPanel::getSensorsWidget(sp));
-<<<<<<< HEAD
+
     frame.push_front(airQ);
 
 
-
-    SearchMenu *sm=new SearchMenu();
-      MainWindow w(sm);
-
-
-
-
-/*
-    MainWindow w(frame);
-    w.setWindowTitle("Sensori");
-*/
-
-    w.resize(960, 480);
-=======
-    //frame.push_front(airQ);
 
 
     MainWindow w(frame);
@@ -84,7 +68,7 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Sensori");
 
     w.resize(1280, 1024);
->>>>>>> bcc5aa2c06d10949ca3c34fcd4ade0d9746772cc
+
     w.show();
     return a.exec();
 }
