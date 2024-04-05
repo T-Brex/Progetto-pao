@@ -37,7 +37,7 @@ LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWi
     SearchMenu *searchMenu=new SearchMenu;
 
     //costruzione layout sensori
-    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
     sensWindowLayout->addWidget(sensWidget);
@@ -71,9 +71,6 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 
     sensWindowLayout->addWidget(searchMenu);
     sensWindowLayout->addWidget(sensWidget);
-
-
-
 
 
     //costruzione layout sensori con trasformazione da Sensor a SensorPanel    
