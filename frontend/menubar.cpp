@@ -3,8 +3,8 @@
 MenuBar::MenuBar(QWidget* parent):
     QMenuBar(parent),
     fileMenu(new QMenu(this)),
-    simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),
-    changeLayoutAct(new QAction(tr("&Simulazione"))),               newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Salva")))
+
+    changeLayoutAct(new QAction(tr("&Simulazione"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Salva")))
 {
     this->addAction(changeLayoutAct);
     fileMenu = this->addMenu(tr("&File"));

@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "frontend/layoutswidget.h"
 #include "frontend/menubar.h"
 #include "sensorPanel.h"
 #include <QMainWindow>
@@ -19,14 +20,7 @@ private:
 
     QWidget *window;
     QLayout* mainLayout;
-
-
-    QWidget *sensWidget;
-    QGridLayout *sensLayout;
-    QWidget *simuWidget;
-    QHBoxLayout *simuLayout;
-    QStackedWidget *layoutsWidget  ;
-
+    LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
 
 
@@ -40,9 +34,7 @@ public:
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
     ~MainWindow();
-    QStackedWidget* getLayoutsWidget(){
-        return layoutsWidget;
-    }
+
 public slots:
     void changeLayout();
 

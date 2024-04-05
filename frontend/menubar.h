@@ -9,8 +9,6 @@ class MenuBar : public QMenuBar
 public:
     QMenuBar *menuBar;
     QMenu *fileMenu;
-    QAction* simulazioneAct;
-    QAction *sensoriAct;
     QAction *changeLayoutAct;
     QAction* newAct;
     QAction* importAct;
