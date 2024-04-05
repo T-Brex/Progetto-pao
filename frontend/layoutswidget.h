@@ -16,7 +16,9 @@ public:
     //QStackedWidget *layoutsWidget;
 */
     LayoutsWidget(QWidget * parent = nullptr);
+    LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);
     ~LayoutsWidget();
+
 };
 
 #endif // LAYOUTSWIDGET_H

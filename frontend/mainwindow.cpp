@@ -32,30 +32,12 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(p
 
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
-    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget),
+    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(frame)),
        menuBar(new MenuBar)
     {
 
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-
-
-    /*costruzione layout sensori
-    for(auto i=0;i<frame.size();i++){
-        sensLayout->addWidget(frame[i]);
-    }
-    layoutsWidget->addWidget(sensWidget);
-
-*/
-
-    //costruzione layout simulazione
-    QWidget* simuWidget =new QWidget;
-    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    LayoutsWidget* lw=new LayoutsWidget;
-    lw->addWidget(simuWidget);
-
-
 
     mainLayout->addWidget(layoutsWidget);
     setCentralWidget(window);
@@ -69,8 +51,6 @@ void MainWindow::changeLayout(){
     }else{
         layoutsWidget->setCurrentIndex(0);
         menuBar->changeLayoutAct->setText(tr("Simulazione"));
-
     }
-
 };
 
