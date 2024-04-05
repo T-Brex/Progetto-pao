@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     frame.push_front(SensorPanel::getSensorsWidget(sp));
     frame.push_front(airQ);
 
-    MainWindow w(frame);
+    MainWindow w;
     w.setWindowTitle("Sensori");
 
 

@@ -25,9 +25,45 @@ LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWi
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
 
+
+
     //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
         sensLayout->addWidget(frame[i]);
+    }
+    this->addWidget(sensWidget);
+
+    //costruzione layout simulazione
+    simuLayout->addWidget(new QPushButton("SUCA"));
+    this->addWidget(simuWidget);
+}
+LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent)
+{
+    QWidget* sensWidget=new QWidget;
+    QGridLayout* sensLayout=new QGridLayout(sensWidget);
+    QWidget* simuWidget=new QWidget;
+    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+
+    //costruzione layout sensori con trasformazione da Sensor a SensorPanel
+    for(auto i=0;i<s.size();i++){
+        sensLayout->addWidget(new SensorPanel(*s[i]));
+    }
+    this->addWidget(sensWidget);
+
+    //costruzione layout simulazione
+    simuLayout->addWidget(new QPushButton("SUCA"));
+    this->addWidget(simuWidget);
+}
+LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent)
+{
+    QWidget* sensWidget=new QWidget;
+    QGridLayout* sensLayout=new QGridLayout(sensWidget);
+    QWidget* simuWidget=new QWidget;
+    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+
+    //costruzione layout sensori
+    for(auto i=0;i<sp.size();i++){
+        sensLayout->addWidget(sp[i]);
     }
     this->addWidget(sensWidget);
 

@@ -1,7 +1,7 @@
 #ifndef LAYOUTSWIDGET_H
 #define LAYOUTSWIDGET_H
 
-#include "qgridlayout.h"
+#include "frontend/sensorPanel.h"
 #include <QStackedWidget>
 
 class LayoutsWidget : public QStackedWidget
@@ -17,6 +17,8 @@ public:
 */
     LayoutsWidget(QWidget * parent = nullptr);
     LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);
+    LayoutsWidget(QVector<Sensor*> frame,QWidget *parent = nullptr);
+    LayoutsWidget(QVector<SensorPanel*> frame,QWidget *parent = nullptr);
     ~LayoutsWidget();
 
 };

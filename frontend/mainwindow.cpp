@@ -5,27 +5,31 @@
 #include <QMenuBar>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),window(new QWidget(this)), mainLayout(new QHBoxLayout(window))
+    :QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget()),
+    menuBar(new MenuBar)
 {
-
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    mainLayout->addWidget(layoutsWidget);
     setCentralWidget(window);
 }
-
 MainWindow::~MainWindow() {}
 
-MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), mainLayout(new QGridLayout(window))
+MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(s)),
+    menuBar(new MenuBar)
 {
-    //trasformazione da Sensor a SensorPanel
-    for(auto i=0;i<s.size();i++){
-
-        mainLayout->addWidget(new SensorPanel(*s[i]));
-    }
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    mainLayout->addWidget(layoutsWidget);
     setCentralWidget(window);
-
 }
-MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), mainLayout(new QGridLayout(window))
+MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
+    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(sp)),
+    menuBar(new MenuBar)
 {
-    mainLayout->addWidget(SensorPanel::getSensorsWidget(sp));
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    mainLayout->addWidget(layoutsWidget);
     setCentralWidget(window);
 }
 

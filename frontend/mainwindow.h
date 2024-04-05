@@ -23,10 +23,6 @@ private:
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
 
-
-
-
-
 public:
     //friend class MenuBar;
     MainWindow(QWidget *parent = nullptr);
@@ -35,7 +31,7 @@ public:
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
     ~MainWindow();
 
-public slots:
+private slots:
     void changeLayout();
 
 
