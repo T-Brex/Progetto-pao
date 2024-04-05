@@ -8,9 +8,9 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent)
     QHBoxLayout* sensLayout=new QHBoxLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+    SearchMenu *sm=new SearchMenu;
 
     //costruzione layout sensori
-    SearchMenu *sm=new SearchMenu;
     sensLayout->addWidget(sm);
 
     simuLayout->addWidget(new QPushButton("SUCA"));
@@ -28,10 +28,11 @@ LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWi
     QHBoxLayout* sensLayout=new QHBoxLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+    SearchMenu *searchMenu=new SearchMenu;
 
     //costruzione layout sensori
-    SearchMenu *sm=new SearchMenu;
-    sensLayout->addWidget(sm);
+    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    sensLayout->addWidget(searchMenu);
 
     for(auto i=0;i<frame.size();i++){
         sensLayout->addWidget(frame[i]);
@@ -48,9 +49,9 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     QHBoxLayout* sensLayout=new QHBoxLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
-
-    //costruzione layout sensori con trasformazione da Sensor a SensorPanel
     SearchMenu *sm=new SearchMenu;
+
+    //costruzione layout sensori con trasformazione da Sensor a SensorPanel    
     sensLayout->addWidget(sm);
     for(auto i=0;i<s.size();i++){
         sensLayout->addWidget(new SensorPanel(*s[i]));
@@ -67,9 +68,10 @@ LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedW
     QHBoxLayout* sensLayout=new QHBoxLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+    SearchMenu *sm=new SearchMenu;
 
     //costruzione layout sensori
-    SearchMenu *sm=new SearchMenu;
+
     sensLayout->addWidget(sm);
     for(auto i=0;i<sp.size();i++){
         sensLayout->addWidget(sp[i]);
