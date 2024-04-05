@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-<<<<<<< HEAD
+
 #include "frontend/sensorPanel.h"
-=======
+
 #include "frontend/layoutswidget.h"
 #include "frontend/menubar.h"
 #include "sensorPanel.h"
->>>>>>> menuBar
+
 #include <QMainWindow>
 #include <QStackedWidget>
 
@@ -33,9 +33,8 @@ private:
     MenuBar *menuBar;
 
 public:
-    //friend class MenuBar;
     MainWindow(QWidget *parent = nullptr);
-    MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
+    //MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);

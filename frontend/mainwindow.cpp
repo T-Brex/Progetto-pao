@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-
 #include "frontend/sensorPanel.h"
 #include <QApplication>
 #include <QRadioButton>

@@ -1,5 +1,6 @@
 #include "layoutswidget.h"
 #include "qpushbutton.h"
+#include "searchMenu.h"
 
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent)
 {
@@ -59,8 +60,10 @@ LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedW
     QGridLayout* sensLayout=new QGridLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
+    SearchMenu *sm=new SearchMenu;
 
     //costruzione layout sensori
+    sensLayout->addWidget(sm);
     for(auto i=0;i<sp.size();i++){
         sensLayout->addWidget(sp[i]);
     }
