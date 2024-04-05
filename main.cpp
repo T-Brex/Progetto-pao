@@ -12,6 +12,8 @@
 
 
 
+
+
 //#include <QMenuBar>
 //#include <QMenu>
 //#include <QAction>
@@ -113,10 +115,17 @@ int main(int argc, char *argv[])
     blayout->addWidget(button1);
     blayout->addWidget(button2);
 
+
+
+
+
     //Prova con sezioni
     QVector<QWidget *> frame;
     frame.push_front(SensorPanel::getSensorsWidget(sp));
-    //frame.push_front(airQ);
+
+    frame.push_front(airQ);
+
+
 
 
     MainWindow w(frame);
@@ -128,6 +137,7 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Sensori");
 
     w.resize(1280, 1024);
+
     w.show();
     return a.exec();
 }

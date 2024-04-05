@@ -5,6 +5,18 @@
 #include <QMenuBar>
 
 
+
+
+MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
+    : QMainWindow(parent)
+{
+
+    setCentralWidget(menu);
+}
+
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
