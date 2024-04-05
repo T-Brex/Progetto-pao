@@ -24,8 +24,7 @@ LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWi
     QGridLayout* sensLayout=new QGridLayout(sensWidget);
     QWidget* simuWidget=new QWidget;
     QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
-
-
+//suca
 
     //costruzione layout sensori
     for(auto i=0;i<frame.size();i++){
