@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
     s.push_front(hum);
     s.push_front(term);
 
-
-
+    //prova con un solo sensore
+    SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
 
     /*  Prova con sensorPanel*/
     QVector<SensorPanel*> sp;
@@ -33,10 +33,7 @@ int main(int argc, char *argv[])
     SensorPanel *polvPanel = new SensorPanel(Dust("polv"));
     sp.push_front(ventoPanel);
     sp.push_front(polvPanel);
-
-
-    //prova con un solo sensore
-    SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
+    sp.push_front(airQ);
 
 
      /*Prova con bottoni*/
@@ -50,10 +47,10 @@ int main(int argc, char *argv[])
     //Prova con sezioni
     QVector<QWidget *> frame;
     frame.push_front(SensorPanel::getSensorsWidget(sp));
-    frame.push_front(airQ);
+    //frame.push_front(airQ);
 
 
-    MainWindow w(frame);
+    MainWindow w(sp);
 
 
 

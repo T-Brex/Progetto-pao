@@ -6,48 +6,41 @@
 
 
 MainWindow::MainWindow(QWidget *parent)
-    :QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget()),
-    menuBar(new MenuBar)
+    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-    mainLayout->addWidget(layoutsWidget);
-    setCentralWidget(window);
+    setCentralWidget(layoutsWidget);
 }
 
 MainWindow::~MainWindow() {}
 
-MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(s)),
-    menuBar(new MenuBar)
+MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
 {
 
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-    mainLayout->addWidget(layoutsWidget);
-
-    setCentralWidget(window);
+    setCentralWidget(layoutsWidget);
 }
+
+
 MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
-    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(sp)),
-    menuBar(new MenuBar)
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(sp)),menuBar(new MenuBar)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-    mainLayout->addWidget(layoutsWidget);
-    setCentralWidget(window);
+    setCentralWidget(layoutsWidget);
 }
 
 
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
-    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),layoutsWidget(new LayoutsWidget(frame)),
-       menuBar(new MenuBar)
-    {
-
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(frame)),menuBar(new MenuBar)
+{
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-    mainLayout->addWidget(layoutsWidget);
-    setCentralWidget(window);
+    setCentralWidget(layoutsWidget);
 }
 
 void MainWindow::changeLayout(){

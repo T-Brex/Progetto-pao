@@ -27,8 +27,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 private:
 
-    QWidget *window;
-    QLayout* mainLayout;
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
 
