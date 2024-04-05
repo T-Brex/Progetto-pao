@@ -10,16 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     frontend/searchMenu.cpp \
+    frontend/layoutswidget.cpp \
+    frontend/menubar.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
     frontend/simulation.cpp \
     frontend/editor.cpp \
     frontend/sensorPanel.cpp \
-    backend/sensors.cpp
+    backend/sensors.cpp \
 
 HEADERS += \
+    frontend/layoutswidget.h \
     frontend/mainwindow.h \
     frontend/searchMenu.h \
+    frontend/menubar.h \
     frontend/simulation.h \
     frontend/editor.h \
     frontend/sensorPanel.h \

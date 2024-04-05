@@ -1,10 +1,10 @@
 #include "mainwindow.h"
-
 #include "frontend/sensorPanel.h"
 #include <QApplication>
 #include <QRadioButton>
 #include <QMenuBar>
 
+<<<<<<< HEAD
 
 
 
@@ -16,96 +16,55 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 }
 
 
+=======
+>>>>>>> bcc5aa2c06d10949ca3c34fcd4ade0d9746772cc
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
+    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
-
-    setCentralWidget(window);
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    setCentralWidget(layoutsWidget);
 }
-
 
 MainWindow::~MainWindow() {}
 
-MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
+MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
 {
-    //trasformazione da Sensor a SensorPanel
-    for(auto i=0;i<s.size();i++){
 
-        sensLayout->addWidget(new SensorPanel(*s[i]));
-    }
-    setCentralWidget(window);
-
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    setCentralWidget(layoutsWidget);
 }
-MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent): QMainWindow(parent),window(new QWidget(this)), sensLayout(new QGridLayout(window))
+
+
+MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(sp)),menuBar(new MenuBar)
 {
-    sensLayout->addWidget(SensorPanel::getSensorsWidget(sp));
-    setCentralWidget(window);
+    setMenuBar(menuBar);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    setCentralWidget(layoutsWidget);
 }
 
 
 
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
-    QMainWindow(parent),window(new QWidget(this)),mainLayout(new QHBoxLayout(window)),
-    layoutsWidget(new QStackedWidget(this)),sensWidget(new QWidget),sensLayout(new QGridLayout(sensWidget)),simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
-    menuBar(new QMenuBar(this)),fileMenu(new QMenu(menuBar)),
-    simulazioneAct(new QAction(tr("&Simulazione"))),sensoriAct(new QAction(tr("&Sensori"))),newAct(new QAction(tr("&Nuovo Sensore"))),importAct(new QAction(tr("&Importa Sensore"))),saveAct(new QAction(tr("&Salva")))
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(frame)),menuBar(new MenuBar)
 {
-    /*
-     *
-     * MENUBAR*/
-
     setMenuBar(menuBar);
-
-    menuBar->addAction(simulazioneAct);
-    fileMenu = menuBar->addMenu(tr("&File"));
-    fileMenu->addAction(newAct);
-    fileMenu->addAction(importAct);
-    fileMenu->addAction(saveAct);
-
-    QObject::connect(simulazioneAct, &QAction::triggered, [&](){
-        menuBar->insertAction(simulazioneAct,sensoriAct);
-        menuBar->removeAction(simulazioneAct);
-        layoutsWidget->setCurrentIndex(1);
-    });
-
-    QObject::connect(sensoriAct, &QAction::triggered, [&](){
-        menuBar->insertAction(sensoriAct,simulazioneAct);
-        menuBar->removeAction(sensoriAct);
-        layoutsWidget->setCurrentIndex(0);
-    });
-
-    QObject::connect(newAct, &QAction::triggered, [&](){
-        // Gestire l'azione di Nuovo qui
-    });
-
-    QObject::connect(importAct, &QAction::triggered, [&](){
-        // Gestire l'azione di Apri qui
-    });
-    QObject::connect(saveAct, &QAction::triggered, [&](){
-        // Gestire l'azione di Salva qui
-    });
-
-    /*
-     *
-     * LAYOUTS*/
-
-    //costruzione layout sensori
-    for(auto i=0;i<frame.size();i++){
-        sensLayout->addWidget(frame[i]);
-    }
-    layoutsWidget->addWidget(sensWidget);
-
-    //costruzione layout simulazione
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    layoutsWidget->addWidget(simuWidget);
-
-    mainLayout->addWidget(layoutsWidget);
-
-    setCentralWidget(window);
+    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    setCentralWidget(layoutsWidget);
 }
 
+void MainWindow::changeLayout(){
 
-
-
+    if(layoutsWidget->currentIndex()==0){
+        layoutsWidget->setCurrentIndex(1);
+        menuBar->changeLayoutAct->setText(tr("Sensori"));
+    }else{
+        layoutsWidget->setCurrentIndex(0);
+        menuBar->changeLayoutAct->setText(tr("Simulazione"));
+    }
+};
 
