@@ -1,0 +1,11 @@
+{
+  "sensori":
+    [
+        {
+          "name": "provJson"
+        },
+        {
+          "name": "provA2__Json"
+        }
+    ]
+}
