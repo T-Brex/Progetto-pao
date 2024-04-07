@@ -4,6 +4,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include <QString>
 
 
 
@@ -17,137 +18,7 @@
 
 
 
-//#include <QMenuBar>
-//#include <QMenu>
-//#include <QAction>
 
-
-void salvaIntero(int value, const QString &fileName) {
-    QJsonObject obj;
-    obj["intero"] = value;
-
-    QJsonDocument doc;
-    doc.setObject((obj));
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly)) {
-        file.write(doc.toJson());
-        file.close();
-        qDebug() << doc.toJson();
-        qDebug() << "Intero salvato con successo." << file.errorString();
-    } else {
-        qDebug() << "Errore nel salvataggio dell'intero.";
-    }
-}
-
-int caricaIntero(const QString &fileName) {
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly)) {
-        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
-        QJsonObject obj = doc.object();
-        int value = obj["intero"].toInt();
-        file.close();
-        qDebug() << "Intero caricato con successo.";
-        return value;
-    } else {
-        qDebug() << "Errore nel caricamento dell'intero." << file.errorString();
-        return -1; // Valore di default in caso di errore
-    }
-}
-
-
-
-void salvaSensori(const std::vector<Sensor*>& nuoviSensori, const QString& fileName) {
-    QJsonArray sensoriArray;
-
-    // Leggi il contenuto del file JSON esistente, se presente
-    QFile file(fileName);
-    if (file.exists() && file.open(QIODevice::ReadOnly)) {
-        QByteArray existingData = file.readAll();
-        QJsonDocument existingDocument = QJsonDocument::fromJson(existingData);
-        if (existingDocument.isArray()) {
-            sensoriArray = existingDocument.array();
-        }
-        file.close();
-    }
-    // Recupera i nomi dei sensori già presenti nel JSON
-    std::vector<std::string> nomiSensoriPresenti;
-    for (const auto& sensore : sensoriArray) {
-        QJsonObject sensoreObject = sensore.toObject();
-        nomiSensoriPresenti.push_back(sensoreObject["nome"].toString().toStdString());
-    }
-
-    // Aggiungi i nuovi sensori solo se non sono già presenti
-
-    for (const auto& sensore : nuoviSensori) {
-        if (std::find(nomiSensoriPresenti.begin(), nomiSensoriPresenti.end(), sensore->getName()) == nomiSensoriPresenti.end()) {
-            QJsonObject sensoreObject;
-            sensoreObject["nome"] = QString::fromStdString(sensore->getName());
-            sensoreObject["tipo"] = QString::fromStdString(sensore->getType());
-            std::vector<double> values = sensore->getValue();
-            for (size_t i = 0; i < values.size(); ++i) {
-                sensoreObject[QString::fromStdString("valore_" + std::to_string(i))] = values[i];
-            }
-            sensoriArray.append(sensoreObject);
-        }else{
-            qDebug() << "Impossibile avere due sensori con lo stesso nome:"<<sensore->getName()<<"esiste già";
-        }
-    }
-
-
-    // Creare un documento JSON e scrivere il contenuto su disco
-    QJsonDocument jsonDocument(sensoriArray);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        file.write(jsonDocument.toJson());
-        file.close();
-        qDebug() << "Sensori aggiunti con successo.";
-    } else {
-        qDebug() << "Errore nell'apertura del file.";
-    }
-}
-
-void eliminaSensore(const QString& fileName, const std::string& sensoreDaRimuovere = "") {
-    QJsonArray sensoriArray;
-
-    // Leggi il contenuto del file JSON esistente, se presente
-    QFile file(fileName);
-    if (file.exists() && file.open(QIODevice::ReadOnly)) {
-        QByteArray existingData = file.readAll();
-        QJsonDocument existingDocument = QJsonDocument::fromJson(existingData);
-        if (existingDocument.isArray()) {
-            sensoriArray = existingDocument.array();
-        }
-        file.close();
-    }
-
-    // Rimuovi il sensore specificato, se richiesto
-    if (!sensoreDaRimuovere.empty()) {
-        for (int i = 0; i < sensoriArray.size(); ++i) {
-            QJsonObject sensoreObject = sensoriArray[i].toObject();
-            if (sensoreObject["nome"].toString().toStdString() == sensoreDaRimuovere) {
-                sensoriArray.removeAt(i);
-                break;
-            }
-        }
-    }
-
-    // Recupera i nomi dei sensori già presenti nel JSON
-    std::vector<std::string> nomiSensoriPresenti;
-    for (const auto& sensore : sensoriArray) {
-        QJsonObject sensoreObject = sensore.toObject();
-        nomiSensoriPresenti.push_back(sensoreObject["nome"].toString().toStdString());
-    }
-
-
-    // Creare un documento JSON e scrivere il contenuto su disco
-    QJsonDocument jsonDocument(sensoriArray);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        file.write(jsonDocument.toJson());
-        file.close();
-        qDebug() << "Sensori salvati con successo.";
-    } else {
-        qDebug() << "Errore nell'apertura del file.";
-    }
-}
 
 
 //////// C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json
@@ -156,30 +27,23 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    std::vector<Sensor*> sensori;
+    QVector<Sensor*> s;
 
-    sensori.push_back(new AirQuality("Sensore1"));
+    s.push_back(new AirQuality("Sensore1"));
 
-    sensori.push_back(new Dust("Sensore2"));
-    sensori.push_back(new Humidity("Sensore3"));
-    sensori.push_back(new AirQuality("Sensore0"));
-    sensori.push_back(new Wind("Sensore4"));
-    sensori.push_back(new Termometer("Sensore5"));
+    s.push_back(new Dust("Sensore2"));
+    s.push_back(new Humidity("Sensore3"));
+    s.push_back(new AirQuality("Sensore0"));
+    s.push_back(new Wind("Sensore4"));
+    s.push_back(new Termometer("Sensore5"));
 
-    salvaSensori(sensori, "C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    eliminaSensore("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json","Sensore3");
+    //salvaSensori(sensori, "C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //eliminaSensore("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json","Sensore3");
 
-    // Deallocazione della memoria
-    for (auto& sensore : sensori) {
-        delete sensore;
-    }
+
 
     //prova con Sensor
-    QVector<Sensor*> s;
-    Humidity *hum=new Humidity("hum");
-    Termometer *term=new Termometer("term");
-    s.push_front(hum);
-    s.push_front(term);
+
 
     //prova con un solo sensore
     SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
@@ -207,7 +71,13 @@ int main(int argc, char *argv[])
     //frame.push_front(airQ);
 
 
-    MainWindow w(frame);
+    //MainWindow w(MainWindow::caricaSensore(new QString("Sensore 5"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+
+    MainWindow w(MainWindow::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+    MainWindow::salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    MainWindow::eliminaSensore(QString::fromStdString("Sensore2"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+
+
 
 
 

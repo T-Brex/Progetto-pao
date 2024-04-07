@@ -33,15 +33,18 @@ private:
 public:
     MainWindow(QWidget *parent = nullptr);
     //MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
+    //MainWindow(Sensor* s, QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
     ~MainWindow();
 
-private slots:
+public slots:
     void changeLayout();
-    void save(const QString &nome);
-    void load(QLineEdit *lineEdit_nome);
+    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName);
+    static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName);
+    static QVector<Sensor*> caricaSensori(const QString& fileName);
+    static Sensor* caricaSensore(QString *nomeCercato,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
 
 
 };

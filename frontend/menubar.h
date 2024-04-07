@@ -31,13 +31,16 @@ public:
     QAction* newAct;
     QAction* loadAct;
     QAction* saveAct;
+    QAction* deleteAct;
 
     MenuBar(QWidget* parent = nullptr);
     virtual ~MenuBar();
 signals:
     void changeLayoutTrigger();
+    void newTrigger();
     void saveTrigger();
     void loadTrigger();
+    void deleteTrigger();
 };
 
 #endif // MENUBAR_H
