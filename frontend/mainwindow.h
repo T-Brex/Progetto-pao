@@ -44,7 +44,7 @@ public slots:
     static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName);
     static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName);
     static QVector<Sensor*> caricaSensori(const QString& fileName);
-    static Sensor* caricaSensore(QString *nomeCercato,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //static Sensor* caricaSensore(QString *nomeCercato,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
 
 
 };

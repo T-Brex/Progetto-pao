@@ -5,15 +5,7 @@
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
-    /*
-    QWidget* sensWindow=new QWidget;
-    QHBoxLayout* sensWindowLayout=new QHBoxLayout(sensWindow);
 
-    QWidget* sensWidget=new QWidget;
-    QVBoxLayout* sensLayout=new QVBoxLayout(sensWidget);
-    QWidget* simuWidget=new QWidget;
-    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
-    */
     SearchMenu *searchMenu=new SearchMenu;
 
     //costruzione layout sensori
@@ -31,15 +23,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
 LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent),
 sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
-    /*
-    QWidget* sensWindow=new QWidget;
-    QHBoxLayout* sensWindowLayout=new QHBoxLayout(sensWindow);
 
-    QWidget* sensWidget=new QWidget;
-    QVBoxLayout* sensLayout=new QVBoxLayout(sensWidget);
-    QWidget* simuWidget=new QWidget;
-    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
-    */
     SearchMenu *searchMenu=new SearchMenu;
 
     //costruzione layout sensori
@@ -61,32 +45,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 
 }
 
-LayoutsWidget::LayoutsWidget(Sensor* s,QWidget *parent):QStackedWidget(parent),
-    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
-{
 
-
-    SearchMenu *searchMenu=new SearchMenu;
-
-    //costruzione layout sensori
-    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
-
-
-
-
-
-    //costruzione layout sensori con trasformazione da Sensor a SensorPanel
-
-    sensLayout->addWidget(new SensorPanel(*s));
-    this->addWidget(sensWindow);
-
-    //costruzione layout simulazione
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
-}
 
 LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
 sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
@@ -118,13 +77,6 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent),
 sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
-    QWidget* sensWindow=new QWidget;
-    QHBoxLayout* sensWindowLayout=new QHBoxLayout(sensWindow);
-
-    QWidget* sensWidget=new QWidget;
-    QVBoxLayout* sensLayout=new QVBoxLayout(sensWidget);
-    QWidget* simuWidget=new QWidget;
-    QHBoxLayout* simuLayout=new QHBoxLayout(simuWidget);
     SearchMenu *searchMenu=new SearchMenu;
 
     //costruzione layout sensori

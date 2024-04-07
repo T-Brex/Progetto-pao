@@ -18,8 +18,10 @@ MenuBar::MenuBar(QWidget* parent):
     QMenu* editMenu = new QMenu();
     this->addMenu(editMenu);
     editMenu = this->addMenu(tr("&Edit"));
-    lineEdit_nome = new QLineEdit(editMenu);
-    //connect(changeLayoutAct, &QAction::triggered, this, &MenuBar::changeLayoutTrigger);
+    lineEdit_nome = new QLineEdit();
+    lineEdit_nome->addAction(new QAction(tr("&PROVADIOOCANE")));
+    //editMenu->addMenu(lineEdit_nome);
+
 
 
     connect(changeLayoutAct, &QAction::triggered, this, &MenuBar::changeLayoutTrigger);

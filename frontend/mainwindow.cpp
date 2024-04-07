@@ -246,7 +246,8 @@ QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName="C:/Users/bre
     return sensori;
 }
 
-Sensor* MainWindow::caricaSensore(QString *nomeCercato, const QString& fileName){
+/*
+ * Sensor* MainWindow::caricaSensore(QString *nomeCercato, const QString& fileName){
 
 
     // Leggi il contenuto del file JSON
@@ -298,4 +299,5 @@ Sensor* MainWindow::caricaSensore(QString *nomeCercato, const QString& fileName)
 
         // Crea il sensore in base al tipo
 }
+*/
 

@@ -18,7 +18,6 @@ public:
     QHBoxLayout *simuLayout;
 
     LayoutsWidget(QWidget * parent = nullptr);
-    LayoutsWidget(Sensor* s,QWidget *parent = nullptr);
     LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);
     LayoutsWidget(QVector<Sensor*> frame,QWidget *parent = nullptr);
     LayoutsWidget(QVector<SensorPanel*> frame,QWidget *parent = nullptr);
