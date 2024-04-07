@@ -3,29 +3,54 @@
 #include "frontend/mainwindow.h"
 #include <QMenuBar>
 #include <QMenu>
+
 #include <QAction>                                                                                                                                                                                                                                                          Copy code
 
 
 
 
+#include <QAction>
+#include <QString>
 
 
-//#include <QMenuBar>
-//#include <QMenu>
-//#include <QAction>
 
+
+
+#include <QCoreApplication>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
+#include <QDebug>
+
+
+
+
+
+
+//////// C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    QVector<Sensor*> s;
+
+    s.push_back(new AirQuality("Sensore1"));
+
+    s.push_back(new Dust("Sensore2"));
+    s.push_back(new Humidity("Sensore3"));
+    s.push_back(new AirQuality("Sensore0"));
+    s.push_back(new Wind("Sensore4"));
+    s.push_back(new Termometer("Sensore5"));
+
+    //salvaSensori(sensori, "C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //eliminaSensore("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json","Sensore3");
+
+
 
     //prova con Sensor
-    QVector<Sensor*> s;
-    Humidity *hum=new Humidity("hum");
-    Termometer *term=new Termometer("term");
-    s.push_front(hum);
-    s.push_front(term);
+
 
     //prova con un solo sensore
     SensorPanel *airQ = new SensorPanel(AirQuality("airQ"));
@@ -37,69 +62,6 @@ int main(int argc, char *argv[])
     sp.push_front(ventoPanel);
     sp.push_front(polvPanel);
     sp.push_front(airQ);
-
-
-
-
-
-    /*
-     *
-     *
-     * PROVA JSON
-
-    std::ifstream file(" "); resou
-
-    // Verifica se il file è stato aperto correttamente
-    if (!file.is_open()) {
-        std::cerr << "Impossibile aprire il file JSON\n";
-        return 1;
-    }
-
-    // Carica il contenuto del file JSON
-    json j;
-    file >> j;
-
-    // Chiudiamo il file
-    file.close();
-
-    // Otteniamo l'array degli utenti
-    auto utenti_json = j["utenti"];
-
-    // Creiamo un vettore di puntatori a Utente
-    std::vector<Utente*> utenti;
-
-    // Iteriamo sugli utenti JSON e creiamo gli oggetti Utente corrispondenti
-    for (auto& utente_json : utenti_json) {
-        int id = utente_json["id"];
-        std::string nome = utente_json["nome"];
-        std::string cognome = utente_json["cognome"];
-        int eta = utente_json["eta"];
-        std::string email = utente_json["email"];
-
-        // Allochiamo un nuovo oggetto Utente sullo heap e aggiungiamolo al vettore
-        Utente* nuovo_utente = new Utente(id, nome, cognome, eta, email);
-        utenti.push_back(nuovo_utente);
-    }
-
-    // Stampiamo le informazioni sugli utenti
-    for (const auto& utente : utenti) {
-        std::cout << "ID: " << utente->id << std::endl;
-        std::cout << "Nome: " << utente->nome << std::endl;
-        std::cout << "Cognome: " << utente->cognome << std::endl;
-        std::cout << "Età: " << utente->eta << std::endl;
-        std::cout << "Email: " << utente->email << std::endl;
-        std::cout << std::endl;
-    }
-
-    // Liberiamo la memoria allocata per gli oggetti Utente
-    for (auto& utente : utenti) {
-        delete utente;
-    }
-    */
-
-
-
-
 
 
 
@@ -124,7 +86,13 @@ int main(int argc, char *argv[])
 
 
 
-    MainWindow w(frame);
+    //MainWindow w(MainWindow::caricaSensore(new QString("Sensore 5"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+
+    MainWindow w(MainWindow::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+    //MainWindow::salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //MainWindow::eliminaSensore(QString::fromStdString("Sensore2"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+
+
 
 
 

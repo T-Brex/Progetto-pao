@@ -8,17 +8,21 @@ class LayoutsWidget : public QStackedWidget
 {
     Q_OBJECT
 public:
-    /*
+    QWidget* sensWindow=new QWidget;
+    QHBoxLayout* sensWindowLayout=new QHBoxLayout(sensWindow);
+
     QWidget *sensWidget;
-    QGridLayout *sensLayout;
+    QVBoxLayout *sensLayout;
+
     QWidget *simuWidget;
     QHBoxLayout *simuLayout;
-    //QStackedWidget *layoutsWidget;
-*/
+
     LayoutsWidget(QWidget * parent = nullptr);
-    LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);
-    LayoutsWidget(QVector<Sensor*> frame,QWidget *parent = nullptr);
-    LayoutsWidget(QVector<SensorPanel*> frame,QWidget *parent = nullptr);
+    LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);//Eliminabile(?)
+
+    LayoutsWidget(QVector<Sensor*> s,QWidget *parent = nullptr);
+
+    LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent = nullptr);//Eliminabile(?)
     ~LayoutsWidget();
 
 };

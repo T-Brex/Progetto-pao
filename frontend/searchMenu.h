@@ -22,6 +22,7 @@ private:                         //i widget non sono attributi in quanto sono se
     static unsigned int *filters;//memorizza l'ordine di visualizzazione dei sensori (il tipo è da rivedere) è un puntatore perche potrebbero essere più di uno
 public:
     SearchMenu();
-
+public slots:
+    void onTextChanged(const QString &text);
 };
 

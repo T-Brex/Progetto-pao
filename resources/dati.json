@@ -1,11 +1,14 @@
-{
-  "sensori":
-    [
-        {
-          "name": "provJson"
-        },
-        {
-          "name": "provA2__Json"
-        }
-    ]
-}
+
+[
+    {
+        "nome": "Sensore1",
+        "tipo": "AirQuality",
+        "valore_0": 0,
+        "valore_1": 0,
+        "valore_2": 0,
+        "valore_3": 0,
+        "valore_4": 0,
+        "valore_5": 0
+    }
+    
+]
