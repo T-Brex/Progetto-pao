@@ -41,31 +41,7 @@ MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):
     setCentralWidget(layoutsWidget);
 }
 
-/*MainWindow::MainWindow(Sensor* s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
-{
-
-    setMenuBar(menuBar);
-
-    connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-    connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
-            {
-                salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-            });
-
-    connect(menuBar, &MenuBar::deleteTrigger, this, [&]()
-            {
-                eliminaSensore("Sensore0","C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-            });
-    setCentralWidget(layoutsWidget);
-    connect(menuBar, &MenuBar::loadTrigger, this, [&]()
-            {
-                caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-            });
-    setCentralWidget(layoutsWidget);
-}*/
-
-
+//Eliminabile(?)
 MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
     QMainWindow(parent),layoutsWidget(new LayoutsWidget(sp)),menuBar(new MenuBar)
 {
@@ -77,7 +53,7 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
 }
 
 
-
+//Eliminabile(?)
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     QMainWindow(parent),layoutsWidget(new LayoutsWidget(frame)),menuBar(new MenuBar)
 {
@@ -246,58 +222,5 @@ QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName="C:/Users/bre
     return sensori;
 }
 
-/*
- * Sensor* MainWindow::caricaSensore(QString *nomeCercato, const QString& fileName){
 
-
-    // Leggi il contenuto del file JSON
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Impossibile aprire il file.";
-        return 0;
-    }
-
-    QByteArray jsonData = file.readAll();
-    file.close();
-
-    // Parsa il documento JSON
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonData);
-    if (!jsonDocument.isArray()) {
-        qDebug() << "Il documento JSON non è un array.";
-        return nullptr;
-    }
-
-    // Itera attraverso l'array JSON e cerca il sensore con il nome corrispondente
-    QJsonArray sensoriArray = jsonDocument.array();
-    for (const auto& sensore : sensoriArray) {
-        QJsonObject sensoreObject = sensore.toObject();
-        QString nome = sensoreObject["nome"].toString();
-        QString tipo = sensoreObject["tipo"].toString();
-
-        // Se il nome del sensore corrisponde a quello cercato, crea e restituisci il sensore
-        Sensor *nuovoSensore = nullptr;
-        if (nome == *nomeCercato) {
-
-            // Crea il sensore in modo polimorfo tramite una funzione virtuale nella classe base
-            if (tipo == "Dust") {
-            nuovoSensore  = new Dust(nome.toStdString());
-            } else if (tipo == "Humidity") {
-                nuovoSensore = new Humidity(nome.toStdString());
-            } else if (tipo == "Wind") {
-                nuovoSensore = new Wind(nome.toStdString());
-            } else if (tipo == "Termometer") {
-                nuovoSensore = new Termometer(nome.toStdString());
-            } else if (tipo == "AirQuality") {
-                nuovoSensore = new AirQuality(nome.toStdString());
-            }
-            return nuovoSensore;
-        }
-    }
-
-    // Se il sensore non è stato trovato, restituisci nullptr
-    return nullptr;
-
-        // Crea il sensore in base al tipo
-}
-*/
 

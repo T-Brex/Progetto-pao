@@ -32,11 +32,10 @@ private:
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    //MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
-    //MainWindow(Sensor* s, QWidget *parent = nullptr);
     MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
-    MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);
-    MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);
+
+    MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);//Eliminabile(?)
+    MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);//Eliminabile(?)
     ~MainWindow();
 
 public slots:
