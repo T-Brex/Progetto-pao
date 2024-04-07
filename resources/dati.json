@@ -1,0 +1,38 @@
+[
+    {
+        "nome": "Sensore1",
+        "tipo": "AirQuality",
+        "valore_0": 0,
+        "valore_1": 0,
+        "valore_2": 0,
+        "valore_3": 0,
+        "valore_4": 0,
+        "valore_5": 0
+    },
+    {
+        "nome": "Sensore2",
+        "tipo": "Dust",
+        "valore_0": 0,
+        "valore_1": 0
+    },
+    {
+        "nome": "Sensore0",
+        "tipo": "AirQuality",
+        "valore_0": 0,
+        "valore_1": 0,
+        "valore_2": 0,
+        "valore_3": 0,
+        "valore_4": 0,
+        "valore_5": 0
+    },
+    {
+        "nome": "Sensore4",
+        "tipo": "Wind",
+        "valore_0": 0
+    },
+    {
+        "nome": "Sensore5",
+        "tipo": "Termometer",
+        "valore_0": 0
+    }
+]

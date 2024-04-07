@@ -40,6 +40,8 @@ public:
 
 private slots:
     void changeLayout();
+    void save(const QString &nome);
+    void load(QLineEdit *lineEdit_nome);
 
 
 };
