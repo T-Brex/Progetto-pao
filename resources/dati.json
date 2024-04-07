@@ -8,6 +8,27 @@
         "valore_3": 0,
         "valore_4": 0,
         "valore_5": 0
+    },
+    {
+        "nome": "Sensore3",
+        "tipo": "Humidity",
+        "valore_0": 0,
+        "valore_1": 0
+    },
+    {
+        "nome": "Sensore4",
+        "tipo": "Wind",
+        "valore_0": 0
+    },
+    {
+        "nome": "Sensore5",
+        "tipo": "Termometer",
+        "valore_0": 0
+    },
+    {
+        "nome": "Cacca",
+        "tipo": "Dust",
+        "valore_0": 0,
+        "valore_1": 0
     }
-    
 ]

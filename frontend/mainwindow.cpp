@@ -17,26 +17,30 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {}
 
-MainWindow::MainWindow(QVector<Sensor*> s, QWidget *parent):
+MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
 {
 
     setMenuBar(menuBar);
 
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    connect(menuBar, &MenuBar::newTrigger, this, [&]()
+            {
+                nuovoSensore("cacca","Dust");
+            });
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
-                salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+                salvaSensori(s);
             });
 
     connect(menuBar, &MenuBar::deleteTrigger, this, [&]()
             {
-                eliminaSensore("Sensore0","C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+                eliminaSensore("Sensore0");
             });
     setCentralWidget(layoutsWidget);
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
-                caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+                caricaSensori();
             });
     setCentralWidget(layoutsWidget);
 }
@@ -75,8 +79,50 @@ void MainWindow::changeLayout(){
         menuBar->changeLayoutAct->setText(tr("Simulazione"));
     }
 };
+void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
+    if (MainWindow::sensoreEsiste(fileName, nome)) {
+        qDebug() << "Il sensore" << nome << "esiste già nel file.";
+        return;
+    }
 
-void MainWindow::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json") {
+    QJsonObject sensoreObject;
+    //sensoreObject["nome"] = nome;
+    //sensoreObject["tipo"] = tipo;
+    Sensor* nuovoSensore = nullptr;
+    /* Aggiungi i valori del sensore
+
+    for (auto it = valori.constBegin(); it != valori.constEnd(); ++it) {
+
+        sensoreObject[it.key()] = it.value().toDouble(); // Assumiamo che i valori siano numerici
+    }*/
+
+    if (tipo == "Dust") {
+        nuovoSensore = new Dust(nome.toStdString());
+    } else if (tipo == "Humidity") {
+        nuovoSensore = new Humidity(nome.toStdString());
+    } else if (tipo == "Wind") {
+        nuovoSensore = new Wind(nome.toStdString());
+    } else if (tipo == "Termometer") {
+        nuovoSensore = new Termometer(nome.toStdString());
+    } else if (tipo == "AirQuality") {
+        nuovoSensore = new AirQuality(nome.toStdString());
+    }
+    QVector<Sensor*> vecSensore;
+    vecSensore.append(nuovoSensore);
+    MainWindow::salvaSensori(vecSensore);
+
+   /* QJsonDocument doc(sensoreObject);
+    QFile file(fileName);
+    if (file.open(QIODevice::Append)) {
+        file.write(doc.toJson());
+        file.close();
+        qDebug() << "Sensore" << nome << "salvato con successo.";
+    } else {
+        qDebug() << "Errore nel salvataggio del sensore.";
+    }*/
+}
+
+void MainWindow::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
     QJsonArray sensoriArray;
 
     // Leggi il contenuto del file JSON esistente, se presente
@@ -125,7 +171,7 @@ void MainWindow::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QStrin
     }
 }
 
-void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere="",const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json") {
+void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere="",const QString& fileName) {
     QJsonArray sensoriArray;
 
     // Leggi il contenuto del file JSON esistente, se presente
@@ -169,7 +215,7 @@ void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere="",const QStri
     }
 }
 
-QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"){
+QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName){
 
     QVector<Sensor*> sensori;
 
@@ -220,6 +266,36 @@ QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName="C:/Users/bre
     }
 
     return sensori;
+}
+
+bool MainWindow::sensoreEsiste(const QString& nome, const QString& fileName) {
+    QFile file(fileName);
+    if (!file.exists())
+        return false;
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Impossibile aprire il file.";
+        return false;
+    }
+
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonData);
+    if (!jsonDocument.isArray()) {
+        qDebug() << "Il documento JSON non è un array.";
+        return false;
+    }
+
+    QJsonArray sensoriArray = jsonDocument.array();
+    for (const auto& sensore : sensoriArray) {
+        QJsonObject sensoreObject = sensore.toObject();
+        QString nomeSensore = sensoreObject["nome"].toString();
+        if (nomeSensore == nome)
+            return true;
+    }
+
+    return false;
 }
 
 

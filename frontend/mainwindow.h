@@ -32,7 +32,14 @@ private:
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
+
+    //MainWindow(QVector<Sensor*> s, QWidget *parent = nullptr);
+
+
+    MainWindow(SearchMenu *menu, QWidget *parent=nullptr);
+
+    MainWindow(const QVector<Sensor*>& s, QWidget *parent = nullptr);
+
 
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);//Eliminabile(?)
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);//Eliminabile(?)
@@ -40,9 +47,12 @@ public:
 
 public slots:
     void changeLayout();
-    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName);
-    static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName);
-    static QVector<Sensor*> caricaSensori(const QString& fileName);
+    static void nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    static bool sensoreEsiste(const QString& nome,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+
     //static Sensor* caricaSensore(QString *nomeCercato,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
 
 

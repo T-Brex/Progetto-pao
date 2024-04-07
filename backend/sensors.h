@@ -1,9 +1,9 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-#endif // SENSORS_H
+
 #include <string>
-#include<vector>
+#include <vector>
 class Sensor{
 private:
     std::string name;
@@ -78,3 +78,4 @@ public:
     std::vector<double> getValue() const;         //restituisce tutti gli attributi   (Attenzione all'immondizia)
     double getQuality() ;             //restituisce la qualità dell'aria
 };
+#endif
