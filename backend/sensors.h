@@ -1,7 +1,7 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-
+#include <QString>
 #include <string>
 #include <vector>
 class Sensor{
@@ -12,6 +12,7 @@ public:
     Sensor(const std::string&);
     const std::string& getName() const;
     void modifyName(const std::string&);
+    static Sensor* costruttore(const QString& nome, const QString& tipo);
     virtual std::vector<double> getValue() const = 0 ;
     virtual void updateValue() = 0 ;
     virtual ~Sensor();
