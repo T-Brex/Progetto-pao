@@ -17,15 +17,7 @@ public:
     QMenuBar *menuBar;
     QMenu *fileMenu;
 
-    QLineEdit *lineEdit_nome;
-
-
-    //QPushButton *saveButton = new QPushButton("Salva", this);
-    //QPushButton *loadButton = new QPushButton("Carica", this);
-
-
-
-
+    //QLineEdit *lineEdit_nome;
 
     QAction *changeLayoutAct;
     QAction* newAct;

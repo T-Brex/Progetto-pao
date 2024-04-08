@@ -6,6 +6,21 @@ const std::string& Sensor::getName() const{return name;}
 void Sensor::modifyName(const std::string& n){
     name=n;
 }
+Sensor* Sensor::costruttore(const QString& nome, const QString& tipo){
+    Sensor* nuovoSensore = nullptr;
+    if (tipo == "Dust") {
+        nuovoSensore = new Dust(nome.toStdString());
+    } else if (tipo == "Humidity") {
+        nuovoSensore = new Humidity(nome.toStdString());
+    } else if (tipo == "Wind") {
+        nuovoSensore = new Wind(nome.toStdString());
+    } else if (tipo == "Termometer") {
+        nuovoSensore = new Termometer(nome.toStdString());
+    } else if (tipo == "AirQuality") {
+        nuovoSensore = new AirQuality(nome.toStdString());
+    }
+    return nuovoSensore;
+}
 Sensor::~Sensor(){}
 
 //-------------------------------------------dust
