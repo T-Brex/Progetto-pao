@@ -1,13 +1,14 @@
 #include "searchMenu.h"
 #include <QVBoxlayout>
+//#include "frontend/mainwindow.h"
 //#include <QString>
 
 SearchMenu::SearchMenu(){
     QVBoxLayout * layout = new QVBoxLayout(this);
     QLineEdit *lineEdit = new QLineEdit("ass");
+    QPushButton *add=new QPushButton("add");
     layout->addWidget(lineEdit);
-    //layout->addWidget(new QMenu());
-    layout->addWidget(new QPushButton("add"));
+    layout->addWidget(add);
     layout->addWidget(new QPushButton("remove all"));
     layout->addWidget(new QPushButton("submit"));
     layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
@@ -18,6 +19,8 @@ SearchMenu::SearchMenu(){
     connect(lineEdit, &QLineEdit::textChanged, this, [=](){
         onTextChanged(lineEdit->text());
         });
+
+    connect(add, &QPushButton::clicked, this, &SearchMenu::showDialog);
 
 }
 

@@ -1,6 +1,8 @@
 #ifndef LAYOUTSWIDGET_H
 #define LAYOUTSWIDGET_H
 
+#include "frontend/dialog.h"
+#include "frontend/searchMenu.h"
 #include "frontend/sensorPanel.h"
 #include <QStackedWidget>
 
@@ -16,6 +18,9 @@ public:
 
     QWidget *simuWidget;
     QHBoxLayout *simuLayout;
+
+    SearchMenu *searchMenu;
+    //Dialog *dialog;
 
     LayoutsWidget(QWidget * parent = nullptr);
     LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);//Eliminabile(?)
