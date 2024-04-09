@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),dialog(new Dialog())
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),dialog(new Dialog(this))
 {
 
     setMenuBar(menuBar);
@@ -32,7 +32,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
     connect(dialog, &Dialog::newTrigger, this, [&]()
             {
-                nuovoSensore(dialog->lineEdit->displayText(),dialog->sceltaTipo->currentText());
+        nuovoSensore(dialog->lineEdit->text(),dialog->sceltaTipo->currentText());
                 dialog->close();
             });
     connect(layoutsWidget->searchMenu,&SearchMenu::showDialog, this, [&]()

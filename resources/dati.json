@@ -10,5 +10,16 @@
         "tipo": "Dust",
         "valore_0": 0,
         "valore_1": 0
+    },
+    {
+        "nome": "c",
+        "tipo": "Dust",
+        "valore_0": 0,
+        "valore_1": 0
+    },
+    {
+        "nome": "a",
+        "tipo": "Termometer",
+        "valore_0": 0
     }
 ]
