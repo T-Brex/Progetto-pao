@@ -1,16 +1,11 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-<<<<<<< HEAD
-#include <QString>
-#include <string>
-#include <vector>
-=======
 #include <string>
 #include <QString>
 #include<vector>
 #include<QVector>
->>>>>>> test
+
 class Sensor{
 private:
     std::string name;
@@ -93,8 +88,6 @@ public:
     QVector<QString> getNameValues() const;        //restituisce tutti gli attributi   (Attenzione all'immondizia)
     double getQuality() ;             //restituisce la qualità dell'aria
 };
-<<<<<<< HEAD
-#endif
-=======
+
 #endif // SENSORS_H
->>>>>>> test
+
