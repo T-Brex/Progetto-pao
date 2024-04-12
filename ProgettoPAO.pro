@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     frontend/dialog.cpp \
+    frontend/cartesianPlane.cpp \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
@@ -19,9 +20,11 @@ SOURCES += \
     frontend/editor.cpp \
     frontend/sensorPanel.cpp \
     backend/sensors.cpp \
+    frontend/simulationBar.cpp
 
 HEADERS += \
     frontend/dialog.h \
+    frontend/cartesianPlane.h \
     frontend/layoutswidget.h \
     frontend/mainwindow.h \
     frontend/searchMenu.h \
@@ -30,6 +33,7 @@ HEADERS += \
     frontend/editor.h \
     frontend/sensorPanel.h \
     backend/sensors.h
+    frontend/simulationBar.h
 
 RESOURCES = resources.qrc \
 

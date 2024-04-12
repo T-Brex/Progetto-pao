@@ -8,6 +8,18 @@
 #include <QMenuBar>
 #include <QMenuBar>
 
+
+
+MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
+    : QMainWindow(parent)
+{
+
+    setCentralWidget(menu);
+}
+
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
@@ -154,7 +166,6 @@ QJsonArray MainWindow::leggiJson(const QString& fileName){
 }
 
 void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
-
      qDebug()<<"dentro nuovoSensore";
 
     QFile file(fileName);
@@ -226,7 +237,7 @@ void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere, const QString
         QJsonDocument jsonDocument(sensoriArray);
         file.write(jsonDocument.toJson());
         file.close();
-        qDebug() << "Sensori salvati con successo.";
+        qDebug() << "Sensore eliminato con successo.";
     } else {
         qDebug() << "Errore nell'apertura del file.";
     }

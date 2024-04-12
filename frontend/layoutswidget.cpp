@@ -58,7 +58,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 
 
     //costruzione layout sensori
-    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
     sensWindowLayout->addWidget(sensWidget);
