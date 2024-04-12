@@ -29,7 +29,7 @@ public:
     virtual ~MenuBar();
 signals:
     void changeLayoutTrigger();
-    void newTrigger();
+    void showAddDialog();
     void saveTrigger();
     void loadTrigger();
     void deleteTrigger();

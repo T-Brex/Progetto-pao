@@ -88,10 +88,14 @@ int main(int argc, char *argv[])
 
     //MainWindow w(MainWindow::caricaSensore(new QString("Sensore 5"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
 
+    //MainWindow::nuovoSensore(QString::fromStdString("cacca"),"Dust");
     MainWindow w(MainWindow::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
-    MainWindow::salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    MainWindow::eliminaSensore(QString::fromStdString("Cacca"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    MainWindow::nuovoSensore(QString::fromStdString("Cacca"),"Dust");
+
+    //w.salvaSensori(s);
+    //MainWindow::salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //MainWindow::eliminaSensore(QString::fromStdString("Cacca"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+    //MainWindow::nuovoSensore(QString::fromStdString("cacca"),"Dust");
+
 
 
 
@@ -105,4 +109,7 @@ int main(int argc, char *argv[])
 
     w.show();
     return a.exec();
+
+
 }
+
