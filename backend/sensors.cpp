@@ -8,6 +8,9 @@ void Sensor::modifyName(const std::string& n){
 }
 Sensor::~Sensor(){}
 
+int Sensor::getRandomNumber() const{return rand() % 10;}
+
+
 //-------------------------------------------dust
 Dust::Dust(const std::string &n):Sensor(n),pm10(0),pm25(0){
     this->updateType("Dust");
@@ -29,7 +32,10 @@ std::vector<double> Dust::getValue() const{
     std::vector<double> out = {pm10,pm25};
     return out;}//-----------------------------------spazzatura
 
-
+QVector<QString> Dust::getNameValues() const{
+    QVector<QString> v = {"pm10","pm25"};
+    return v;
+}
 //-------------------------------------------humidity
 Humidity::Humidity(const std::string &n):Sensor(n),humidity(0),percentage(0){
     this->updateType("Humidity");
@@ -51,7 +57,10 @@ std::vector<double> Humidity::getValue() const{
     std::vector<double> out = {humidity,percentage};
     return out;}
 
-
+QVector<QString> Humidity::getNameValues() const{
+    QVector<QString> v = {"humidity","percentage"};
+    return v;
+}
 
 //-------------------------------------------wind
 
@@ -71,7 +80,10 @@ std::vector<double> Wind::getValue() const{
     std::vector<double> v= {wind};
     return v;}
 
-
+QVector<QString> Wind::getNameValues() const{
+    QVector<QString> v = {"wind"};
+    return v;
+}
 
 //-------------------------------------------termometer
 
@@ -92,6 +104,10 @@ std::vector<double> Termometer::getValue() const{
     return v;
     }
 
+QVector<QString> Termometer::getNameValues() const{
+    QVector<QString> v = {"temperature"};
+    return v;
+}
 
 //-------------------------------------------air quality
 
@@ -123,4 +139,7 @@ void AirQuality::updateValue(){
     quality = rand() % 10;//calcolo qualita sulla base di tutti i sensori
     }
 
-
+QVector<QString> AirQuality::getNameValues() const{
+    QVector<QString> v = {"pm10","pm25","humidity","percentage","wind","temperature","quality"};
+    return v;
+}
