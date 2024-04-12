@@ -12,7 +12,7 @@
 #include <QAction>
 #include <QString>
 
-
+#include "frontend/cartesianPlane.h"
 
 
 
@@ -107,7 +107,18 @@ int main(int argc, char *argv[])
 
     w.resize(1280, 1024);
 
-    w.show();
+    //w.show();
+
+
+    CartesianPlane window;
+    window.setWindowTitle("Piano Cartesiano");
+    window.resize(400, 300);
+    Sensor * d = new Dust("gigi");
+    window.addSensor(d);
+    window.addSensor(d);
+    window.show();
+
+
     return a.exec();
 
 

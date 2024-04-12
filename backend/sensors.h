@@ -1,9 +1,16 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
+<<<<<<< HEAD
 #include <QString>
 #include <string>
 #include <vector>
+=======
+#include <string>
+#include <QString>
+#include<vector>
+#include<QVector>
+>>>>>>> test
 class Sensor{
 private:
     std::string name;
@@ -11,6 +18,7 @@ private:
 public:
     Sensor(const std::string&);
     const std::string& getName() const;
+    virtual QVector<QString> getNameValues() const = 0;
     void modifyName(const std::string&);
     static Sensor* costruttore(const QString& nome, const QString& tipo);
     virtual std::vector<double> getValue() const = 0 ;
@@ -18,6 +26,7 @@ public:
     virtual ~Sensor();
     virtual void updateType(const std::string& s){type =s;}
     virtual std::string getType() const {return type;}
+    virtual int getRandomNumber() const ;
 };
 
 
@@ -30,6 +39,7 @@ public:
     Dust(const Dust&);
     void updateValue() ;
     std::vector<double> getValue() const;
+    QVector<QString> getNameValues() const;
 
 
 };
@@ -44,6 +54,7 @@ public:
     Humidity(const Humidity&);
     void updateValue() ;
     std::vector<double> getValue() const;
+    QVector<QString> getNameValues() const;
 };
 
 
@@ -55,6 +66,7 @@ public:
     Wind(const Wind&);
     void updateValue() ;
     std::vector<double> getValue() const;
+    QVector<QString> getNameValues() const;
 };
 
 
@@ -66,6 +78,7 @@ public:
     Termometer(const Termometer&);
     void updateValue() ;
     std::vector<double> getValue() const;
+    QVector<QString> getNameValues() const;
 };
 
 
@@ -76,7 +89,12 @@ public:
     AirQuality(const std::string&);
     AirQuality(const AirQuality&);
     void updateValue() ;
-    std::vector<double> getValue() const;         //restituisce tutti gli attributi   (Attenzione all'immondizia)
+    std::vector<double> getValue() const;
+    QVector<QString> getNameValues() const;        //restituisce tutti gli attributi   (Attenzione all'immondizia)
     double getQuality() ;             //restituisce la qualità dell'aria
 };
+<<<<<<< HEAD
 #endif
+=======
+#endif // SENSORS_H
+>>>>>>> test
