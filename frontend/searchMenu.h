@@ -9,6 +9,7 @@
 #include <QWidget>
 #include <QLabel>
 */
+#include "qboxlayout.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLineEdit>
@@ -21,7 +22,10 @@ private:                         //i widget non sono attributi in quanto sono se
     static unsigned int order;   //memorizza l'ordine di visualizzazione dei sensori (il tipo è da rivedere)
     static unsigned int *filters;//memorizza l'ordine di visualizzazione dei sensori (il tipo è da rivedere) è un puntatore perche potrebbero essere più di uno
 public:
-    SearchMenu();
+    SearchMenu(QWidget* parent = nullptr);
+    QVBoxLayout * layout;
+    QLineEdit *lineEdit;
+    QPushButton *add;
 public slots:
     void onTextChanged(const QString &text);
 signals:

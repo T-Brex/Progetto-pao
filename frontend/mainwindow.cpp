@@ -25,21 +25,38 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     setMenuBar(menuBar);
 
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+
+
     connect(menuBar, &MenuBar::newTrigger, this, [&]()
             {
-                nuovoSensore("cacca","Dust");
-            });
+        dialog->show();
+        connect(dialog, &Dialog::newTrigger, this, [&]()
+                {
+                    nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
+                    dialog->hide();
+                });
+        });
 
-    connect(dialog, &Dialog::newTrigger, this, [&]()
-            {
-        nuovoSensore(dialog->lineEdit->text(),dialog->sceltaTipo->currentText());
-                dialog->close();
-            });
-    connect(layoutsWidget->searchMenu,&SearchMenu::showDialog, this, [&]()
-            {
-        dialog->open();
 
-            });
+        connect(layoutsWidget->searchMenu,&SearchMenu::showDialog, this, [&]()
+                {
+        dialog->show();
+        connect(dialog, &Dialog::newTrigger, this, [&]()
+                {
+                    nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
+                    dialog->hide();
+                });
+    });
+
+
+
+    connect(dialog->lineEdit, &QLineEdit::textChanged, this, [=](){
+        qDebug()<<dialog->lineEdit->text();
+    });
+
+
+
+
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
@@ -75,17 +92,42 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
     setCentralWidget(layoutsWidget);
 }
+void MainWindow::showAddDialog() {
+    qDebug()<<"dentro showAddDialog";
+    /*
+    //dialog->open();
+    dialog->show();
+
+    connect(dialog, &Dialog::newTrigger, this, [&]() {
+        qDebug()<<"dentro connect";
+        nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
+         qDebug()<<"dopo nuovoSensore connect";
+        //dialog->close();
+        dialog->hide();
+        //dialog->deleteLater();
+});
+*/
+    //dialog->open();
+    //nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
+
+    dialog->show();
+    qDebug()<<dialog->lineEdit->text();
+
+
+
+}
 
 void MainWindow::updateSensors() {
 
     layoutsWidget = new LayoutsWidget(MainWindow::caricaSensori());
+    dialog = new Dialog(this);
+    //dialog->close();
+    //new MainWindow(MainWindow::caricaSensori());
     setCentralWidget(layoutsWidget);
 }
 
 
-void MainWindow::showDialog(){
-    dialog->open();
-}
+
 void MainWindow::changeLayout(){
 
     if(layoutsWidget->currentIndex()==0){
@@ -113,6 +155,9 @@ QJsonArray MainWindow::leggiJson(const QString& fileName){
 }
 
 void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
+
+     qDebug()<<"dentro nuovoSensore";
+
     QFile file(fileName);
     QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
     Sensor* sensore = Sensor::costruttore(nome,tipo);

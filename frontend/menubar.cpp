@@ -26,7 +26,6 @@ MenuBar::MenuBar(QWidget* parent):
 
 
     connect(changeLayoutAct, &QAction::triggered, this, &MenuBar::changeLayoutTrigger);
-
     connect(newAct, &QAction::triggered, this, &MenuBar::newTrigger);
     connect(loadAct, &QAction::triggered, this, &MenuBar::loadTrigger);
     connect(saveAct, &QAction::triggered, this, &MenuBar::saveTrigger);

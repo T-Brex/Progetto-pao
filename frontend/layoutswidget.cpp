@@ -26,7 +26,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
     sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
     simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget)),
-    searchMenu(new SearchMenu)//,dialog(new Dialog())
+    searchMenu(new SearchMenu(this))//,dialog(new Dialog())
 {
 
     //costruzione layout sensori

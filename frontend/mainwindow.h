@@ -52,11 +52,12 @@ public slots:
     void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     void updateSensors();
-    void showDialog();
+private slots:
+    void showAddDialog();
+    //void showDialog();
 
 signals:
     void acceptNewAct();
-    //static Sensor* caricaSensore(QString *nomeCercato,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
 
 
 };

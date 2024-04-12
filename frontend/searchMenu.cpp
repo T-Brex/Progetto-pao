@@ -3,10 +3,10 @@
 //#include "frontend/mainwindow.h"
 //#include <QString>
 
-SearchMenu::SearchMenu(){
-    QVBoxLayout * layout = new QVBoxLayout(this);
-    QLineEdit *lineEdit = new QLineEdit("ass");
-    QPushButton *add=new QPushButton("add");
+SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(this)),lineEdit(new QLineEdit("ass")),add(new QPushButton("add")){
+    //QVBoxLayout * layout = new QVBoxLayout(this);
+    //QLineEdit *lineEdit = new QLineEdit("ass");
+    //QPushButton *add=new QPushButton("add");
     layout->addWidget(lineEdit);
     layout->addWidget(add);
     layout->addWidget(new QPushButton("remove all"));

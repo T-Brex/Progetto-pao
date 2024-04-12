@@ -3,18 +3,22 @@
 #include <QLineEdit>
 #include "qpushbutton.h"
 //#include "frontend/mainwindow.h"
-Dialog::Dialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea")) {
+Dialog::Dialog(QWidget *parent) : QDialog(nullptr),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea")) {
         // Creazione del QLineEdit
+        /*
+        QDialogButtonBox* bb = new QDialogButtonBox(
+            QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
-        //QLineEdit *lineEdit = new QLineEdit(this);
-        //QComboBox *sceltaTipo= new QComboBox(this);
-        //QPushButton *newButton=new QPushButton("Crea");
+
+
+        //QPushButton::autoDefault();
+*/
+        qDebug()<<"muovo dialog";
         sceltaTipo->addItem("Dust");
         sceltaTipo->addItem("Humidity");
         sceltaTipo->addItem("Wind");
         sceltaTipo->addItem("Termometer");
         sceltaTipo->addItem("AirQuality");
-
 
         // Creazione del layout per la QDialog
         QVBoxLayout *layout = new QVBoxLayout(this);
@@ -25,7 +29,7 @@ Dialog::Dialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),
         layout->addWidget(newButton);
 
         this->setMaximumSize(200,100);
-        this->setModal(true);
+        //this->setModal(true);
         this->setFocus();
         this->setPalette(Qt::yellow);
         this->setAutoFillBackground(true);
