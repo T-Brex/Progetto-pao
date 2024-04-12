@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "frontend/sensorPanel.h"
-//#include "backend/sensors.h"
+#include "qtmetamacros.h"
 #include "frontend/dialog.h"
 #include "qjsonarray.h"
 #include <QApplication>
@@ -27,18 +27,20 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
 
 
-    connect(menuBar, &MenuBar::newTrigger, this, [&]()
+    connect(menuBar, &MenuBar::showAddDialog, this, [&]()
             {
-        dialog->show();
+        dialog->open();
         connect(dialog, &Dialog::newTrigger, this, [&]()
                 {
                     nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
-                    dialog->hide();
+
+                    dialog->close();
+
                 });
         });
 
 
-        connect(layoutsWidget->searchMenu,&SearchMenu::showDialog, this, [&]()
+    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
                 {
         dialog->show();
         connect(dialog, &Dialog::newTrigger, this, [&]()
@@ -92,9 +94,9 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
     setCentralWidget(layoutsWidget);
 }
-void MainWindow::showAddDialog() {
+/*void MainWindow::showAddDialog() {
     qDebug()<<"dentro showAddDialog";
-    /*
+
     //dialog->open();
     dialog->show();
 
@@ -106,7 +108,7 @@ void MainWindow::showAddDialog() {
         dialog->hide();
         //dialog->deleteLater();
 });
-*/
+
     //dialog->open();
     //nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
 
@@ -115,14 +117,11 @@ void MainWindow::showAddDialog() {
 
 
 
-}
+}*/
 
 void MainWindow::updateSensors() {
 
     layoutsWidget = new LayoutsWidget(MainWindow::caricaSensori());
-    dialog = new Dialog(this);
-    //dialog->close();
-    //new MainWindow(MainWindow::caricaSensori());
     setCentralWidget(layoutsWidget);
 }
 

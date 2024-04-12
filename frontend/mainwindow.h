@@ -53,7 +53,7 @@ public slots:
     static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     void updateSensors();
 private slots:
-    void showAddDialog();
+    //void showAddDialog();
     //void showDialog();
 
 signals:

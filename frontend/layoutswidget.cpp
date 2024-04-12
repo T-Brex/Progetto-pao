@@ -7,6 +7,7 @@
 
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+    //,dialog(new Dialog(nullptr))
 {
 
     SearchMenu *searchMenu=new SearchMenu;

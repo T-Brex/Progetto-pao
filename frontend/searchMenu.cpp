@@ -20,7 +20,7 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(
         onTextChanged(lineEdit->text());
         });
 
-    connect(add, &QPushButton::clicked, this, &SearchMenu::showDialog);
+    connect(add, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
 
 }
 

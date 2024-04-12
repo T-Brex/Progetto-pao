@@ -29,6 +29,6 @@ public:
 public slots:
     void onTextChanged(const QString &text);
 signals:
-    void showDialog();
+    void showAddDialog();
 };
 
