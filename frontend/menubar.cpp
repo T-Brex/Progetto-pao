@@ -19,7 +19,7 @@ MenuBar::MenuBar(QWidget* parent):
     connect(newAct, &QAction::triggered, this, &MenuBar::showAddDialog);
     connect(loadAct, &QAction::triggered, this, &MenuBar::loadTrigger);
     connect(saveAct, &QAction::triggered, this, &MenuBar::saveTrigger);
-    connect(deleteAct, &QAction::triggered, this, &MenuBar::deleteTrigger);
+    connect(deleteAct, &QAction::triggered, this, &MenuBar::showDeleteDialog);
 }
 
 MenuBar::~MenuBar() {};

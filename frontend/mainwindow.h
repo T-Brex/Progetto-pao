@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "backend/json.h"
+#include "frontend/adddialog.h"
 #include "frontend/sensorPanel.h"
 
 #include "frontend/layoutswidget.h"
@@ -29,11 +31,13 @@ private:
 
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
-    Dialog *addDialog;
-    QDialog *deleteDialog = new QDialog(nullptr);
+    AddDialog *addDialog;
+    QDialog *deleteDialog = new QDialog(this);
     QComboBox* sceltaNome=new QComboBox;
     QPushButton* deleteButton=new QPushButton("Elimina");
     QVBoxLayout *layout = new QVBoxLayout(deleteDialog);
+
+    Json *json;
 
 
 public:
@@ -47,16 +51,16 @@ public:
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);//Eliminabile(?)
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);//Eliminabile(?)
     //static bool sensoreEsiste(const QString& nome,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    static QJsonArray leggiJson(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
+
     ~MainWindow();
 
 public slots:
     void changeLayout();
-    void nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     void updateSensors();
+
+
+
+
 
 signals:
     void acceptNewAct();

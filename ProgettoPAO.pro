@@ -9,7 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    frontend/dialog.cpp \
+    backend/json.cpp \
+    frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
@@ -23,7 +24,8 @@ SOURCES += \
     frontend/simulationBar.cpp
 
 HEADERS += \
-    frontend/dialog.h \
+    backend/json.h \
+    frontend/adddialog.h \
     frontend/cartesianPlane.h \
     frontend/layoutswidget.h \
     frontend/mainwindow.h \

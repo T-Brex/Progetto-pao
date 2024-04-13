@@ -82,8 +82,8 @@ int main(int argc, char *argv[])
     frame.push_front(SensorPanel::getSensorsWidget(sp));
     frame.push_front(airQ);
 
-
-    MainWindow w(MainWindow::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+    Json *json;
+    MainWindow w(json->caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
     w.show();
     w.setWindowTitle("Sensori");
     //w.resize(1280, 1024);

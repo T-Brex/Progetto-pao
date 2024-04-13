@@ -32,7 +32,7 @@ signals:
     void showAddDialog();
     void saveTrigger();
     void loadTrigger();
-    void deleteTrigger();
+    void showDeleteDialog();
 };
 
 #endif // MENUBAR_H
