@@ -1,33 +1,20 @@
 #include "backend/sensors.h"
 
-Sensor::Sensor(const std::string& n):name(n){type="Sensor";}
+Sensor::Sensor(const QString& n):name(n){type="Sensor";}
 
-const std::string& Sensor::getName() const{return name;}
-void Sensor::modifyName(const std::string& n){
+const QString& Sensor::getName() const{return name;}
+
+void Sensor::modifyName(const QString& n){
     name=n;
 }
-Sensor* Sensor::costruttore(const QString& nome, const QString& tipo){
-    Sensor* nuovoSensore = nullptr;
-    if (tipo == "Dust") {
-        nuovoSensore = new Dust(nome.toStdString());
-    } else if (tipo == "Humidity") {
-        nuovoSensore = new Humidity(nome.toStdString());
-    } else if (tipo == "Wind") {
-        nuovoSensore = new Wind(nome.toStdString());
-    } else if (tipo == "Termometer") {
-        nuovoSensore = new Termometer(nome.toStdString());
-    } else if (tipo == "AirQuality") {
-        nuovoSensore = new AirQuality(nome.toStdString());
-    }
-    return nuovoSensore;
-}
+
 Sensor::~Sensor(){}
 
 int Sensor::getRandomNumber() const{return rand() % 10;}
 
 
 //-------------------------------------------dust
-Dust::Dust(const std::string &n):Sensor(n),pm10(0),pm25(0){
+Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
     this->updateType("Dust");
 }
 
@@ -43,8 +30,8 @@ void Dust::updateValue(){
 }
 
 
-std::vector<double> Dust::getValue() const{
-    std::vector<double> out = {pm10,pm25};
+QVector<double> Dust::getValue() const{
+    QVector<double> out = {pm10,pm25};
     return out;}//-----------------------------------spazzatura
 
 QVector<QString> Dust::getNameValues() const{
@@ -52,7 +39,7 @@ QVector<QString> Dust::getNameValues() const{
     return v;
 }
 //-------------------------------------------humidity
-Humidity::Humidity(const std::string &n):Sensor(n),humidity(0),percentage(0){
+Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0){
     this->updateType("Humidity");
 }
 
@@ -68,8 +55,8 @@ void Humidity::updateValue(){
 }
 
 
-std::vector<double> Humidity::getValue() const{
-    std::vector<double> out = {humidity,percentage};
+QVector<double> Humidity::getValue() const{
+    QVector<double> out = {humidity,percentage};
     return out;}
 
 QVector<QString> Humidity::getNameValues() const{
@@ -79,7 +66,7 @@ QVector<QString> Humidity::getNameValues() const{
 
 //-------------------------------------------wind
 
-Wind::Wind(const std::string &n):Sensor(n),wind(0){
+Wind::Wind(const QString &n):Sensor(n),wind(0){
     this->updateType("Wind");
 }
 
@@ -91,8 +78,8 @@ void Wind::updateValue(){
     wind = rand() % 10;
 }
 
-std::vector<double> Wind::getValue() const{
-    std::vector<double> v= {wind};
+QVector<double> Wind::getValue() const{
+    QVector<double> v= {wind};
     return v;}
 
 QVector<QString> Wind::getNameValues() const{
@@ -102,7 +89,7 @@ QVector<QString> Wind::getNameValues() const{
 
 //-------------------------------------------termometer
 
-Termometer::Termometer(const std::string &n):Sensor(n),temperature(0){
+Termometer::Termometer(const QString &n):Sensor(n),temperature(0){
     this->updateType("Termometer");
 }
 
@@ -114,8 +101,8 @@ void Termometer::updateValue(){
     temperature = rand() % 10;
    }
 
-std::vector<double> Termometer::getValue() const{
-    std::vector<double> v = {temperature};
+QVector<double> Termometer::getValue() const{
+    QVector<double> v = {temperature};
     return v;
     }
 
@@ -129,7 +116,7 @@ QVector<QString> Termometer::getNameValues() const{
 
 
 
-AirQuality::AirQuality(const std::string& n):
+AirQuality::AirQuality(const QString& n):
     Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n)
     {this->updateType("AirQuality");}
 
@@ -137,8 +124,8 @@ AirQuality::AirQuality(const AirQuality& a):
     Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a)
     {this->updateType("AirQuality");}
 
-std::vector<double> AirQuality::getValue() const{
-    std::vector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};
+QVector<double> AirQuality::getValue() const{
+    QVector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};
     return out;}
 
 

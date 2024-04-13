@@ -1,6 +1,7 @@
 #ifndef DIALOG_H
 #define DIALOG_H
 
+#include "backend/sensors.h"
 #include "qcombobox.h"
 #include <QDialog>
 #include <QLineEdit>
@@ -15,6 +16,7 @@ public:
     QPushButton *newButton;
 
     Dialog(QWidget *parent = nullptr);
+    static Sensor* costruttore(const QString& nome, const QString& tipo);
 signals:
     void newTrigger();
 };

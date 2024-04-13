@@ -29,7 +29,12 @@ private:
 
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
-    Dialog *dialog;
+    Dialog *addDialog;
+    QDialog *deleteDialog = new QDialog(this);
+    QComboBox* sceltaNome=new QComboBox;
+    QPushButton* deleteButton=new QPushButton("Elimina");
+    QVBoxLayout *layout = new QVBoxLayout(deleteDialog);
+
 
 public:
     MainWindow(QWidget *parent = nullptr);

@@ -1,14 +1,50 @@
 [
     {
-        "nome": "dsasad",
-        "tipo": "Dust",
-        "valore_0": 0,
-        "valore_1": 0
+        "nome": "sca",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
     },
     {
-        "nome": "dfsasdf",
-        "tipo": "Dust",
-        "valore_0": 0,
-        "valore_1": 0
+        "nome": "yysda",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "q",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "uuu",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "po9iu8y9",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "kyu",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "kuy",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "few",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
     }
 ]

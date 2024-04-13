@@ -20,18 +20,18 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     this->setAutoFillBackground(true);
     this->setPalette(Qt::lightGray);
 
-    name = new QLabel ( QString::fromStdString(sensor.getName()));
+    name = new QLabel (sensor.getName());
     name->setAlignment(Qt::AlignCenter);
     layout->addWidget(name);
 
-    QString path(":resources/"+ QString::fromStdString(sensor.getType()) +".ico");
+    QString path(":resources/"+ sensor.getType() +".ico");
     QPixmap icon(path);
     ico = new QLabel();
     ico->setPixmap(icon.scaledToHeight(50));
     ico->setAlignment(Qt::AlignCenter);
     layout->addWidget(ico);
 
-    QLabel* sensorType = new QLabel(QString::fromStdString(sensor.getType()));
+    QLabel* sensorType = new QLabel(sensor.getType());
     sensorType->setAlignment(Qt::AlignCenter);
     layout->addWidget(sensorType);
     //layout->addStretch();

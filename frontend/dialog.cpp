@@ -4,7 +4,6 @@
 #include "qpushbutton.h"
 
 Dialog::Dialog(QWidget *parent) : QDialog(nullptr),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea")) {
-        qDebug()<<"muovo dialog";
         sceltaTipo->addItem("Dust");
         sceltaTipo->addItem("Humidity");
         sceltaTipo->addItem("Wind");
@@ -32,3 +31,20 @@ Dialog::Dialog(QWidget *parent) : QDialog(nullptr),lineEdit(new QLineEdit(this))
         //connect(this, &Dialog::accept, this, &QDialog::close);
 
 }
+
+Sensor* Dialog::costruttore(const QString& nome, const QString& tipo){
+    Sensor* nuovoSensore = nullptr;
+    if (tipo == "Dust") {
+        nuovoSensore = new Dust(nome);
+    } else if (tipo == "Humidity") {
+        nuovoSensore = new Humidity(nome);
+    } else if (tipo == "Wind") {
+        nuovoSensore = new Wind(nome);
+    } else if (tipo == "Termometer") {
+        nuovoSensore = new Termometer(nome);
+    } else if (tipo == "AirQuality") {
+        nuovoSensore = new AirQuality(nome);
+    }
+    return nuovoSensore;
+}
+

@@ -15,23 +15,11 @@ MenuBar::MenuBar(QWidget* parent):
     fileMenu->addAction(saveAct);
     fileMenu->addAction(deleteAct);
 
-    /*QMenu* editMenu = new QMenu();
-    this->addMenu(editMenu);
-    editMenu = this->addMenu(tr("&Edit"));
-    lineEdit_nome = new QLineEdit();
-    lineEdit_nome->addAction(new QAction(tr("&PROVADIOOCANE")));
-    //editMenu->addMenu(lineEdit_nome);
-*/
-
-
-
     connect(changeLayoutAct, &QAction::triggered, this, &MenuBar::changeLayoutTrigger);
     connect(newAct, &QAction::triggered, this, &MenuBar::showAddDialog);
     connect(loadAct, &QAction::triggered, this, &MenuBar::loadTrigger);
     connect(saveAct, &QAction::triggered, this, &MenuBar::saveTrigger);
     connect(deleteAct, &QAction::triggered, this, &MenuBar::deleteTrigger);
-
-    //this->addWidget(lineEdit_nome);
 }
 
 MenuBar::~MenuBar() {};

@@ -31,8 +31,17 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),dialog(new Dialog(this))
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),addDialog(new Dialog(this)),deleteDialog(new QDialog(this))
 {
+    QJsonArray sensoriArray = MainWindow::leggiJson();
+
+    for (const auto& sensore : sensoriArray) {
+        QJsonObject sensoreObject = sensore.toObject();
+        QString nome = sensoreObject["nome"].toString();
+        sceltaNome->addItem(nome);
+    }
+    layout->addWidget(sceltaNome);
+    layout->addWidget(deleteButton);
 
     setMenuBar(menuBar);
 
@@ -41,12 +50,13 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
     connect(menuBar, &MenuBar::showAddDialog, this, [&]()
             {
-        dialog->open();
-        connect(dialog, &Dialog::newTrigger, this, [&]()
+        addDialog->open();
+        addDialog->lineEdit->setFocus();
+        connect(addDialog, &Dialog::newTrigger, this, [&]()
                 {
-                    nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
-
-                    dialog->close();
+                    nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+            addDialog->lineEdit->clear();
+                    addDialog->close();
 
                 });
         });
@@ -54,32 +64,26 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
     connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
                 {
-        dialog->show();
-        connect(dialog, &Dialog::newTrigger, this, [&]()
+        addDialog->show();
+        connect(addDialog, &Dialog::newTrigger, this, [&]()
                 {
-                    nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
-                    dialog->hide();
+                    nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+
+                    addDialog->hide();
                 });
     });
-
-
-
-    connect(dialog->lineEdit, &QLineEdit::textChanged, this, [=](){
-        qDebug()<<dialog->lineEdit->text();
-    });
-
-
-
-
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
                 salvaSensori(s);
             });
 
-    connect(menuBar, &MenuBar::deleteTrigger, this, [&]()
-            {
-                eliminaSensore("cacca");
+    connect(menuBar, &MenuBar::deleteTrigger, this, [&](){
+        deleteDialog->open();
+        connect(deleteButton,&QPushButton::clicked,this,[&](){
+            eliminaSensore(sceltaNome->currentText());
+            deleteDialog->close();
+                });
             });
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
@@ -106,30 +110,7 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
     setCentralWidget(layoutsWidget);
 }
-/*void MainWindow::showAddDialog() {
-    qDebug()<<"dentro showAddDialog";
 
-    //dialog->open();
-    dialog->show();
-
-    connect(dialog, &Dialog::newTrigger, this, [&]() {
-        qDebug()<<"dentro connect";
-        nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
-         qDebug()<<"dopo nuovoSensore connect";
-        //dialog->close();
-        dialog->hide();
-        //dialog->deleteLater();
-});
-
-    //dialog->open();
-    //nuovoSensore(dialog->lineEdit->text(), dialog->sceltaTipo->currentText());
-
-    dialog->show();
-    qDebug()<<dialog->lineEdit->text();
-
-
-
-}*/
 
 void MainWindow::updateSensors() {
 
@@ -166,16 +147,16 @@ QJsonArray MainWindow::leggiJson(const QString& fileName){
 }
 
 void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
-     qDebug()<<"dentro nuovoSensore";
-
+    // Se nome != ""
+    if(!nome.isEmpty()){
     QFile file(fileName);
     QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
-    Sensor* sensore = Sensor::costruttore(nome,tipo);
+    Sensor* sensore = Dialog::costruttore(nome,tipo);
     // Verifica se il sensore è già presente nel JSON
     bool sensorePresente = false;
     for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
         QJsonObject sensoreObject = it->toObject();
-        if (sensoreObject["nome"].toString() == nome) {
+        if (sensoreObject["nome"] == nome) {
             sensorePresente = true;
             qDebug() << "Il sensore" << nome << "esiste già nel file";
             break;
@@ -185,61 +166,69 @@ void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QS
     if (!sensorePresente) {
         QJsonObject sensoreObject;
         sensoreObject["nome"] = nome;
-        sensoreObject["tipo"] = QString::fromStdString(sensore->getType());
-        std::vector<double> values = sensore->getValue();
-        for (size_t i = 0; i < values.size(); ++i) {
-            sensoreObject[QString::fromStdString("valore_" + std::to_string(i))] = values[i];
+        sensoreObject["tipo"] = sensore->getType();
+        QVector<double> values = sensore->getValue();
+        QVector<QString> valuesName = sensore->getNameValues();
+
+        for (auto i = 0; i < values.size(); ++i) {
+            sensoreObject[valuesName[i]] = values[i];
         }
         sensoriArray.append(sensoreObject);
+
+        // Scrivi il JSON aggiornato sul file
+        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            QJsonDocument jsonDocument(sensoriArray);
+            file.write(jsonDocument.toJson());
+            file.close();
+            sceltaNome->addItem(nome);
+            qDebug() << "Sensore<<"<< nome <<"aggiunto con successo.";
+        } else {
+            qDebug() << "Errore nell'apertura del file.";
+        }
+        this->updateSensors();
     }
-    // Scrivi il JSON aggiornato sul file
-    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QJsonDocument jsonDocument(sensoriArray);
-        file.write(jsonDocument.toJson());
-        file.close();
-        qDebug() << "Sensori aggiunti con successo.";
-    } else {
-        qDebug() << "Errore nell'apertura del file.";
+    }else{
+        qDebug()<<"Inserire un nome";
     }
 
-
-    this->updateSensors();
 }
 
 void MainWindow::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
 
     // Aggiungi i nuovi sensori solo se non sono già presenti
     for (const auto& sensore : nuoviSensori) {
-        QString nomeSensore = QString::fromStdString(sensore->getName());
-        QString tipoSensore = QString::fromStdString(sensore->getType());
+        QString nomeSensore = sensore->getName();
+        QString tipoSensore = sensore->getType();
         nuovoSensore(nomeSensore,tipoSensore);
     }
 }
 
 void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere, const QString& fileName) {
-    QFile file(fileName);
-    QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
+
 
     // Rimuovi il sensore specificato, se presente
     if (!sensoreDaRimuovere.isEmpty()) {
+        QFile file(fileName);
+        QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
+        int i=0;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
-            if (sensoreObject["nome"].toString() == sensoreDaRimuovere) {
+            if (sensoreObject["nome"] == sensoreDaRimuovere) {
                 it = sensoriArray.erase(it);
-                qDebug() << "Sensore" << sensoreDaRimuovere << "rimosso con successo.";
+                // Scrivi il JSON aggiornato sul file
+                if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                    QJsonDocument jsonDocument(sensoriArray);
+                    file.write(jsonDocument.toJson());
+                    file.close();
+                    sceltaNome->removeItem(i);
+                    qDebug() << "Sensore" << sensoreDaRimuovere << "rimosso con successo.";
+                    break;
+                }
+                qDebug() << "Impossibile rimuovere" << sensoreDaRimuovere;
                 break;
             }
+            ++i;
         }
-    }
-
-    // Scrivi il JSON aggiornato sul file
-    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QJsonDocument jsonDocument(sensoriArray);
-        file.write(jsonDocument.toJson());
-        file.close();
-        qDebug() << "Sensore eliminato con successo.";
-    } else {
-        qDebug() << "Errore nell'apertura del file.";
     }
     this->updateSensors();
 }
@@ -257,9 +246,8 @@ QVector<Sensor*> MainWindow::caricaSensori(const QString& fileName){
         QString tipo = sensoreObject["tipo"].toString();
 
         // Crea il sensore in base al tipo
-        Sensor* nuovoSensore = Sensor::costruttore(nome,tipo);
+        Sensor* nuovoSensore = Dialog::costruttore(nome,tipo);
         if (nuovoSensore) {
-            // Aggiungi il sensore al QVector
             sensori.append(nuovoSensore);
         } else {
             qDebug() << "Tipo di sensore non valido: " << tipo;

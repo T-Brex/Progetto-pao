@@ -4,7 +4,7 @@
 #include <QMenuBar>
 #include <QMenu>
 
-#include <QAction>                                                                                                                                                                                                                                                          Copy code
+#include <QAction>
 
 
 
@@ -80,34 +80,15 @@ int main(int argc, char *argv[])
     //Prova con sezioni
     QVector<QWidget *> frame;
     frame.push_front(SensorPanel::getSensorsWidget(sp));
-
     frame.push_front(airQ);
 
 
-
-
-    //MainWindow w(MainWindow::caricaSensore(new QString("Sensore 5"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
-
-    //MainWindow::nuovoSensore(QString::fromStdString("cacca"),"Dust");
     MainWindow w(MainWindow::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
-
-    //w.salvaSensori(s);
-    //MainWindow::salvaSensori(s,"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    //MainWindow::eliminaSensore(QString::fromStdString("Cacca"),"C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    //MainWindow::nuovoSensore(QString::fromStdString("cacca"),"Dust");
-
-
-
-
-
-
-    //SearchMenu *sm=new SearchMenu();
-    //MainWindow w(sm);
+    w.show();
     w.setWindowTitle("Sensori");
+    //w.resize(1280, 1024);
 
-    w.resize(1280, 1024);
 
-    //w.show();
 
 
     CartesianPlane window;
@@ -116,7 +97,7 @@ int main(int argc, char *argv[])
     Sensor * d = new Dust("gigi");
     window.addSensor(d);
     window.addSensor(d);
-    window.show();
+    //window.show();
 
 
     return a.exec();
