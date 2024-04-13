@@ -30,7 +30,7 @@ private:
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
     Dialog *addDialog;
-    QDialog *deleteDialog = new QDialog(this);
+    QDialog *deleteDialog = new QDialog(nullptr);
     QComboBox* sceltaNome=new QComboBox;
     QPushButton* deleteButton=new QPushButton("Elimina");
     QVBoxLayout *layout = new QVBoxLayout(deleteDialog);
@@ -57,9 +57,6 @@ public slots:
     void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
     void updateSensors();
-private slots:
-    //void showAddDialog();
-    //void showDialog();
 
 signals:
     void acceptNewAct();

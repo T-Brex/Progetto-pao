@@ -51,7 +51,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     connect(menuBar, &MenuBar::showAddDialog, addDialog, &Dialog::open);
     connect(addDialog, &Dialog::newTrigger, this, [&]()
             {
-                //addDialog->lineEdit->setFocus();
+                addDialog->lineEdit->setFocus();
                 nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
                 addDialog->lineEdit->clear();
                 addDialog->close();
@@ -68,13 +68,13 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
                     addDialog->hide();
                 });
-    });*/
+
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
                 salvaSensori(s);
             });
-
+   });*/
 
     connect(menuBar, &MenuBar::deleteTrigger, deleteDialog, &Dialog::open);
     connect(deleteButton,&QPushButton::clicked,this,[&](){
@@ -83,6 +83,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
         deleteDialog->close();
         sceltaNome->removeItem(sceltaNome->currentIndex());
     });
+
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
                 caricaSensori();
@@ -209,28 +210,25 @@ void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere, const QString
     if (!sensoreDaRimuovere.isEmpty()) {
         QFile file(fileName);
         QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
-        int i=0;
+
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
             qDebug()<<sensoreObject["nome"] <<"=="<<sensoreDaRimuovere;
+
             if (sensoreObject["nome"] == sensoreDaRimuovere) {
-                qDebug()<<i;
                 it = sensoriArray.erase(it);
-                //sceltaNome->removeItem(i);
+
                 // Scrivi il JSON aggiornato sul file
                 if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
                     QJsonDocument jsonDocument(sensoriArray);
                     file.write(jsonDocument.toJson());
                     file.close();
-                    //qDebug()<<i;
-
                     qDebug() << "Sensore" << sensoreDaRimuovere << "rimosso con successo.";
                     break;
                 }
                 qDebug() << "Impossibile rimuovere" << sensoreDaRimuovere;
                 break;
             }
-            ++i;
         }
     }
     this->updateSensors();
