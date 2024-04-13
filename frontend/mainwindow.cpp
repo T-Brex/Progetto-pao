@@ -48,21 +48,18 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
 
 
-    connect(menuBar, &MenuBar::showAddDialog, this, [&]()
+    connect(menuBar, &MenuBar::showAddDialog, addDialog, &Dialog::open);
+    connect(addDialog, &Dialog::newTrigger, this, [&]()
             {
-        addDialog->open();
-        addDialog->lineEdit->setFocus();
-        connect(addDialog, &Dialog::newTrigger, this, [&]()
-                {
-                    nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
-            addDialog->lineEdit->clear();
-                    addDialog->close();
+                //addDialog->lineEdit->setFocus();
+                nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+                addDialog->lineEdit->clear();
+                addDialog->close();
 
-                });
-        });
+            });
 
 
-    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
+    /*connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
                 {
         addDialog->show();
         connect(addDialog, &Dialog::newTrigger, this, [&]()
@@ -71,20 +68,21 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
                     addDialog->hide();
                 });
-    });
+    });*/
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
                 salvaSensori(s);
             });
 
-    connect(menuBar, &MenuBar::deleteTrigger, this, [&](){
-        deleteDialog->open();
-        connect(deleteButton,&QPushButton::clicked,this,[&](){
-            eliminaSensore(sceltaNome->currentText());
-            deleteDialog->close();
-                });
-            });
+
+    connect(menuBar, &MenuBar::deleteTrigger, deleteDialog, &Dialog::open);
+    connect(deleteButton,&QPushButton::clicked,this,[&](){
+
+        eliminaSensore(sceltaNome->currentText());
+        deleteDialog->close();
+        sceltaNome->removeItem(sceltaNome->currentIndex());
+    });
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
                 caricaSensori();
@@ -181,9 +179,9 @@ void MainWindow::nuovoSensore(const QString& nome, const QString& tipo, const QS
             file.write(jsonDocument.toJson());
             file.close();
             sceltaNome->addItem(nome);
-            qDebug() << "Sensore<<"<< nome <<"aggiunto con successo.";
+            qDebug() << "Sensore<<"<< nome <<"aggiunto con successo";
         } else {
-            qDebug() << "Errore nell'apertura del file.";
+            qDebug() << "Errore nell'apertura del file";
         }
         this->updateSensors();
     }
@@ -207,20 +205,25 @@ void MainWindow::eliminaSensore(const QString& sensoreDaRimuovere, const QString
 
 
     // Rimuovi il sensore specificato, se presente
+    qDebug()<<sensoreDaRimuovere;
     if (!sensoreDaRimuovere.isEmpty()) {
         QFile file(fileName);
         QJsonArray sensoriArray = MainWindow::leggiJson(fileName);
         int i=0;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
+            qDebug()<<sensoreObject["nome"] <<"=="<<sensoreDaRimuovere;
             if (sensoreObject["nome"] == sensoreDaRimuovere) {
+                qDebug()<<i;
                 it = sensoriArray.erase(it);
+                //sceltaNome->removeItem(i);
                 // Scrivi il JSON aggiornato sul file
                 if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
                     QJsonDocument jsonDocument(sensoriArray);
                     file.write(jsonDocument.toJson());
                     file.close();
-                    sceltaNome->removeItem(i);
+                    //qDebug()<<i;
+
                     qDebug() << "Sensore" << sensoreDaRimuovere << "rimosso con successo.";
                     break;
                 }

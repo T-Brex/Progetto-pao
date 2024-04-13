@@ -1,30 +1,12 @@
 [
     {
-        "nome": "sca",
+        "nome": "222",
         "pm10": 0,
         "pm25": 0,
         "tipo": "Dust"
     },
     {
-        "nome": "q",
-        "pm10": 0,
-        "pm25": 0,
-        "tipo": "Dust"
-    },
-    {
-        "nome": "kyu",
-        "pm10": 0,
-        "pm25": 0,
-        "tipo": "Dust"
-    },
-    {
-        "nome": "kuy",
-        "pm10": 0,
-        "pm25": 0,
-        "tipo": "Dust"
-    },
-    {
-        "nome": "few",
+        "nome": "1",
         "pm10": 0,
         "pm25": 0,
         "tipo": "Dust"
