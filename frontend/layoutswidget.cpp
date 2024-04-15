@@ -1,5 +1,5 @@
 #include "layoutswidget.h"
-#include "frontend/dialog.h"
+#include "frontend/adddialog.h"
 #include "qdialog.h"
 #include "qpushbutton.h"
 //#include "searchMenu.h"

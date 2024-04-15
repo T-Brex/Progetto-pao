@@ -1,7 +1,7 @@
 #ifndef LAYOUTSWIDGET_H
 #define LAYOUTSWIDGET_H
 
-#include "frontend/dialog.h"
+#include "frontend/adddialog.h"
 #include "frontend/searchMenu.h"
 #include "frontend/sensorPanel.h"
 #include <QStackedWidget>

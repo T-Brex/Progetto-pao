@@ -1,16 +1,13 @@
 #include "json.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
+#include "qmessagebox.h"
 #include <QJsonArray>
 #include <QFile>
-//QJsonArray Json::sensoriArray = leggiJson();
 
-Json::Json()//:file("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"),sensoriArray(leggiJson())
+Json::Json()
 {
-    //QFile file;
-    //QJsonArray jsonArray;
-    //QJsonDocument jsonDocument;
-    //QJsonObject jsonObject;
+
 }
 QJsonArray Json::leggiJson(const QString& fileName){
     // Leggi il contenuto del file JSON esistente, se presente
@@ -38,8 +35,11 @@ void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString&
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
             if (sensoreObject["nome"] == nome) {
+                QMessageBox *existingName=new QMessageBox(nullptr);
+                existingName->setText("Il sensore '" + nome + "' esiste già nel file");
+                existingName->open();
                 sensorePresente = true;
-                qDebug() << "Il sensore" << nome << "esiste già nel file";
+                qDebug() << "Il sensore '"<< nome <<"' esiste già nel file";
                 break;
             }
         }
@@ -69,6 +69,9 @@ void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString&
             //this->updateSensors();
         }
     }else{
+        QMessageBox *emptyName=new QMessageBox(nullptr);
+        emptyName->setText("Inserire un nome");
+        emptyName->open();
         qDebug()<<"Inserire un nome";
     }
 

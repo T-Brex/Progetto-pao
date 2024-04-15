@@ -12,6 +12,7 @@ SOURCES += \
     backend/json.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
+    frontend/deletedialog.cpp \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     backend/json.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
+    frontend/deletedialog.h \
     frontend/layoutswidget.h \
     frontend/mainwindow.h \
     frontend/searchMenu.h \

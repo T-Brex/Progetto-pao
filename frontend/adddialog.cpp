@@ -3,7 +3,11 @@
 #include <QLineEdit>
 #include "qpushbutton.h"
 
-AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea")) {
+AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea"))
+    //,emptyName(new QMessageBox("Inserire un nome"))
+{
+    emptyName.setText("Inserire un nome");
+
     sceltaTipo->addItem("Dust");
     sceltaTipo->addItem("Humidity");
     sceltaTipo->addItem("Wind");
@@ -29,7 +33,7 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     setLayout(layout);
 
     connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
-    //connect(this, &AddDialog::accept, this, &QDialog::close);
+    //connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
 
 }
 

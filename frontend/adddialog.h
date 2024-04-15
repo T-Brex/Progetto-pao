@@ -2,6 +2,7 @@
 #define ADDDIALOG_H
 
 #include "qcombobox.h"
+#include "qmessagebox.h"
 #include <QDialog>
 #include <QLineEdit>
 
@@ -13,6 +14,8 @@ public:
     QLineEdit *lineEdit;
     QComboBox *sceltaTipo;
     QPushButton *newButton;
+    QMessageBox emptyName;
+    QMessageBox existingName;
 
     AddDialog(QWidget *parent = nullptr);
 

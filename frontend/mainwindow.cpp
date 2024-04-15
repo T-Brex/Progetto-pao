@@ -2,7 +2,7 @@
 #include "frontend/adddialog.h"
 #include "frontend/sensorPanel.h"
 #include "frontend/addDialog.h"
-#include "qjsonarray.h"
+#include "qmessagebox.h"
 #include <QApplication>
 #include <QRadioButton>
 #include <QMenuBar>
@@ -31,17 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),addDialog(new AddDialog(this)),deleteDialog(new QDialog(this))
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
 {
-    QJsonArray sensoriArray = json->leggiJson();
 
-    for (const auto& sensore : sensoriArray) {
-        QJsonObject sensoreObject = sensore.toObject();
-        QString nome = sensoreObject["nome"].toString();
-        sceltaNome->addItem(nome);
-    }
-    layout->addWidget(sceltaNome);
-    layout->addWidget(deleteButton);
+    QMessageBox emptyName;
+    emptyName.setDefaultButton(new QPushButton);
+    emptyName.setText("Inserire un nome");
+    emptyName.open();
+
 
     setMenuBar(menuBar);
 
@@ -50,14 +47,15 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
     connect(menuBar, &MenuBar::showAddDialog, addDialog, &AddDialog::open);
     connect(addDialog, &AddDialog::newTrigger, this, [&]()
-            {
-                //addDialog->lineEdit->setFocus();
-                json->nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
-                this->updateSensors();
-                sceltaNome->addItem(addDialog->lineEdit->text());
-                addDialog->lineEdit->clear();
-                addDialog->close();
-            });
+        {
+            //addDialog->lineEdit->setFocus();
+            Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+            this->updateSensors();
+
+            deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+            addDialog->lineEdit->clear();
+            addDialog->close();
+        });
 
 
     /*connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
@@ -78,17 +76,17 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
    });*/
 
     connect(menuBar, &MenuBar::showDeleteDialog, deleteDialog, &AddDialog::open);
-    connect(deleteButton,&QPushButton::clicked,this,[&](){
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
 
-        json->eliminaSensore(sceltaNome->currentText());
+        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
         this->updateSensors();
         deleteDialog->close();
-        sceltaNome->removeItem(sceltaNome->currentIndex());
+        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
     });
 
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
-        json->caricaSensori();
+        Json::caricaSensori();
             });
     setCentralWidget(layoutsWidget);
 }
@@ -115,7 +113,7 @@ MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
 
 void MainWindow::updateSensors() {
 
-    layoutsWidget = new LayoutsWidget(json->caricaSensori());
+    layoutsWidget = new LayoutsWidget(Json::caricaSensori());
     setCentralWidget(layoutsWidget);
 }
 
