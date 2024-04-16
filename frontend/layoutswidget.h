@@ -30,6 +30,8 @@ public:
     LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent = nullptr);//Eliminabile(?)
     ~LayoutsWidget();
 
+    void updateSensors();
+
 };
 
 #endif // LAYOUTSWIDGET_H

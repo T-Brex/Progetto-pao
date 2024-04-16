@@ -1,9 +1,11 @@
 #include "layoutswidget.h"
-#include "frontend/adddialog.h"
+//#include "frontend/adddialog.h"
 #include "qdialog.h"
 #include "qpushbutton.h"
 //#include "searchMenu.h"
-//#include "mainWindow.h"
+#include "mainWindow.h"
+#include "backend/json.h"
+
 
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
@@ -49,6 +51,23 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     this->addWidget(simuWidget);
 
 }
+
+/*void LayoutsWidget::updateSensors() {
+    delete this;
+    //layoutsWidget = new LayoutsWidget(Json::caricaSensori());
+    setCentralWidget(new LayoutsWidget(Json::caricaSensori()));
+}*/
+
+
+
+
+
+
+
+
+
+
+
 
 //Eliminabile(?)
 LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent),

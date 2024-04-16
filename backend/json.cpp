@@ -24,7 +24,7 @@ QJsonArray Json::leggiJson(const QString& fileName){
     return sensoriArray;
 }
 
-void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
+QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
     // Se nome != ""
     if(!nome.isEmpty()){
         QFile file(fileName);
@@ -36,10 +36,12 @@ void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString&
             QJsonObject sensoreObject = it->toObject();
             if (sensoreObject["nome"] == nome) {
                 QMessageBox *existingName=new QMessageBox(nullptr);
+                existingName->setIcon(QMessageBox::Warning);
                 existingName->setText("Il sensore '" + nome + "' esiste già nel file");
                 existingName->open();
                 sensorePresente = true;
                 qDebug() << "Il sensore '"<< nome <<"' esiste già nel file";
+                return "exsist";
                 break;
             }
         }
@@ -63,6 +65,7 @@ void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString&
                 file.close();
                 //sceltaNome->addItem(nome);
                 qDebug() << "Sensore<<"<< nome <<"aggiunto con successo";
+                return "ok";
             } else {
                 qDebug() << "Errore nell'apertura del file";
             }
@@ -70,9 +73,11 @@ void Json::nuovoSensore(const QString& nome, const QString& tipo, const QString&
         }
     }else{
         QMessageBox *emptyName=new QMessageBox(nullptr);
+        emptyName->setIcon(QMessageBox::Warning);
         emptyName->setText("Inserire un nome");
         emptyName->open();
         qDebug()<<"Inserire un nome";
+        return "empty";
     }
 
 }

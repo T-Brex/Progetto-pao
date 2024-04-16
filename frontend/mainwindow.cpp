@@ -21,7 +21,7 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 
 
 MainWindow::MainWindow(QWidget *parent)
-    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
+    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar),deleteDialog(new DeleteDialog)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
@@ -45,16 +45,22 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
 
 
-    connect(menuBar, &MenuBar::showAddDialog, addDialog, &AddDialog::open);
+    connect(menuBar, &MenuBar::showAddDialog, addDialog, [&](){
+        addDialog->open();
+        addDialog->lineEdit->setFocus();
+});
     connect(addDialog, &AddDialog::newTrigger, this, [&]()
         {
             //addDialog->lineEdit->setFocus();
-            Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+            QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
             this->updateSensors();
+            if(result=="ok"){
+                deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                addDialog->close();
+            }else if(result=="exsisting"){
+                addDialog->lineEdit->clear();
+            }
 
-            deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
-            addDialog->lineEdit->clear();
-            addDialog->close();
         });
 
 

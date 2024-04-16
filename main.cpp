@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
     //emptyName.setDefaultButton(new QPushButton);
     emptyName.setText("Inserire un nome");
     //emptyName.open();
-
+    qDebug()<<"ok";
     w.show();
     w.setWindowTitle("Sensori");
     //w.resize(1280, 1024);

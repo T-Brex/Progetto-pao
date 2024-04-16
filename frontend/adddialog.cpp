@@ -2,11 +2,12 @@
 #include "qboxlayout.h"
 #include <QLineEdit>
 #include "qpushbutton.h"
+#include <QMessageBox>
 
 AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea"))
-    //,emptyName(new QMessageBox("Inserire un nome"))
+    //,emptyNameMessage(new QMessageBox)
 {
-    emptyName.setText("Inserire un nome");
+    //emptyNameMessage->setText("Inserire un nome");
 
     sceltaTipo->addItem("Dust");
     sceltaTipo->addItem("Humidity");

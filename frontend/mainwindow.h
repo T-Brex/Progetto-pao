@@ -26,20 +26,18 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-
     Q_OBJECT
-private:
 
+private:
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
     AddDialog *addDialog;
-    DeleteDialog *deleteDialog= new DeleteDialog(this);
+    DeleteDialog *deleteDialog;
 
 
 public:
     MainWindow(QWidget *parent = nullptr);
     MainWindow(const QVector<Sensor*>& s, QWidget *parent = nullptr);
-
     MainWindow(SearchMenu *menu, QWidget *parent=nullptr);//Eliminabile(?)    
     MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);//Eliminabile(?)
     MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);//Eliminabile(?)

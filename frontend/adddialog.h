@@ -14,13 +14,15 @@ public:
     QLineEdit *lineEdit;
     QComboBox *sceltaTipo;
     QPushButton *newButton;
-    QMessageBox emptyName;
-    QMessageBox existingName;
+    //QMessageBox *emptyNameMessage;
+    //QMessageBox *existingNameMessage;
 
     AddDialog(QWidget *parent = nullptr);
 
 signals:
     void newTrigger();
+    void emptyName();
+    void existingName();
 };
 
 #endif // ADDDIALOG_H
