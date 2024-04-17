@@ -31,8 +31,8 @@ class MainWindow : public QMainWindow
 private:
     LayoutsWidget* layoutsWidget;
     MenuBar *menuBar;
-    AddDialog *addDialog;
-    DeleteDialog *deleteDialog;
+    //AddDialog *addDialog;
+    //DeleteDialog *deleteDialog;
 
 
 public:

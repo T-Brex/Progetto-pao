@@ -17,12 +17,14 @@ public:
     //unsigned int *filters;
     QVBoxLayout * layout;
     QLineEdit *lineEdit;
-    QPushButton *add;
+    QPushButton *addButton;
+    QPushButton *deleteButton;
     SearchMenu(QWidget* parent = nullptr);
 
 public slots:
     //static void onTextChanged(const QString &text);
 signals:
     void showAddDialog();
+    void showDeleteDialog();
 };
 

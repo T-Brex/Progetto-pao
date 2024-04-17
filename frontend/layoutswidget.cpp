@@ -31,33 +31,17 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
     simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
     searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
-    deleteDialog(new DeleteDialog(nullptr))//,dialog(new Dialog())
+    deleteDialog(new DeleteDialog(nullptr))
 {
 
-    //costruzione layout sensori
-    //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    /*connect(addDialog, &AddDialog::newTrigger, this, [&]()
-            {
-                //addDialog->lineEdit->setFocus();
-                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
-                //this->updateSensors();
-                //this=new LayoutsWidget;
-                if(result=="ok"){
-                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
-                    addDialog->close();
-                }else if(result=="exsisting"){
-                    addDialog->lineEdit->clear();
-                }
-
-      });*/
-
-    //sensWindowLayout->addWidget(dialog);
-
-
-    //costruzione layout sensori con trasformazione da Sensor a SensorPanel
-    for(auto i=0;i<s.size();i++){
-        sensLayout->addWidget(new SensorPanel(*s[i]));
+    QVector<Sensor*> sensors=Json::caricaSensori();
+    int i=0;
+    for(auto it=sensors.begin();it!=sensors.end();++it){
+        sensorsPanels.push_back(new SensorPanel(*sensors[i]));
+        sensLayout->addWidget(sensorsPanels[i]);
+        ++i;
     }
+
     this->addWidget(sensWindow);
 
     //costruzione layout simulazione
@@ -69,10 +53,28 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 }
 
 void LayoutsWidget::addSensor(Sensor *s) {
-    sensLayout->addWidget(new SensorPanel(*s));
+    sensorsPanels.push_back(new SensorPanel(*s));
+    sensLayout->addWidget(sensorsPanels.last());
 }
 void LayoutsWidget::deleteSensor(QString s) {
+    for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {
+        qDebug() << (*it)->getName() << "==" << s;
+        if((*it)->getName() == s) {
+            // Rimuovi il widget dalla disposizione
+            sensLayout->removeWidget(*it);
+            sensLayout->update();
+            // Dealloca il widget
+            delete *it;
+            // Rimuovi il puntatore dal vettore
+            it = sensorsPanels.erase(it);
 
+
+            // Assicurati di non superare la fine del vettore
+            if (it == sensorsPanels.end())
+                break;
+
+        }
+    }
 
 }
 

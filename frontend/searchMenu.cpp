@@ -3,13 +3,14 @@
 //#include "frontend/mainwindow.h"
 //#include <QString>
 
-SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),add(new QPushButton(nullptr)){
+SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),addButton(new QPushButton("Add")),deleteButton(new QPushButton("Delete")){
     //QVBoxLayout * layout = new QVBoxLayout(this);
     //QLineEdit *lineEdit = new QLineEdit("ass");
     //QPushButton *add=new QPushButton("add");
-    add->setText("add");
+
     layout->addWidget(lineEdit);
-    layout->addWidget(add);
+    layout->addWidget(addButton);
+    layout->addWidget(deleteButton);
     //layout->addWidget(new QPushButton("remove all"));
     //layout->addWidget(new QPushButton("submit"));
     layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
@@ -28,8 +29,9 @@ void SearchMenu::onTextChanged(const QString &text) {
 
 
 }*/
-    connect(add, &QPushButton::clicked, this, [=](){
+    connect(addButton, &QPushButton::clicked, this, [=](){
         qDebug()<<lineEdit->text();
     });
-    connect(add, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
+    connect(addButton, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
+    connect(deleteButton, &QPushButton::clicked, this, &SearchMenu::showDeleteDialog);
 }

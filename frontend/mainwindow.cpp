@@ -21,7 +21,7 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 
 
 MainWindow::MainWindow(QWidget *parent)
-    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar),deleteDialog(new DeleteDialog)
+    :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar),addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)//,addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
 {
 
     QMessageBox emptyName;
@@ -41,42 +41,38 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
 
     setMenuBar(menuBar);
-
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
-
-
-    connect(menuBar, &MenuBar::showAddDialog, addDialog, [&](){
-        addDialog->open();
-        addDialog->lineEdit->setFocus();
+    connect(menuBar, &MenuBar::showAddDialog, layoutsWidget->addDialog, [&](){
+        layoutsWidget->addDialog->open();
+        layoutsWidget->addDialog->lineEdit->setFocus();
     });
-    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, addDialog, [&](){
-        addDialog->open();
-        addDialog->lineEdit->setFocus();
+    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, layoutsWidget->addDialog, [&](){
+        layoutsWidget->addDialog->open();
+        layoutsWidget->addDialog->lineEdit->setFocus();
     });
 
-    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+    connect(layoutsWidget->addDialog, &AddDialog::newTrigger, this, [&]()
         {
-
-            //addDialog->lineEdit->setFocus();
-            QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+            QString result=Json::nuovoSensore(layoutsWidget->addDialog->lineEdit->text(), layoutsWidget->addDialog->sceltaTipo->currentText());
 
             if(result=="ok"){
-                layoutsWidget->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
-                deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
-                addDialog->lineEdit->clear();
-                addDialog->close();
+                layoutsWidget->addSensor(Json::costruttore(layoutsWidget->addDialog->lineEdit->text(), layoutsWidget->addDialog->sceltaTipo->currentText()));
+                layoutsWidget->deleteDialog->sceltaNome->addItem(layoutsWidget->addDialog->lineEdit->text());
+                layoutsWidget->addDialog->lineEdit->clear();
+                layoutsWidget->addDialog->close();
             }
         });
 
-
-
-    connect(menuBar, &MenuBar::showDeleteDialog, deleteDialog, &AddDialog::open);
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
-        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
-        layoutsWidget->deleteSensor(deleteDialog->sceltaNome->currentText());
-        deleteDialog->close();
-        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+    connect(layoutsWidget->deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
+        Json::eliminaSensore(layoutsWidget->deleteDialog->sceltaNome->currentText());
+        layoutsWidget->deleteSensor(layoutsWidget->deleteDialog->sceltaNome->currentText());
+        layoutsWidget->deleteDialog->close();
+        layoutsWidget->deleteDialog->sceltaNome->removeItem(layoutsWidget->deleteDialog->sceltaNome->currentIndex());
     });
+
+
+    connect(layoutsWidget->searchMenu,&SearchMenu::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
 
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
