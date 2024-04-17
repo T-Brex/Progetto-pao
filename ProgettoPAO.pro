@@ -36,7 +36,7 @@ HEADERS += \
     frontend/simulation.h \
     frontend/editor.h \
     frontend/sensorPanel.h \
-    backend/sensors.h
+    backend/sensors.h \
     frontend/simulationBar.h
 
 RESOURCES = resources.qrc \

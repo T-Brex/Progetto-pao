@@ -64,6 +64,3 @@ QWidget* SensorPanel::getSensorsWidget(const QVector<SensorPanel*>& sp){
     }
     return panels;
 }
-
-
-//void SensorPanel::update(){aggiornare valori}
