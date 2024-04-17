@@ -48,47 +48,44 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     connect(menuBar, &MenuBar::showAddDialog, addDialog, [&](){
         addDialog->open();
         addDialog->lineEdit->setFocus();
-});
+    });
+    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, addDialog, [&](){
+        addDialog->open();
+        addDialog->lineEdit->setFocus();
+    });
+
     connect(addDialog, &AddDialog::newTrigger, this, [&]()
         {
+
             //addDialog->lineEdit->setFocus();
             QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
-            this->updateSensors();
-            if(result=="ok"){
-                deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
-                addDialog->close();
-            }else if(result=="exsisting"){
-                addDialog->lineEdit->clear();
-            }
 
+            if(result=="ok"){
+                layoutsWidget->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
+                deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                addDialog->lineEdit->clear();
+                addDialog->close();
+            }
         });
 
 
-    /*connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, this, [&]()
-                {
-        addDialog->show();
-        connect(addDialog, &Dialog::newTrigger, this, [&]()
-                {
-                    nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
 
-                    addDialog->hide();
-                });
+    connect(menuBar, &MenuBar::showDeleteDialog, deleteDialog, &AddDialog::open);
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
+        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
+        layoutsWidget->deleteSensor(deleteDialog->sceltaNome->currentText());
+        deleteDialog->close();
+        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+    });
 
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
-                salvaSensori(s);
+        Json::salvaSensori(s);
             });
-   });*/
 
-    connect(menuBar, &MenuBar::showDeleteDialog, deleteDialog, &AddDialog::open);
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
 
-        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
-        this->updateSensors();
-        deleteDialog->close();
-        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
-    });
+
 
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {

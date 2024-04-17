@@ -46,7 +46,9 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
         layout->addWidget(values);
     }
 }
-
+QString SensorPanel::getName(){
+    return name->text();
+}
 SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent): QWidget(parent), name(s.name), values(s.values), ico(s.ico){
 
 }

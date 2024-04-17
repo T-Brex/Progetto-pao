@@ -2,6 +2,7 @@
 #define LAYOUTSWIDGET_H
 
 #include "frontend/adddialog.h"
+#include "frontend/deletedialog.h"
 #include "frontend/searchMenu.h"
 #include "frontend/sensorPanel.h"
 #include <QStackedWidget>
@@ -13,6 +14,7 @@ public:
     QWidget* sensWindow=new QWidget;
     QHBoxLayout* sensWindowLayout=new QHBoxLayout(sensWindow);
 
+    QVector<SensorPanel*> sensorsPanels;
     QWidget *sensWidget;
     QVBoxLayout *sensLayout;
 
@@ -20,7 +22,9 @@ public:
     QHBoxLayout *simuLayout;
 
     SearchMenu *searchMenu;
-    //Dialog *dialog;
+
+    AddDialog *addDialog;
+    DeleteDialog *deleteDialog;
 
     LayoutsWidget(QWidget * parent = nullptr);
     LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);//Eliminabile(?)
@@ -30,7 +34,9 @@ public:
     LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent = nullptr);//Eliminabile(?)
     ~LayoutsWidget();
 
-    void updateSensors();
+public slots:
+    void addSensor(Sensor *s);
+    void deleteSensor(QString s);
 
 };
 

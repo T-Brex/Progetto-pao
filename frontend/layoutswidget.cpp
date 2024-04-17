@@ -9,6 +9,7 @@
 
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+    ,searchMenu(new SearchMenu(this)),addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
     //,dialog(new Dialog(nullptr))
 {
 
@@ -28,17 +29,30 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
 LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
     sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
-    simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget)),
-    searchMenu(new SearchMenu(this))//,dialog(new Dialog())
+    simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
+    searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
+    deleteDialog(new DeleteDialog(nullptr))//,dialog(new Dialog())
 {
 
     //costruzione layout sensori
-    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    /*connect(addDialog, &AddDialog::newTrigger, this, [&]()
+            {
+                //addDialog->lineEdit->setFocus();
+                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+                //this->updateSensors();
+                //this=new LayoutsWidget;
+                if(result=="ok"){
+                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                    addDialog->close();
+                }else if(result=="exsisting"){
+                    addDialog->lineEdit->clear();
+                }
 
+      });*/
 
     //sensWindowLayout->addWidget(dialog);
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+
 
     //costruzione layout sensori con trasformazione da Sensor a SensorPanel
     for(auto i=0;i<s.size();i++){
@@ -50,13 +64,18 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     simuLayout->addWidget(new QPushButton("SUCA"));
     this->addWidget(simuWidget);
 
+    sensWindowLayout->addWidget(searchMenu);
+    sensWindowLayout->addWidget(sensWidget);
 }
 
-/*void LayoutsWidget::updateSensors() {
-    delete this;
-    //layoutsWidget = new LayoutsWidget(Json::caricaSensori());
-    setCentralWidget(new LayoutsWidget(Json::caricaSensori()));
-}*/
+void LayoutsWidget::addSensor(Sensor *s) {
+    sensLayout->addWidget(new SensorPanel(*s));
+}
+void LayoutsWidget::deleteSensor(QString s) {
+
+
+}
+
 
 
 

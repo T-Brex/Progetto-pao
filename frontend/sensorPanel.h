@@ -20,6 +20,7 @@ public:
     //virtual void update();
     SensorPanel(const Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
+    QString getName();
     static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
 };
 /*
