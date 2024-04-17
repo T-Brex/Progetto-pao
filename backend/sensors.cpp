@@ -1,5 +1,7 @@
 #include "backend/sensors.h"
-
+//#include <cstdlib>
+#include <ctime>
+#include <random>
 Sensor::Sensor(const std::string& n):name(n){type="Sensor";}
 
 const std::string& Sensor::getName() const{return name;}
@@ -23,7 +25,7 @@ Sensor* Sensor::costruttore(const QString& nome, const QString& tipo){
 }
 Sensor::~Sensor(){}
 
-int Sensor::getRandomNumber() const{return rand() % 10;}
+int Sensor::getRandomNumber() const{return rand() % 21 -10;}
 
 
 //-------------------------------------------dust
@@ -38,8 +40,13 @@ Dust::Dust(const Dust& d):
 
 
 void Dust::updateValue(){
-    pm25 = rand() % 10;
-    pm10 = rand() % 10;
+    static std::mt19937 generator(std::random_device{}());
+
+    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+
+
+    pm25 = distribution(generator);
+    pm10 = distribution(generator);
 }
 
 
@@ -63,8 +70,14 @@ Humidity::Humidity(const Humidity& h):
 
 
 void Humidity::updateValue(){
-    percentage = rand() % 10;
-    humidity = rand() % 10;
+    static std::mt19937 generator(std::random_device{}());
+
+    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+
+
+    humidity = distribution(generator);
+    percentage = distribution(generator);
+
 }
 
 
@@ -88,7 +101,13 @@ Wind::Wind(const Wind& w):
     wind(w.wind){this->updateType("Wind");}
 
 void Wind::updateValue(){
-    wind = rand() % 10;
+    static std::mt19937 generator(std::random_device{}());
+
+    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+
+
+    wind = distribution(generator);
+
 }
 
 std::vector<double> Wind::getValue() const{
@@ -111,7 +130,13 @@ Termometer::Termometer(const Termometer& t):
     temperature(t.temperature){this->updateType("Termometer");}
 
 void Termometer::updateValue(){
-    temperature = rand() % 10;
+    static std::mt19937 generator(std::random_device{}());
+
+    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+
+
+    temperature = distribution(generator);
+
    }
 
 std::vector<double> Termometer::getValue() const{
@@ -138,23 +163,31 @@ AirQuality::AirQuality(const AirQuality& a):
     {this->updateType("AirQuality");}
 
 std::vector<double> AirQuality::getValue() const{
-    std::vector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};
-    return out;}
-
-
-double AirQuality::getQuality(){
-    return quality;
+    std::vector<double> v = {quality};
+    return v;
 }
+
+
+std::vector<double> AirQuality::getAll(){
+std::vector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};
+return out;}
 
 void AirQuality::updateValue(){
     Dust::updateValue();
     Humidity::updateValue();
     Wind::updateValue();
     Termometer::updateValue();
-    quality = rand() % 10;//calcolo qualita sulla base di tutti i sensori
+
+    static std::mt19937 generator(std::random_device{}());
+
+    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+
+
+    quality = distribution(generator);
+
     }
 
 QVector<QString> AirQuality::getNameValues() const{
-    QVector<QString> v = {"pm10","pm25","humidity","percentage","wind","temperature","quality"};
+    QVector<QString> v = {"quality"};
     return v;
 }

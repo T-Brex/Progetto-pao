@@ -86,7 +86,7 @@ public:
     void updateValue() ;
     std::vector<double> getValue() const;
     QVector<QString> getNameValues() const;        //restituisce tutti gli attributi   (Attenzione all'immondizia)
-    double getQuality() ;             //restituisce la qualità dell'aria
+    std::vector<double> getAll() ;             //restituisce la qualità dell'aria
 };
 
 #endif // SENSORS_H

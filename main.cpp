@@ -4,7 +4,7 @@
 #include <QMenuBar>
 #include <QMenu>
 
-#include <QAction>                                                                                                                                                                                                                                                          Copy code
+//         Copy code
 
 
 
@@ -12,8 +12,8 @@
 #include <QAction>
 #include <QString>
 
-#include "frontend/cartesianPlane.h"
 
+#include "frontend/simulation.h"
 
 
 #include <QCoreApplication>
@@ -109,13 +109,18 @@ int main(int argc, char *argv[])
 
     //w.show();
 
-
+    /*
     CartesianPlane window;
     window.setWindowTitle("Piano Cartesiano");
-    window.resize(400, 300);
+    window.resize(800, 500);
     Sensor * d = new Dust("gigi");
     window.addSensor(d);
-    window.addSensor(d);
+
+    window.show();
+*/
+    Simulation window(s);
+    window.setWindowTitle("simulation bar");
+    window.resize(900,900);
     window.show();
 
 
