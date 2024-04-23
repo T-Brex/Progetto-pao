@@ -10,10 +10,10 @@ class DeleteDialog : public QDialog
 {
     Q_OBJECT
 public:
-    QComboBox* sceltaNome=new QComboBox;
+    QComboBox* sceltaNome;
     QPushButton* deleteButton;
     QVBoxLayout *layout;
-    DeleteDialog(QWidget *parent = nullptr);
+    DeleteDialog(QWidget *parent);
 };
 
 #endif // DELETEDIALOG_H

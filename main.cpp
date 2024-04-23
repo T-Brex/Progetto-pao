@@ -18,6 +18,7 @@
 #include <QString>
 
 
+
 #include "frontend/simulation.h"
 
 
@@ -88,12 +89,10 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-    MainWindow w(Json::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
-    QMessageBox emptyName;
+    MainWindow w;
     //emptyName.setDefaultButton(new QPushButton);
-    emptyName.setText("Inserire un nome");
+    //emptyName.setText("Inserire un nome");
     //emptyName.open();
-    qDebug()<<"ok";
     w.show();
     w.setWindowTitle("Sensori");
     //w.resize(1280, 1024);

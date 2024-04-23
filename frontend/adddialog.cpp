@@ -14,7 +14,6 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     sceltaTipo->addItem("Wind");
     sceltaTipo->addItem("Termometer");
     sceltaTipo->addItem("AirQuality");
-    //lineEdit->setFocus();
 
     // Creazione del layout per la QDialog
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -34,7 +33,6 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     setLayout(layout);
 
     connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
-    //connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
 
 }
 
