@@ -51,7 +51,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
 
-    connect(layoutsWidget->addDialog, &AddDialog::newTrigger, this, [&]()
+    /*connect(layoutsWidget->addDialog, &AddDialog::newTrigger, this, [&]()
         {
             QString result=Json::nuovoSensore(layoutsWidget->addDialog->lineEdit->text(), layoutsWidget->addDialog->sceltaTipo->currentText());
 
@@ -61,10 +61,10 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
                 layoutsWidget->addDialog->lineEdit->clear();
                 layoutsWidget->addDialog->close();
             }
-        });
+        });*/
 
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
-    connect(layoutsWidget->deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
+    /*connect(layoutsWidget->deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
         Json::eliminaSensore(layoutsWidget->deleteDialog->sceltaNome->currentText());
         layoutsWidget->deleteSensor(layoutsWidget->deleteDialog->sceltaNome->currentText());
         layoutsWidget->deleteDialog->close();
@@ -73,6 +73,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
 
     connect(layoutsWidget->searchMenu,&SearchMenu::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+*/
 
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()

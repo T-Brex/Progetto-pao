@@ -3,7 +3,6 @@
 #include "qdialog.h"
 #include "qpushbutton.h"
 //#include "searchMenu.h"
-#include "mainWindow.h"
 #include "backend/json.h"
 
 
@@ -50,6 +49,37 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 
     sensWindowLayout->addWidget(searchMenu);
     sensWindowLayout->addWidget(sensWidget);
+
+
+    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&](){
+        addDialog->open();
+        addDialog->lineEdit->setFocus();
+    });
+
+    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+            {
+                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+
+                if(result=="ok"){
+                    addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
+                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                    addDialog->lineEdit->clear();
+                    addDialog->close();
+                }else{
+                    addDialog->lineEdit->setFocus();
+                }
+            });
+
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
+        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
+        deleteSensor(deleteDialog->sceltaNome->currentText());
+        deleteDialog->close();
+        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+    });
+
+
+    connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
+
 }
 
 void LayoutsWidget::addSensor(Sensor *s) {

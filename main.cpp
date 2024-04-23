@@ -83,12 +83,11 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-    MainWindow w(Json::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+    MainWindow w(Json::caricaSensori(":resources/dati.json"));
     QMessageBox emptyName;
     //emptyName.setDefaultButton(new QPushButton);
     emptyName.setText("Inserire un nome");
     //emptyName.open();
-    qDebug()<<"ok";
     w.show();
     w.setWindowTitle("Sensori");
     //w.resize(1280, 1024);

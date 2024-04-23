@@ -1,4 +1,5 @@
 #include "json.h"
+#include "qfileinfo.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
 #include "qmessagebox.h"
@@ -11,7 +12,11 @@ Json::Json()
 }
 QJsonArray Json::leggiJson(const QString& fileName){
     // Leggi il contenuto del file JSON esistente, se presente
+
+
+
     QFile file(fileName);
+
     QJsonArray sensoriArray;
     if (file.exists() && file.open(QIODevice::ReadOnly)) {
         QByteArray existingData = file.readAll();
@@ -24,12 +29,29 @@ QJsonArray Json::leggiJson(const QString& fileName){
     return sensoriArray;
 }
 
-QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName){
+QString Json::nuovoSensore(const QString nome, const QString tipo, const QString fileName){
     // Se nome != ""
+    //qDebug()<<fileName;
     if(!nome.isEmpty()){
+        QFileInfo fileInfo(fileName);
+
+        // Verifica se il file esiste
+        if (fileInfo.exists()) {
+            qDebug() << "Percorso assoluto del file:" << fileInfo.absoluteFilePath();
+            qDebug() << "Nome del file:" << fileInfo.fileName();
+            qDebug() << "Estensione del file:" << fileInfo.suffix();
+            qDebug() << "Permessi di lettura:" << (fileInfo.isReadable() ? "Sì" : "No");
+            qDebug() << "Permessi di scrittura:" << (fileInfo.isWritable() ? "Sì" : "No");
+            qDebug() <<"";
+
+        } else {
+            qDebug() << "Il file non esiste.";
+        }
+        QJsonArray sensoriArray = Json::leggiJson();
+        //qDebug()<<"fileName";
         QFile file(fileName);
-        QJsonArray sensoriArray = Json::leggiJson(fileName);
-        Sensor* sensore = Json::costruttore(nome,tipo);
+
+
         // Verifica se il sensore è già presente nel JSON
         bool sensorePresente = false;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
@@ -47,6 +69,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         }
         // Se il sensore non è presente, aggiungilo al JSON
         if (!sensorePresente) {
+            Sensor* sensore = Json::costruttore(nome,tipo);
             QJsonObject sensoreObject;
             sensoreObject["nome"] = nome;
             sensoreObject["tipo"] = sensore->getType();
@@ -68,7 +91,9 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
                 return "ok";
             } else {
                 qDebug() << "Errore nell'apertura del file";
+                return "diocane";
             }
+            return "diocane";
             //this->updateSensors();
         }
     }else{
@@ -79,7 +104,6 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         qDebug()<<"Inserire un nome";
         return "empty";
     }
-
 }
 
 void Json::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
@@ -93,13 +117,24 @@ void Json::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fil
 }
 
 void Json::eliminaSensore(const QString& sensoreDaRimuovere, const QString& fileName) {
+    QFileInfo fileInfo(fileName);
 
+    // Verifica se il file esiste
+    if (fileInfo.exists()) {
+        qDebug() << "Percorso assoluto del file:" << fileInfo.absoluteFilePath();
+        qDebug() << "Nome del file:" << fileInfo.fileName();
+        qDebug() << "Estensione del file:" << fileInfo.suffix();
+        qDebug() << "Permessi di lettura:" << (fileInfo.isReadable() ? "Sì" : "No");
+        qDebug() << "Permessi di scrittura:" << (fileInfo.isWritable() ? "Sì" : "No");
+    } else {
+        qDebug() << "Il file non esiste.";
+    }
 
     // Rimuovi il sensore specificato, se presente
     qDebug()<<sensoreDaRimuovere;
     if (!sensoreDaRimuovere.isEmpty()) {
         QFile file(fileName);
-        QJsonArray sensoriArray = Json::leggiJson(fileName);
+        QJsonArray sensoriArray = Json::leggiJson();
 
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
