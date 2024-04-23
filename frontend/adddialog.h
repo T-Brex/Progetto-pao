@@ -14,9 +14,6 @@ public:
     QLineEdit *lineEdit;
     QComboBox *sceltaTipo;
     QPushButton *newButton;
-    //QMessageBox *emptyNameMessage;
-    //QMessageBox *existingNameMessage;
-
     AddDialog(QWidget *parent = nullptr);
 
 signals:

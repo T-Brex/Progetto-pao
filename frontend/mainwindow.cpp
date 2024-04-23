@@ -2,11 +2,10 @@
 #include "frontend/adddialog.h"
 #include "frontend/sensorPanel.h"
 #include "frontend/addDialog.h"
-#include "qmessagebox.h"
 #include <QApplication>
 #include <QRadioButton>
 #include <QMenuBar>
-#include <QMenuBar>
+#include <QFileDialog>
 
 
 
@@ -31,13 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {}
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)//,addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
+    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
 {
-
-    QMessageBox emptyName;
-    emptyName.setDefaultButton(new QPushButton);
-    emptyName.setText("Inserire un nome");
-    emptyName.open();
 
 
     setMenuBar(menuBar);
@@ -46,34 +40,10 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
         layoutsWidget->addDialog->open();
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
-    connect(layoutsWidget->searchMenu,&SearchMenu::showAddDialog, layoutsWidget->addDialog, [&](){
-        layoutsWidget->addDialog->open();
-        layoutsWidget->addDialog->lineEdit->setFocus();
-    });
 
-    /*connect(layoutsWidget->addDialog, &AddDialog::newTrigger, this, [&]()
-        {
-            QString result=Json::nuovoSensore(layoutsWidget->addDialog->lineEdit->text(), layoutsWidget->addDialog->sceltaTipo->currentText());
-
-            if(result=="ok"){
-                layoutsWidget->addSensor(Json::costruttore(layoutsWidget->addDialog->lineEdit->text(), layoutsWidget->addDialog->sceltaTipo->currentText()));
-                layoutsWidget->deleteDialog->sceltaNome->addItem(layoutsWidget->addDialog->lineEdit->text());
-                layoutsWidget->addDialog->lineEdit->clear();
-                layoutsWidget->addDialog->close();
-            }
-        });*/
 
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
-    /*connect(layoutsWidget->deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
-        Json::eliminaSensore(layoutsWidget->deleteDialog->sceltaNome->currentText());
-        layoutsWidget->deleteSensor(layoutsWidget->deleteDialog->sceltaNome->currentText());
-        layoutsWidget->deleteDialog->close();
-        layoutsWidget->deleteDialog->sceltaNome->removeItem(layoutsWidget->deleteDialog->sceltaNome->currentIndex());
-    });
 
-
-    connect(layoutsWidget->searchMenu,&SearchMenu::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
-*/
 
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
@@ -85,9 +55,23 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 
 
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
-            {
-        Json::caricaSensori();
-            });
+    {
+        QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
+
+        // Verifica se l'utente ha selezionato un file
+        if (!fileName.isEmpty()) {
+            qDebug() << "Hai selezionato il file:" << fileName;
+            QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
+            for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
+                if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
+                    layoutsWidget->addSensor(*i);
+                    layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
+                }
+            }
+        } else {
+            qDebug() << "Nessun file selezionato.";
+        }
+    });
     setCentralWidget(layoutsWidget);
 }
 

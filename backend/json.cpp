@@ -86,15 +86,13 @@ QString Json::nuovoSensore(const QString nome, const QString tipo, const QString
                 QJsonDocument jsonDocument(sensoriArray);
                 file.write(jsonDocument.toJson());
                 file.close();
-                //sceltaNome->addItem(nome);
                 qDebug() << "Sensore<<"<< nome <<"aggiunto con successo";
                 return "ok";
             } else {
                 qDebug() << "Errore nell'apertura del file";
-                return "diocane";
+                return "openError";
             }
-            return "diocane";
-            //this->updateSensors();
+
         }
     }else{
         QMessageBox *emptyName=new QMessageBox(nullptr);
