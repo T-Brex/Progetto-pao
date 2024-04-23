@@ -37,10 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
-    connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
+    /*connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
-                //Json::salvaSensori(s);
-            });
+                Json::salvaSensori(s);
+            });*/
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
             {
                 QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
@@ -77,10 +77,10 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     });
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
 
-    connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
+    /*connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
         Json::salvaSensori(s);
-            });
+            });*/
 
 
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()

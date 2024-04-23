@@ -1,6 +1,6 @@
 #ifndef SENSORS_H
 #define SENSORS_H
-
+#include <QDateTime>
 #include <string>
 #include <QString>
 #include<vector>
@@ -10,6 +10,7 @@ class Sensor{
 private:
     QString name;
     QString type;
+    QDateTime creationDate;
 public:
     Sensor(const QString&);
     const QString& getName() const;
@@ -17,6 +18,7 @@ public:
     void modifyName(const QString&);
     //static Sensor* costruttore(const QString& nome, const QString& tipo);
     virtual QVector<double> getValue() const = 0 ;
+    virtual QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
     virtual ~Sensor();
     virtual void updateType(const QString& s){type =s;}

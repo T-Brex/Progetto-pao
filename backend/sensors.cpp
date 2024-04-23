@@ -1,14 +1,13 @@
 #include "backend/sensors.h"
 
 
-Sensor::Sensor(const QString& n):name(n){type="Sensor";}
-
-//#include <cstdlib>
-#include <ctime>
+Sensor::Sensor(const QString& n):name(n),type("Sensor"),creationDate(QDateTime::currentDateTime()){}
 #include <random>
 
 const QString& Sensor::getName() const{return name;}
-
+QDateTime Sensor::getCreationDate() const {
+    return creationDate;
+}
 void Sensor::modifyName(const QString& n){
     name=n;
 }
@@ -16,6 +15,7 @@ void Sensor::modifyName(const QString& n){
 Sensor::~Sensor(){}
 
 int Sensor::getRandomNumber() const{return rand() % 21 -10;}
+
 
 
 //-------------------------------------------dust
