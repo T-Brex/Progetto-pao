@@ -15,8 +15,8 @@ public:
     QPushButton *newButton;
     AddDialog(QWidget *parent = nullptr);
 
-signals:
-    void newTrigger();
+//signals:
+    //void newTrigger();
 };
 
 #endif // ADDDIALOG_H

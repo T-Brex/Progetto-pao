@@ -32,7 +32,7 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     // Imposta il layout per la QDialog
     setLayout(layout);
 
-    connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
+    //connect(newButton,  &QPushButton::clicked, this, &AddDialog::newTrigger);
 
 }
 

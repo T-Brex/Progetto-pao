@@ -1,8 +1,6 @@
 #include "json.h"
-#include "qfileinfo.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
-#include "qmessagebox.h"
 #include <QJsonArray>
 #include <QFile>
 #include <QDateTime> // Aggiunto per gestire la data e l'ora
@@ -27,8 +25,6 @@ QJsonArray Json::leggiJson(const QString& fileName) {
 
 QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName) {
     if (!nome.isEmpty()) {
-        // Ottieni la data e l'ora correnti
-        //QDateTime timestamp = QDateTime::currentDateTime();
 
         QJsonArray sensoriArray = Json::leggiJson(fileName);
         QFile file(fileName);
@@ -38,12 +34,8 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
             if (sensoreObject["nome"] == nome) {
-                QMessageBox *existingName=new QMessageBox(nullptr);
-                existingName->setIcon(QMessageBox::Warning);
-                existingName->setText("Il sensore '" + nome + "' esiste già nel file");
-                existingName->open();
                 sensorePresente = true;
-                return "esistente";
+                return "existing";
             }
         }
         // Se il sensore non è presente, aggiungilo al JSON
@@ -68,16 +60,15 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
                 file.close();
                 return "ok";
             } else {
-                return "errore";
+                return "openError";
             }
+            //return "ok";
         }
     } else {
-        QMessageBox *emptyName=new QMessageBox(nullptr);
-        emptyName->setIcon(QMessageBox::Warning);
-        emptyName->setText("Inserire un nome");
-        emptyName->open();
-        return "vuoto";
+
+        return "empty";
     }
+return "0";
 }
 
 void Json::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {

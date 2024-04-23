@@ -1,6 +1,7 @@
 #include "layoutswidget.h"
 //#include "frontend/adddialog.h"
 #include "qdialog.h"
+#include "qmessagebox.h"
 #include "qpushbutton.h"
 //#include "searchMenu.h"
 #include "backend/json.h"
@@ -35,7 +36,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
                 addDialog->lineEdit->setFocus();
             });
 
-    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+    connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
             {
                 QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
 
@@ -44,7 +45,17 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
                     deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
                     addDialog->lineEdit->clear();
                     addDialog->close();
-                }else{
+                }else if(result=="existing"){
+                    QMessageBox *existingName=new QMessageBox(nullptr);
+                    existingName->setIcon(QMessageBox::Warning);
+                    existingName->setText("Il sensore '" + addDialog->lineEdit->text() + "' esiste già nel file");
+                    existingName->open();
+                    addDialog->lineEdit->setFocus();
+                }else if(result=="empty"){
+                    QMessageBox *emptyName=new QMessageBox(nullptr);
+                    emptyName->setIcon(QMessageBox::Warning);
+                    emptyName->setText("Inserire un nome");
+                    emptyName->open();
                     addDialog->lineEdit->setFocus();
                 }
             });
@@ -68,7 +79,6 @@ void LayoutsWidget::addSensor(Sensor *s) {
 }
 void LayoutsWidget::deleteSensor(QString s) {
     for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {
-        qDebug() << (*it)->getName() << "==" << s;
         if((*it)->getName() == s) {
             // Rimuovi il widget dalla disposizione
             sensLayout->removeWidget(*it);
@@ -98,6 +108,7 @@ void LayoutsWidget::deleteSensor(QString s) {
 
 
 
+
 //Eliminabile(?)
 LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
@@ -107,8 +118,8 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     deleteDialog(new DeleteDialog(nullptr))
 {
 
-    QVector<Sensor*> sensors=Json::caricaSensori();
-    for(auto it=sensors.begin();it!=sensors.end();++it){
+    //QVector<Sensor*> sensors=Json::caricaSensori();
+    for(auto it=s.begin();it!=s.end();++it){
         addSensor(*it);
     }
 
@@ -130,7 +141,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
                 addDialog->lineEdit->setFocus();
             });
 
-    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+    connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
 
             {
 
