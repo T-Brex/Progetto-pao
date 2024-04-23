@@ -13,6 +13,7 @@
 #include <QString>
 
 #include "frontend/cartesianPlane.h"
+#include "backend/json.h"
 
 
 
@@ -83,7 +84,7 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-    MainWindow w(Json::caricaSensori(":resources/dati.json"));
+    MainWindow w;
     QMessageBox emptyName;
     //emptyName.setDefaultButton(new QPushButton);
     emptyName.setText("Inserire un nome");

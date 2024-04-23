@@ -2,6 +2,7 @@
 #include "frontend/adddialog.h"
 #include "frontend/sensorPanel.h"
 #include "frontend/addDialog.h"
+#include "backend/json.h"
 #include <QApplication>
 #include <QRadioButton>
 #include <QMenuBar>
@@ -22,12 +23,41 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
+
+
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
+    connect(menuBar, &MenuBar::showAddDialog, layoutsWidget->addDialog, [&](){
+        layoutsWidget->addDialog->open();
+        layoutsWidget->addDialog->lineEdit->setFocus();
+    });
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+    connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
+            {
+                //Json::salvaSensori(s);
+            });
+    connect(menuBar, &MenuBar::loadTrigger, this, [&]()
+            {
+                QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
+
+                // Verifica se l'utente ha selezionato un file
+                if (!fileName.isEmpty()) {
+                    qDebug() << "Hai selezionato il file:" << fileName;
+                    QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
+                    for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
+                        if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
+                            layoutsWidget->addSensor(*i);
+                            layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
+                        }
+                    }
+                } else {
+                    qDebug() << "Nessun file selezionato.";
+                }
+            });
     setCentralWidget(layoutsWidget);
 }
 
-MainWindow::~MainWindow() {}
+
 
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
@@ -40,20 +70,11 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
         layoutsWidget->addDialog->open();
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
-
-
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
-
-
-
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
         Json::salvaSensori(s);
             });
-
-
-
-
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
     {
         QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
@@ -115,7 +136,7 @@ void MainWindow::changeLayout(){
 };
 
 
-
+MainWindow::~MainWindow() {}
 
 
 

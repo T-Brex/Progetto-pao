@@ -2,7 +2,6 @@
 #define ADDDIALOG_H
 
 #include "qcombobox.h"
-#include "qmessagebox.h"
 #include <QDialog>
 #include <QLineEdit>
 
@@ -18,8 +17,6 @@ public:
 
 signals:
     void newTrigger();
-    void emptyName();
-    void existingName();
 };
 
 #endif // ADDDIALOG_H

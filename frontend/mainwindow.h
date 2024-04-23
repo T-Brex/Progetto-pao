@@ -1,9 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "backend/json.h"
-#include "frontend/adddialog.h"
-#include "frontend/deletedialog.h"
+
 #include "frontend/sensorPanel.h"
 
 #include "frontend/layoutswidget.h"

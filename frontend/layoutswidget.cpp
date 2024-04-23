@@ -7,25 +7,6 @@
 
 
 LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
-    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
-    ,searchMenu(new SearchMenu(this)),addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
-    //,dialog(new Dialog(nullptr))
-{
-
-    SearchMenu *searchMenu=new SearchMenu;
-
-    //costruzione layout sensori
-    sensWindowLayout->addWidget(searchMenu);
-
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
-
-    //costruzione layout simulazione
-    sensLayout->addWidget(new QPushButton("Fottiti la granda"));
-    this->addWidget(sensWindow);
-}
-
-LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
     sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
     simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
@@ -34,11 +15,8 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 {
 
     QVector<Sensor*> sensors=Json::caricaSensori();
-    int i=0;
     for(auto it=sensors.begin();it!=sensors.end();++it){
-        sensorsPanels.push_back(new SensorPanel(*sensors[i]));
-        sensLayout->addWidget(sensorsPanels[i]);
-        ++i;
+        addSensor(*it);
     }
 
     this->addWidget(sensWindow);
@@ -51,10 +29,11 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     sensWindowLayout->addWidget(sensWidget);
 
 
-    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&](){
-        addDialog->open();
-        addDialog->lineEdit->setFocus();
-    });
+    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
+            {
+                addDialog->open();
+                addDialog->lineEdit->setFocus();
+            });
 
     connect(addDialog, &AddDialog::newTrigger, this, [&]()
             {
@@ -70,7 +49,64 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
                 }
             });
 
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+            {
+                Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
+                deleteSensor(deleteDialog->sceltaNome->currentText());
+                deleteDialog->close();
+                deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+            });
+
+
+    connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
+
+}
+
+LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
+    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
+    sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
+    simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
+    searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
+    deleteDialog(new DeleteDialog(nullptr))
+{
+
+    QVector<Sensor*> sensors=Json::caricaSensori();
+    for(auto it=sensors.begin();it!=sensors.end();++it){
+        addSensor(*it);
+    }
+
+    this->addWidget(sensWindow);
+
+    //costruzione layout simulazione
+    simuLayout->addWidget(new QPushButton("SUCA"));
+    this->addWidget(simuWidget);
+
+    sensWindowLayout->addWidget(searchMenu);
+    sensWindowLayout->addWidget(sensWidget);
+
+
+    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
+    {
+        addDialog->open();
+        addDialog->lineEdit->setFocus();
+    });
+
+    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+    {
+                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+
+                if(result=="ok"){
+                    addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
+                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                    addDialog->lineEdit->clear();
+                    addDialog->close();
+                }else{
+                    addDialog->lineEdit->setFocus();
+                }
+    });
+
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+    {
         Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
         deleteSensor(deleteDialog->sceltaNome->currentText());
         deleteDialog->close();
