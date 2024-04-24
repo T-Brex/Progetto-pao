@@ -88,31 +88,17 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-    MainWindow w(Json::caricaSensori("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json"));
+    MainWindow w(Json::caricaSensori("C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json"));
     QMessageBox emptyName;
     //emptyName.setDefaultButton(new QPushButton);
     emptyName.setText("Inserire un nome");
     //emptyName.open();
     qDebug()<<"ok";
-    w.show();
     w.setWindowTitle("Sensori");
-    //w.resize(1280, 1024);
+    w.resize(1280, 1024);
+    w.show();
 
 
-
-    /*
-    CartesianPlane window;
-    window.setWindowTitle("Piano Cartesiano");
-    window.resize(800, 500);
-    Sensor * d = new Dust("gigi");
-    window.addSensor(d);
-<<<<<<< HEAD
-    window.addSensor(d);
-    //window.show();
-=======
-
-    window.show();
-*/
     Simulation window(s);
     window.setWindowTitle("simulation bar");
     window.resize(900,900);

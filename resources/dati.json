@@ -4,5 +4,23 @@
         "pm10": 0,
         "pm25": 0,
         "tipo": "Dust"
+    },
+    {
+        "nome": "1234",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "12345",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
+    },
+    {
+        "nome": "gesu",
+        "pm10": 0,
+        "pm25": 0,
+        "tipo": "Dust"
     }
 ]

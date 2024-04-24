@@ -44,7 +44,7 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
             toggleButton->setStyleSheet(QString("background-color: %1").arg(QColor::fromHsv(hue, 255, 255).name()));
             toggleButton->setText(s[i]->getNameValues()[j]);
 
-            connect(toggleButton, &QToolButton::clicked, [=](bool checked) {
+            connect(toggleButton, &QToolButton::clicked, this,[=](bool checked) {
                 if(checked){
                     emit add(s[i], j, n);
                 } else {
@@ -56,7 +56,7 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
 
             QPushButton *updateButton = new QPushButton("Update");
             slotLayout->addWidget(updateButton);
-            connect(updateButton, &QPushButton::clicked, [=](){
+            connect(updateButton, &QPushButton::clicked,this, [=](){
                 if(toggleButton->isChecked())
                     emit updatePlane(s[i], j, n);
             });

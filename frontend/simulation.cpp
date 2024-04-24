@@ -16,6 +16,7 @@ Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
     plane->setMinimumSize(160, 90);
     plane->setStyleSheet("background-color: black; border: 1px solid gray;"); // Imposta lo stile di CartesianPlane
     layout->addWidget(plane);
+
     connect(simBar, &SimBar::add, this, &Simulation::addSensor);
     connect(simBar, &SimBar::remove, this, &Simulation::removeSensor);
     connect(simBar, &SimBar::updatePlane, this, &Simulation::updatePlane);
