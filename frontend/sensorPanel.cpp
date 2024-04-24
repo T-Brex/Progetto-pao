@@ -6,6 +6,14 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
 {
 
     QHBoxLayout* layout = new QHBoxLayout(this);
+    //QWidget* infoWidget;
+    //QHBoxLayout* infoLayout = new QHBoxLayout(infoWidget);
+
+    //QWidget* valuesWidget;
+    //QVBoxLayout* valuesLayout = new QVBoxLayout(valuesWidget);
+
+    //QWidget* valueWidget;
+    //QHBoxLayout* valueLayout = new QHBoxLayout(QWidget* valueWidget;);
 
 
     layout->setAlignment(Qt::AlignCenter | Qt::AlignCenter);
@@ -36,15 +44,16 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     layout->addWidget(sensorType);
     //layout->addStretch();
 
-    values = new QLabel( QString::number((sensor.getValue()[0])) );
-    values->setAlignment(Qt::AlignCenter);
-    layout->addWidget(values);
+    //values = new QLabel( QString::number((sensor.getValue()[0])) );
+    //values->setAlignment(Qt::AlignCenter);
+
 
     for(unsigned int i = 1; i<(sensor.getValue()).size(); i++){
         values = new QLabel( QString::number((sensor.getValue()[i])) );
         values->setAlignment(Qt::AlignCenter);
         layout->addWidget(values);
     }
+    //layout->addWidget(values);
 }
 QString SensorPanel::getName(){
     return name->text();
