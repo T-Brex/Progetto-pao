@@ -1,5 +1,6 @@
 #include "layoutswidget.h"
 //#include "frontend/adddialog.h"
+#include "frontend/simulation.h"
 #include "qdialog.h"
 #include "qmessagebox.h"
 #include "qpushbutton.h"
@@ -23,7 +24,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
     this->addWidget(sensWindow);
 
     //costruzione layout simulazione
-    simuLayout->addWidget(new QPushButton("SUCA"));
+    simuLayout->addWidget(new Simulation(sensors));
     this->addWidget(simuWidget);
 
     sensWindowLayout->addWidget(searchMenu);
