@@ -1,8 +1,8 @@
 #include "backend/sensors.h"
-
+#include <random>
 
 Sensor::Sensor(const QString& n):name(n),type("Sensor"),creationDate(QDateTime::currentDateTime()){}
-#include <random>
+
 
 const QString& Sensor::getName() const{return name;}
 QDateTime Sensor::getCreationDate() const {
