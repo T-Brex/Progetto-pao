@@ -2,9 +2,7 @@
 #define MAINWINDOW_H
 
 
-
 #include "frontend/sensorPanel.h"
-
 #include "frontend/layoutswidget.h"
 #include "frontend/menubar.h"
 #include <QMainWindow>

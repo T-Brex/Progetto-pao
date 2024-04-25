@@ -3,8 +3,8 @@
 
 #include "frontend/adddialog.h"
 #include "frontend/deletedialog.h"
-//#include "frontend/searchMenu.h"
 #include "frontend/sensorwindow.h"
+#include "frontend/simulation.h"
 #include <QStackedWidget>
 
 class LayoutsWidget : public QStackedWidget
@@ -13,7 +13,7 @@ class LayoutsWidget : public QStackedWidget
 public:
 
     sensorWindow* sensWindow;
-    QWidget *simuWindow;
+    Simulation *simuWindow;
 
     AddDialog *addDialog;
     DeleteDialog *deleteDialog;

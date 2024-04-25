@@ -17,7 +17,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
     simuWindow = new Simulation(sensors);
 
-    //DA CAMBIARE IL FATTO CHE SENSORWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
+    //DA CAMBIARE IL FATTO CHE SENSWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
     this->addWidget(sensWindow);
     this->addWidget(simuWindow);
 

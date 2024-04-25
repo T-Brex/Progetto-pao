@@ -3,7 +3,6 @@
 
 sensorWindow::sensorWindow(QWidget *parent)
     : QWidget(parent),
-    //sensWindow(new QWidget),
     layout(new QHBoxLayout(this)),
     sensScrollArea(new QScrollArea()),sensWidget(new QWidget()),sensLayout(new QVBoxLayout(sensWidget)),
     dustWidget(new QWidget), dustLayout(new QHBoxLayout(dustWidget)),

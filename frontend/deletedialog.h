@@ -1,10 +1,10 @@
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
 
-#include "qboxlayout.h"
-#include "qcombobox.h"
-#include "qpushbutton.h"
 #include <QDialog>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QPushButton>
 
 class DeleteDialog : public QDialog
 {
