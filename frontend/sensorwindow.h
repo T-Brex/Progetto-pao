@@ -1,0 +1,39 @@
+#ifndef SENSORWINDOW_H
+#define SENSORWINDOW_H
+
+#include "frontend/searchMenu.h"
+#include "frontend/sensorPanel.h"
+#include "qscrollarea.h"
+#include <QWidget>
+
+class sensorWindow : public QWidget
+{
+    Q_OBJECT
+public:
+    QHBoxLayout* layout;
+
+    QVector<SensorPanel*> sensorsPanels;
+    QScrollArea *sensScrollArea;
+    QWidget *sensWidget;
+    QVBoxLayout *sensLayout;
+
+    QWidget *dustWidget;
+    QHBoxLayout *dustLayout;
+    QWidget *humidityWidget;
+    QHBoxLayout *humidityLayout;
+    QWidget *windWidget;
+    QHBoxLayout *windLayout;
+    QWidget *termometerWidget;
+    QHBoxLayout *termometerLayout;
+    QWidget *airQualityWidget;
+    QHBoxLayout *airQualityLayout;
+
+    SearchMenu *searchMenu;
+    void addSensor(Sensor *s);
+    void deleteSensor(QString s);
+    explicit sensorWindow(QWidget *parent = nullptr);
+
+signals:
+};
+
+#endif //SENSORWINDOW_H

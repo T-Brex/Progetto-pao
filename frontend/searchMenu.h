@@ -6,7 +6,8 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QString>
-#endif // SEARCHMENU_H
+
+
 class SearchMenu: public QWidget {
     Q_OBJECT
                         //i widget non sono attributi in quanto sono sempre gli stessi ed è sufficente crearli nel costruttore che non ha parametri per la stessa ragione
@@ -27,4 +28,4 @@ signals:
     void showAddDialog();
     void showDeleteDialog();
 };
-
+#endif // SEARCHMENU_H

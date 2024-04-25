@@ -1,34 +1,50 @@
 #include "layoutswidget.h"
 //#include "frontend/adddialog.h"
+//#include "frontend/sensorwindow.h"
+#include "frontend/sensorwindow.h"
 #include "frontend/simulation.h"
 #include "qdialog.h"
 #include "qmessagebox.h"
 #include "qpushbutton.h"
 //#include "searchMenu.h"
 #include "backend/json.h"
+#include <QScrollArea>
 
 
-LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
-    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
-    sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
-    simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
-    searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
+LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
+    sensWindow(new QWidget), sensWindowLayout(new QHBoxLayout(sensWindow)),
+    sensScrollArea(new QScrollArea()),sensWidget(new QWidget()),sensLayout(new QVBoxLayout(sensWidget)),
+    dustWidget(new QWidget), dustLayout(new QHBoxLayout(dustWidget)),
+    humidityWidget(new QWidget), humidityLayout(new QHBoxLayout(humidityWidget)),
+    windWidget(new QWidget), windLayout(new QHBoxLayout(windWidget)),
+    termometerWidget(new QWidget), termometerLayout(new QHBoxLayout(termometerWidget)),
+    airQualityWidget(new QWidget), airQualityLayout(new QHBoxLayout(airQualityWidget)),
+    searchMenu(new SearchMenu(nullptr)), simuWidget(new QWidget),
+    simuLayout(new QHBoxLayout(simuWidget)), addDialog(new AddDialog(nullptr)),
     deleteDialog(new DeleteDialog(nullptr))
 {
+    sensScrollArea->setWidgetResizable(true);
+    sensScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    sensScrollArea->setWidget(sensWidget);
+
+    sensLayout->addWidget(dustWidget);
+    sensLayout->addWidget(humidityWidget);
+    sensLayout->addWidget(windWidget);
+    sensLayout->addWidget(termometerWidget);
+    sensLayout->addWidget(airQualityWidget);
 
     QVector<Sensor*> sensors=Json::caricaSensori();
     for(auto it=sensors.begin();it!=sensors.end();++it){
         addSensor(*it);
     }
 
-    this->addWidget(sensWindow);
+    //sensWindowLayout->addWidget(searchMenu);
+    //sensWindowLayout->addWidget(sensScrollArea);
 
-    //costruzione layout simulazione
     simuLayout->addWidget(new Simulation(sensors));
-    this->addWidget(simuWidget);
 
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    this->addWidget(new sensorWindow(nullptr));
+    this->addWidget(simuWidget);
 
 
     connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
@@ -76,7 +92,16 @@ LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
 
 void LayoutsWidget::addSensor(Sensor *s) {
     sensorsPanels.push_back(new SensorPanel(*s));
-    sensLayout->addWidget(sensorsPanels.last());
+    if(s->getType()=="Dust")
+        dustLayout->addWidget(sensorsPanels.last());
+    if(s->getType()=="Humidity")
+        humidityLayout->addWidget(sensorsPanels.last());
+    if(s->getType()=="Wind")
+        windLayout->addWidget(sensorsPanels.last());
+    if(s->getType()=="Termometer")
+        termometerLayout->addWidget(sensorsPanels.last());
+    if(s->getType()=="AirQuality")
+        airQualityLayout->addWidget(sensorsPanels.last());
 }
 void LayoutsWidget::deleteSensor(QString s) {
     for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {
@@ -113,7 +138,7 @@ void LayoutsWidget::deleteSensor(QString s) {
 //Eliminabile(?)
 LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
     sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
-    sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
+    //sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)),
     simuWidget(new QWidget),simuLayout(new QHBoxLayout(simuWidget)),
     searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
     deleteDialog(new DeleteDialog(nullptr))
@@ -131,7 +156,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     this->addWidget(simuWidget);
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
 
 
@@ -173,7 +198,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 }
 //Eliminabile(?)
 LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent),
-sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
 
 
@@ -182,7 +207,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
     //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
 
     for(auto i=0;i<frame.size();i++){
@@ -200,7 +225,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 
 //Eliminabile(?)
 LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent),
-sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
     SearchMenu *searchMenu=new SearchMenu;
 
@@ -208,7 +233,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
     searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
 
     for(auto i=0;i<sp.size();i++){
