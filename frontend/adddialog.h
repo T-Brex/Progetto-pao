@@ -1,7 +1,7 @@
 #ifndef ADDDIALOG_H
 #define ADDDIALOG_H
 
-#include "qcombobox.h"
+#include <QComboBox>
 #include <QDialog>
 #include <QLineEdit>
 
@@ -15,8 +15,6 @@ public:
     QPushButton *newButton;
     AddDialog(QWidget *parent = nullptr);
 
-//signals:
-    //void newTrigger();
 };
 
 #endif // ADDDIALOG_H

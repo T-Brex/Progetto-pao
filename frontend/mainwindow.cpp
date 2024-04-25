@@ -2,7 +2,7 @@
 #include "backend/json.h"
 #include "frontend/adddialog.h"
 #include "frontend/sensorPanel.h"
-#include "frontend/addDialog.h"
+#include "frontend/adddialog.h"
 #include "backend/json.h"
 #include <QApplication>
 #include <QRadioButton>
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                         if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
-                            layoutsWidget->addSensor(*i);
+                            layoutsWidget->sensWindow->addSensor(*i);
                             layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
                         }
                     }
@@ -65,7 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 //Eliminabile(?)
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(s)),menuBar(new MenuBar)
+    QMainWindow(parent),
+    //layoutsWidget(new LayoutsWidget(s)),
+    menuBar(new MenuBar)
 {
 
 
@@ -93,7 +95,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
             QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
             for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                 if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
-                    layoutsWidget->addSensor(*i);
+                    layoutsWidget->sensWindow->addSensor(*i);
                     layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
                 }
             }
@@ -118,7 +120,9 @@ void MainWindow::changeLayout(){
 
 //Eliminabile(?)
 MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(sp)),menuBar(new MenuBar)
+    QMainWindow(parent),
+    //layoutsWidget(new LayoutsWidget(sp)),
+    menuBar(new MenuBar)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
@@ -128,7 +132,9 @@ MainWindow::MainWindow(QVector<SensorPanel*> sp, QWidget *parent):
 
 //Eliminabile(?)
 MainWindow::MainWindow(QVector<QWidget*> frame, QWidget *parent):
-    QMainWindow(parent),layoutsWidget(new LayoutsWidget(frame)),menuBar(new MenuBar)
+    QMainWindow(parent),
+    //layoutsWidget(new LayoutsWidget(frame)),
+    menuBar(new MenuBar)
 {
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
