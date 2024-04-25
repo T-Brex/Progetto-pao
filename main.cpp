@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     window.resize(900,900);
     //window.show();
 
-
+//ciao
 
     return a.exec();
 

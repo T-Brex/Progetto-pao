@@ -23,6 +23,7 @@ QJsonArray Json::leggiJson(const QString& fileName) {
     return sensoriArray;
 }
 
+
 QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName) {
     if (!nome.isEmpty()) {
 
