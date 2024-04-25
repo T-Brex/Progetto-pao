@@ -14,6 +14,7 @@ class SensorPanel: public QWidget {
 private:
     QLabel* name;
     QLabel* values;
+    QLabel* valuesName;
     QLabel* ico;
 public:
     //SensorPanel(const Sensor&);

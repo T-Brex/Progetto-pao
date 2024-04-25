@@ -1,31 +1,6 @@
 #include <QApplication>
-#include <QRadioButton>
 #include "frontend/mainwindow.h"
-#include <QMenuBar>
-#include <QMenu>
-#include "backend/json.h"
-
-
-#include <QAction>
-
-//         Copy code
-
-
-
-
-
-#include <QAction>
-#include <QString>
-
-
 #include "frontend/simulation.h"
-
-
-#include <QCoreApplication>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QFile>
 #include <QDebug>
 
 
@@ -48,11 +23,6 @@ int main(int argc, char *argv[])
     s.push_back(new AirQuality("Sensore0"));
     s.push_back(new Wind("Sensore4"));
     s.push_back(new Termometer("Sensore5"));
-
-    //salvaSensori(sensori, "C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json");
-    //eliminaSensore("C:/Users/bress/Desktop/progetti/File C/Progetto-pao/resources/dati.json","Sensore3");
-
-
 
     //prova con Sensor
 
@@ -88,15 +58,16 @@ int main(int argc, char *argv[])
     frame.push_front(airQ);
 
 
-    MainWindow w(Json::caricaSensori("C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json"));
-    QMessageBox emptyName;
+    MainWindow w;
+
     //emptyName.setDefaultButton(new QPushButton);
-    emptyName.setText("Inserire un nome");
+    //emptyName.setText("Inserire un nome");
     //emptyName.open();
-    qDebug()<<"ok";
-    w.setWindowTitle("Sensori");
-    w.resize(1280, 1024);
+
     w.show();
+    w.setWindowTitle("Sensori");
+    w.showMaximized();
+
 
 
     Simulation window(s);

@@ -3,7 +3,9 @@
 //#include "frontend/mainwindow.h"
 //#include <QString>
 
-SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),addButton(new QPushButton("Add")),deleteButton(new QPushButton("Delete")){
+SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
+    layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),addButton(new QPushButton("Add")),deleteButton(new QPushButton("Delete"))
+{
     //QVBoxLayout * layout = new QVBoxLayout(this);
     //QLineEdit *lineEdit = new QLineEdit("ass");
     //QPushButton *add=new QPushButton("add");
@@ -18,17 +20,12 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),layout(new QVBoxLayout(
     //std::cout<<QString::toStdString(text());
 
     // Connessione del segnale textChanged() al relativo slot
-    /*
+
     connect(lineEdit, &QLineEdit::textChanged, this, [=](){
-        onTextChanged(lineEdit->text());
+        qDebug()<<lineEdit->text();
         });
 
-void SearchMenu::onTextChanged(const QString &text) {
-    // Puoi fare qualcos'altro qui se necessario
-    qDebug()<<text;
 
-
-}*/
     connect(addButton, &QPushButton::clicked, this, [=](){
         qDebug()<<lineEdit->text();
     });

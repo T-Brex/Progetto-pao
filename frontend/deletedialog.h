@@ -1,19 +1,19 @@
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
 
-#include "qboxlayout.h"
-#include "qcombobox.h"
-#include "qpushbutton.h"
 #include <QDialog>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QPushButton>
 
 class DeleteDialog : public QDialog
 {
     Q_OBJECT
 public:
-    QComboBox* sceltaNome=new QComboBox;
+    QComboBox* sceltaNome;
     QPushButton* deleteButton;
     QVBoxLayout *layout;
-    DeleteDialog(QWidget *parent = nullptr);
+    DeleteDialog(QWidget *parent);
 };
 
 #endif // DELETEDIALOG_H

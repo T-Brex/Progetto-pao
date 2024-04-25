@@ -1,124 +1,152 @@
 #include "layoutswidget.h"
-//#include "frontend/adddialog.h"
+
+#include "frontend/sensorwindow.h"
+
 #include "frontend/simulation.h"
 #include "qdialog.h"
+#include "qmessagebox.h"
 #include "qpushbutton.h"
-//#include "searchMenu.h"
+
+
 #include "backend/json.h"
+#include <QScrollArea>
 
 
-LayoutsWidget::LayoutsWidget(QWidget *parent):QStackedWidget(parent),
-    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
-    ,searchMenu(new SearchMenu(this)),addDialog(new AddDialog(this)),deleteDialog(new DeleteDialog(this))
-    //,dialog(new Dialog(nullptr))
-{
+LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
+    sensWindow(new sensorWindow(nullptr)), addDialog(new AddDialog(nullptr)),
 
-    SearchMenu *searchMenu=new SearchMenu;
-
-    //costruzione layout sensori
-    sensWindowLayout->addWidget(searchMenu);
-
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
-
-    //costruzione layout simulazione
-    sensLayout->addWidget(new QPushButton("Fottiti la granda"));
-    this->addWidget(sensWindow);
-}
-
-LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
-    sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
-    sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)),
-    /*simuWidget(new Simulation(s)),simuLayout(new QHBoxLayout(simuWidget)),*/
-    searchMenu(new SearchMenu(nullptr)), addDialog(new AddDialog(nullptr)),
     deleteDialog(new DeleteDialog(nullptr))
 {
 
     QVector<Sensor*> sensors=Json::caricaSensori();
-    int i=0;
-    for(auto it=sensors.begin();it!=sensors.end();++it){
-        sensorsPanels.push_back(new SensorPanel(*sensors[i]));
-        sensLayout->addWidget(sensorsPanels[i]);
-        ++i;
+
+    simuWindow = new Simulation(sensors);
+
+    //DA CAMBIARE IL FATTO CHE SENSWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
+    this->addWidget(sensWindow);
+    this->addWidget(simuWindow);
+
+
+    connect(sensWindow->searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
+            {
+                addDialog->open();
+                addDialog->lineEdit->setFocus();
+            });
+
+    connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
+            {
+                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
+
+                if(result=="ok"){
+                    sensWindow->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
+                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                    addDialog->lineEdit->clear();
+                    addDialog->close();
+                }else if(result=="existing"){
+                    QMessageBox *existingName=new QMessageBox(nullptr);
+                    existingName->setIcon(QMessageBox::Warning);
+                    existingName->setText("Il sensore '" + addDialog->lineEdit->text() + "' esiste già nel file");
+                    existingName->open();
+                    addDialog->lineEdit->setFocus();
+                }else if(result=="empty"){
+                    QMessageBox *emptyName=new QMessageBox(nullptr);
+                    emptyName->setIcon(QMessageBox::Warning);
+                    emptyName->setText("Inserire un nome");
+                    emptyName->open();
+                    addDialog->lineEdit->setFocus();
+                }
+            });
+    connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
+
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+            {
+                Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
+                sensWindow->deleteSensor(deleteDialog->sceltaNome->currentText());
+                deleteDialog->close();
+                deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+            });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*Eliminabile(?)
+LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
+    //sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
+    //sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)),
+    searchMenu(new SearchMenu(nullptr)),simuWindow(new QWidget),
+    simuLayout(new QHBoxLayout(simuWindow)), addDialog(new AddDialog(nullptr)),
+    deleteDialog(new DeleteDialog(nullptr))
+{
+
+    //QVector<Sensor*> sensors=Json::caricaSensori();
+    for(auto it=s.begin();it!=s.end();++it){
+        sensWindow->addSensor(*it);
     }
 
     this->addWidget(sensWindow);
     simuWidget = new Simulation(sensors);
     //costruzione layout simulazione
+<<<<<<< HEAD
     //simuLayout->addWidget(new QPushButton("SUCA"));
     this->addWidget(simuWidget);
+=======
+    simuLayout->addWidget(new QPushButton("SUCA"));
+    this->addWidget(simuWindow);
+>>>>>>> main
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
-    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&](){
-        addDialog->open();
-        addDialog->lineEdit->setFocus();
-    });
 
-    connect(addDialog, &AddDialog::newTrigger, this, [&]()
+
+    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
             {
+
+                addDialog->open();
+                addDialog->lineEdit->setFocus();
+            });
+
+    connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
+
+            {
+
                 QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
 
                 if(result=="ok"){
-                    addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
+                    sensWindow->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
                     deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
                     addDialog->lineEdit->clear();
                     addDialog->close();
+
                 }
             });
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&](){
-        Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
-        deleteSensor(deleteDialog->sceltaNome->currentText());
-        deleteDialog->close();
-        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
-    });
+
+
+    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+            {
+
+                Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
+                sensWindow->deleteSensor(deleteDialog->sceltaNome->currentText());
+                deleteDialog->close();
+                deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+            });
 
 
     connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
-}
-
-void LayoutsWidget::addSensor(Sensor *s) {
-    sensorsPanels.push_back(new SensorPanel(*s));
-    sensLayout->addWidget(sensorsPanels.last());
-}
-void LayoutsWidget::deleteSensor(QString s) {
-    for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {
-        qDebug() << (*it)->getName() << "==" << s;
-        if((*it)->getName() == s) {
-            // Rimuovi il widget dalla disposizione
-            sensLayout->removeWidget(*it);
-            sensLayout->update();
-            // Dealloca il widget
-            delete *it;
-            // Rimuovi il puntatore dal vettore
-            it = sensorsPanels.erase(it);
-
-
-            // Assicurati di non superare la fine del vettore
-            if (it == sensorsPanels.end())
-                break;
-
-        }
-    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Eliminabile(?)
-LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent),
-sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent)
+//,sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
 
 
@@ -127,7 +155,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
     //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
 
     for(auto i=0;i<frame.size();i++){
@@ -137,15 +165,15 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 
     //costruzione layout simulazione
     simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
+    this->addWidget(simuWindow);
 
 
 }
 
 
 //Eliminabile(?)
-LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent),
-sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget(new QWidget),sensLayout(new QVBoxLayout(sensWidget)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
+LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent)
+//,sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
 {
     SearchMenu *searchMenu=new SearchMenu;
 
@@ -153,7 +181,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
     searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensWidget);
+    sensWindowLayout->addWidget(sensScrollArea);
 
 
     for(auto i=0;i<sp.size();i++){
@@ -163,7 +191,7 @@ sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),sensWidget
 
     //costruzione layout simulazione
     simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
+    this->addWidget(simuWindow);
 }
-
+*/
 LayoutsWidget::~LayoutsWidget(){};

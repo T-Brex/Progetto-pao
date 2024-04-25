@@ -20,11 +20,13 @@ public:
 */
 
     Json();
-    static QJsonArray leggiJson(const QString& fileName="C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json");
-    static QString nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName="C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json");
-    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json");
-    static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json");
-    static QVector<Sensor*> caricaSensori(const QString& fileName="C:/Users/carta/Desktop/qtprojects/Progetto-pao/resources/dati.json");
+
+    static QJsonArray leggiJson(const QString& fileName="dati.json");
+    static QString nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName="dati.json");
+    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="dati.json");
+    static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="dati.json");
+    static QVector<Sensor*> caricaSensori(const QString& fileName="dati.json");
+
     static Sensor* costruttore(const QString& nome, const QString& tipo);
 };
 
