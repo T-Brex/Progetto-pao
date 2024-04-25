@@ -9,9 +9,6 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
     mainLayout->addStretch();
     int hue,colorCounter=0;
 
-
-
-
     for (int i = 0; i < s.size(); ++i) {
         QFrame *panel = new QFrame(this);
         QHBoxLayout *panelLayout = new QHBoxLayout(panel);
@@ -62,7 +59,6 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
             });
             buttonLayout->addWidget(slot);
         }
-
 
         panelLayout->addWidget(labels);
         panelLayout->addWidget(buttons);

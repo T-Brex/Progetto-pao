@@ -22,7 +22,7 @@ public:
     QAction *changeLayoutAct;
     QAction* newAct;
     QAction* loadAct;
-    //QAction* saveAct;
+    QAction* saveAct;
     QAction* deleteAct;
 
     MenuBar(QWidget* parent = nullptr);
@@ -30,7 +30,7 @@ public:
 signals:
     void changeLayoutTrigger();
     void showAddDialog();
-    //void saveTrigger();
+    void saveTrigger();
     void loadTrigger();
     void showDeleteDialog();
 };

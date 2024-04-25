@@ -24,43 +24,6 @@ public:
     QString getName();
     static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
 };
-/*
-class DustPanel: public SensorPanel{
-private:
-public:
-    DustPanel(const QString& n = "");
-    DustPanel(const SensorPanel& s);
-
-};
-
-class HumidityPanel: public SensorPanel{
-private:
-public:
-    HumidityPanel(const QString& n = "");
-    HumidityPanel(const SensorPanel& s);
-};
-
-class WindPanel: public SensorPanel{
-private:
-public:
-    WindPanel(const QString& n = "");
-    WindPanel(const SensorPanel& s);
-};
-
-class TermometerPanel: public SensorPanel{
-private:
-    TermometerPanel(const QString& n = "");
-    TermometerPanel(const SensorPanel& s);
-};
-
-class AirQualityPanel: public SensorPanel{
-private:
-public:
-    AirQualityPanel(const QString& n = "");
-    AirQualityPanel(const SensorPanel& s);
-};
-
-*/
 #endif
 
 
