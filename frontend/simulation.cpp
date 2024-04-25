@@ -1,11 +1,19 @@
 #include "frontend/simulation.h"
+#include "qscrollarea.h"
 
 Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
     QHBoxLayout *layout = new QHBoxLayout(this);
 
     // Crea e aggiungi SimBar al layout
     simBar = new SimBar(s, this);
-    layout->addWidget(simBar);
+    QScrollArea *scrollArea = new QScrollArea;
+    scrollArea->setBackgroundRole(QPalette::Dark);
+    scrollArea->setWidget(simBar);
+    //scrollArea->setWidgetResizable(true);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollArea->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    layout->addWidget(scrollArea);
+
 
     // Aggiungi uno spaziatore elastico per spingere plane a destra
     //layout->addStretch();

@@ -1,9 +1,6 @@
 #include "frontend/cartesianPlane.h"
-#include "qdebug.h"
-//#include "qdebug.h"
 
-
-CartesianPlane::CartesianPlane( QWidget *parent) : QWidget(parent) ,sensors (*new QVector<QPolygonF*>(10,nullptr)), dimFun(250),zoom(1){
+CartesianPlane::CartesianPlane( QWidget *parent) : QWidget(parent) ,sensors (*new QVector<QPolygonF*>(10,nullptr)), dimFun(500),zoom(1){
     //setMinimumSize(400, 400);
     //this->setStyleSheet("background-color: lightblue;");
     //this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -11,7 +8,7 @@ CartesianPlane::CartesianPlane( QWidget *parent) : QWidget(parent) ,sensors (*ne
 
 
 }
-CartesianPlane::CartesianPlane(const QVector<QPolygonF*> s, QWidget *parent) : QWidget(parent) ,sensors(s) ,dimFun(250){}
+CartesianPlane::CartesianPlane(const QVector<QPolygonF*> s, QWidget *parent) : QWidget(parent) ,sensors(s) ,dimFun(500){}
 
 
 void CartesianPlane::paintEvent(QPaintEvent *event){
@@ -67,29 +64,28 @@ void CartesianPlane::drawPlane(QPainter& painter){
     double divisionSpacing = 25 * zoom;
     for (int x = center.x() + divisionSpacing; x < width(); x += divisionSpacing) {
         painter.drawLine(x, center.y() - 2, x, center.y() + 2);
-        painter.drawText(x - 10, center.y() + 20, QString::number((x - center.x()) / divisionSpacing));
+        painter.drawText(x - 10, center.y() + 20, QString::number(round((x - center.x()) / divisionSpacing)));
     }
     for (int x = center.x() - divisionSpacing; x > 0; x -= divisionSpacing) {
         painter.drawLine(x, center.y() - 2, x, center.y() + 2);
-        painter.drawText(x - 10, center.y() + 20, QString::number((x - center.x()) / divisionSpacing));
+        painter.drawText(x - 10, center.y() + 20, QString::number(round((x - center.x()) / divisionSpacing)));
     }
 
     // Disegna le linee di divisione sull'asse y
     for (int y = center.y() + divisionSpacing; y < height(); y += divisionSpacing) {
         painter.drawLine(center.x() - 2, y, center.x() + 2, y);
-        painter.drawText(center.x() + 10, y + 5, QString::number((center.y() - y) / divisionSpacing));
+        painter.drawText(center.x() + 10, y + 5, QString::number(round((center.y() - y) / divisionSpacing)));
     }
     for (int y = center.y() - divisionSpacing; y > 0; y -= divisionSpacing) {
         painter.drawLine(center.x() - 2, y, center.x() + 2, y);
-        painter.drawText(center.x() + 10, y + 5, QString::number((center.y() - y) / divisionSpacing));
+        painter.drawText(center.x() + 10, y + 5, QString::number(round((center.y() - y) / divisionSpacing)));
     }
 
 }
 
 
     void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) {
-        qDebug() <<"draw sensors ";
-        qDebug() <<zoom;
+
         int hue=0;
         //for(int i=0; i<sensors.size();i++){
            // painter.drawPolyline(*sensors[i]);
@@ -111,16 +107,16 @@ void CartesianPlane::drawPlane(QPainter& painter){
         double Y;
             QPolygonF *fun = new QPolygonF();
 
-            for (int X = 0; X < width(); X+=25) {
+            for (int X = 0; X < dimFun; X+=25) {
                 Y = s->getValue()[i];
                 s->updateValue();
-                *fun << QPointF((X - width() / 2)*zoom,( Y * 20)*zoom);
+                *fun << QPointF((X - dimFun / 2),( Y * 20));
             }
 
             if (n >= sensors.size()) {
                 sensors.resize(n * 2, nullptr);
             }
-            qDebug() <<n;
+
             if (sensors[n]) {
                 delete sensors[n];
             }
@@ -142,16 +138,19 @@ void CartesianPlane::drawPlane(QPainter& painter){
 
 
     void CartesianPlane::wheelEvent(QWheelEvent *event) {
-        qDebug() <<"a";
-        int delta = event->angleDelta().y(); // Ottieni la variazione dell'angolo dalla rotella del mouse
-        if (delta > 0) {
-            // Zoom in
-            zoom += 0.05; // Aumenta la dimensione della funzione
-        } else {
-            // Zoom out
-            zoom -= 0.05; // Diminuisci la dimensione della funzione
-        }
 
+        int delta = event->angleDelta().y(); // Ottieni la variazione dell'angolo dalla rotella del mouse
+
+            if (delta > 0) {
+                // Zoom in
+                zoom += 0.05; // Aumenta la dimensione della funzione
+            } else {
+                // Zoom out
+                zoom -= 0.05; // Diminuisci la dimensione della funzione
+            }
+            if(zoom<0.60){
+                zoom=0.60;
+        }
         update(); // Aggiorna il widget per visualizzare il cambiamento
         //event->accept(); // Accetta l'evento per impedire il passaggio ad altri widget
     }

@@ -66,13 +66,13 @@ int main(int argc, char *argv[])
 
     w.show();
     w.setWindowTitle("Sensori");
-    w.showMaximized();
+
 
 
 
     Simulation window(s);
-    window.setWindowTitle("simulation bar");
-    window.resize(900,900);
+    //window.setWindowTitle("simulation bar");
+    //window.resize(900,900);
     //window.show();
 
 

@@ -1,5 +1,6 @@
 #include "frontend/simulationBar.h"
 #include "qlabel.h"
+#include "qscrollarea.h"
 #include <QToolButton>
 #include<QFrame>
 #include <QColor>
