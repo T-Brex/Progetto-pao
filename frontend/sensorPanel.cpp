@@ -7,9 +7,8 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
 
 
     QFrame* frame = new QFrame(this);
-    //frame->setLayout(layout());
-    //frame->setAutoFillBackground(true);
-    //frame->setPalette(Qt::blue);
+    frame->setAutoFillBackground(true);
+    frame->setPalette(Qt::blue);
 
 
     QVBoxLayout* layout = new QVBoxLayout(frame);

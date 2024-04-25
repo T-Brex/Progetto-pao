@@ -29,9 +29,11 @@ public:
     QHBoxLayout *airQualityLayout;
 
     SearchMenu *searchMenu;
+    explicit sensorWindow(QWidget *parent = nullptr);
+
+public slots:
     void addSensor(Sensor *s);
     void deleteSensor(QString s);
-    explicit sensorWindow(QWidget *parent = nullptr);
 
 signals:
 };

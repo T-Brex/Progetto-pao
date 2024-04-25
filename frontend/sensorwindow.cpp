@@ -36,6 +36,7 @@ sensorWindow::sensorWindow(QWidget *parent)
 
 void sensorWindow::addSensor(Sensor *s) {
     sensorsPanels.push_back(new SensorPanel(*s));
+
     if(s->getType()=="Dust")
         dustLayout->addWidget(sensorsPanels.last());
     if(s->getType()=="Humidity")
