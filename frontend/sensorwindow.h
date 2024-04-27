@@ -17,6 +17,9 @@ public:
     QWidget *sensWidget;
     QVBoxLayout *sensLayout;
 
+
+    QVector<QWidget *> sensorsTypeWidget;
+    QVector<QHBoxLayout *> sensorsTypeLayout;
     QWidget *dustWidget;
     QHBoxLayout *dustLayout;
     QWidget *humidityWidget;
@@ -34,6 +37,7 @@ public:
 public slots:
     void addSensor(Sensor *s);
     void deleteSensor(QString s);
+    void deleteAllSensors();
 
 signals:
 };

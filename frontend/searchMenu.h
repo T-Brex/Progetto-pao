@@ -18,7 +18,10 @@ public:
     QVBoxLayout * layout;
     QLineEdit *lineEdit;
     QPushButton *addButton;
+    QPushButton *importButton;
+    QPushButton *saveAsButton;
     QPushButton *deleteButton;
+    QPushButton *deleteAllButton;
     SearchMenu(QWidget* parent = nullptr);
 
 public slots:
@@ -26,5 +29,8 @@ public slots:
 signals:
     void showAddDialog();
     void showDeleteDialog();
+    void showSaveAsDialog();
+    void showDeleteAllDialog();
+    void showImportDialog();
 };
 #endif // SEARCHMENU_H

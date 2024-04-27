@@ -1,30 +1,29 @@
 #include "layoutswidget.h"
 #include "frontend/sensorwindow.h"
-#include "frontend/simulation.h"
 #include "qdialog.h"
 #include "qmessagebox.h"
 #include "qpushbutton.h"
 #include "backend/json.h"
 #include <QScrollArea>
+#include <QFileDialog>
 
 
 LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     sensWindow(new sensorWindow(nullptr)), addDialog(new AddDialog(nullptr)),
-    deleteDialog(new DeleteDialog(nullptr))
+    deleteDialog(new DeleteDialog(nullptr)),deleteWarning(new DeleteWarning(nullptr))
 {
+    //UTILE SE LA "simulationWindow" e "sensWindow" condividessero gli stessi sensori!
+    //QVector<Sensor*> sensors=Json::caricaSensori();
 
-    QVector<Sensor*> sensors=Json::caricaSensori();
-
-    simuWindow = new Simulation(sensors);
 
     //DA CAMBIARE IL FATTO CHE SENSWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
     this->addWidget(sensWindow);
-    this->addWidget(simuWindow);
+    this->addWidget(new QPushButton("suca"));
 
 
     connect(sensWindow->searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
             {
-                addDialog->open();
+                addDialog->show();
                 addDialog->lineEdit->setFocus();
             });
 
@@ -36,30 +35,71 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
                     sensWindow->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
                     deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
                     addDialog->lineEdit->clear();
-                    addDialog->close();
+                    addDialog->hide();
+                    this->update();
                 }else if(result=="existing"){
                     QMessageBox *existingName=new QMessageBox(nullptr);
                     existingName->setIcon(QMessageBox::Warning);
                     existingName->setText("Il sensore '" + addDialog->lineEdit->text() + "' esiste già nel file");
-                    existingName->open();
+                    existingName->show();
                     addDialog->lineEdit->setFocus();
                 }else if(result=="empty"){
                     QMessageBox *emptyName=new QMessageBox(nullptr);
                     emptyName->setIcon(QMessageBox::Warning);
                     emptyName->setText("Inserire un nome");
-                    emptyName->open();
+                    emptyName->show();
                     addDialog->lineEdit->setFocus();
                 }
             });
-    connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
+    connect(sensWindow->searchMenu,&SearchMenu::showImportDialog, this, [&]()
+            {
+        QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
 
+        // Verifica se l'utente ha selezionato un file
+        if (!fileName.isEmpty()) {
+            qDebug() << "Hai selezionato il file:" << fileName;
+            QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
+            for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
+                if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
+                    sensWindow->addSensor(*i);
+                    deleteDialog->sceltaNome->addItem((*i)->getName());
+                }
+            }
+        } else {
+            qDebug() << "Nessun file selezionato.";
+        }
+            });
+
+
+    connect(sensWindow->searchMenu, &SearchMenu::showSaveAsDialog, this, [=]() {
+        QString newFileName = QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("JSON Files (*.json)"));
+        if (!newFileName.isEmpty()) {
+            Json::saveAs(Json::caricaSensori(), newFileName);
+            qDebug() << "Sensori salvati in:" << newFileName;
+        }
+    });
+    connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
     connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
             {
                 Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
                 sensWindow->deleteSensor(deleteDialog->sceltaNome->currentText());
-                deleteDialog->close();
+                deleteDialog->hide();
                 deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
             });
+
+    connect(sensWindow->searchMenu,&SearchMenu::showDeleteAllDialog, deleteWarning,&DeleteWarning::show);
+
+
+connect(deleteWarning,&DeleteWarning::confirmed, deleteWarning,[&]() {
+    for(auto it=sensWindow->sensorsPanels.begin();it!=sensWindow->sensorsPanels.end();++it){
+        Json::eliminaSensore((*it)->getName());
+        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+    }
+    sensWindow->deleteAllSensors();
+    deleteWarning->hide();
+
+});
+
 }
 
 
@@ -101,7 +141,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
             {
 
-                addDialog->open();
+                addDialog->show();
                 addDialog->lineEdit->setFocus();
             });
 
@@ -131,7 +171,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
             });
 
 
-    connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
+    connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
 
 }
 //Eliminabile(?)

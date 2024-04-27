@@ -22,8 +22,11 @@ public:
     Json();
     static QJsonArray leggiJson(const QString& fileName="dati.json");
     static QString nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName="dati.json");
-    static void salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="dati.json");
+    static void nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName="dati.json");
+    static void saveAs( const QVector<Sensor*>& sensori, const QString& newFileName="dati.json");
     static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName="dati.json");
+    static void eliminaSensori(const QString& fileName="dati.json");
+
     static QVector<Sensor*> caricaSensori(const QString& fileName="dati.json");
     static Sensor* costruttore(const QString& nome, const QString& tipo);
 };
