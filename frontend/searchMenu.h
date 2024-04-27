@@ -19,6 +19,7 @@ public:
     QVBoxLayout * layout;
     QLineEdit *lineEdit;
     QPushButton *addButton;
+    QPushButton *saveAsButton;
     QPushButton *deleteButton;
     SearchMenu(QWidget* parent = nullptr);
 

@@ -4,33 +4,28 @@
 
 SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent)
 {
-
+    QVBoxLayout* layout = new QVBoxLayout(this); // Imposta il layout principale su questo widget
 
     QFrame* frame = new QFrame(this);
+
     frame->setAutoFillBackground(true);
-    frame->setPalette(Qt::blue);
+    frame->setPalette(Qt::yellow);
 
+    QVBoxLayout* frameLayout = new QVBoxLayout(frame);
+    frameLayout->setAlignment(Qt::AlignCenter);
 
-    QVBoxLayout* layout = new QVBoxLayout(frame);
-
-    QWidget* infoWidget=new QWidget;
+    QWidget* infoWidget = new QWidget(frame);
     QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
 
-    QWidget* valuesWidget=new QWidget;
+    QWidget* valuesWidget = new QWidget(frame);
     QVBoxLayout* valuesLayout = new QVBoxLayout(valuesWidget);
 
 
+    // Aggiungi il frame al layout principale
+    layout->addWidget(frame);
 
-
-
-    layout->setAlignment(Qt::AlignCenter | Qt::AlignCenter);
-    layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
-
-    this->setMinimumHeight(210);        // (w,h)
-    this->setAutoFillBackground(true);
-    this->setPalette(Qt::lightGray);
-
-    name = new QLabel (sensor.getName());
+    // Aggiungi i widget necessari ai rispettivi layout
+    name = new QLabel(sensor.getName());
     name->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(name);
 
@@ -44,9 +39,7 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     QLabel* sensorType = new QLabel(sensor.getType());
     sensorType->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(sensorType);
-    //layout->addStretch();
 
-    layout->addWidget(infoWidget);
     auto valuesList = sensor.getValue();
     auto namesList = sensor.getNameValues();
 
@@ -55,14 +48,16 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
         values = new QLabel( QString::number(valuesList[i]) );
         valuesName->setAlignment(Qt::AlignCenter);
         values->setAlignment(Qt::AlignCenter);
-        QWidget* valueWidget=new QWidget;
+        QWidget* valueWidget = new QWidget;
         QHBoxLayout* valueLayout = new QHBoxLayout(valueWidget);
         valueLayout->addWidget(valuesName);
         valueLayout->addWidget(values);
         valuesLayout->addWidget(valueWidget);
     }
-        layout->addWidget(valuesWidget);
 
+    // Aggiungi infoWidget e valuesWidget al frameLayout
+    frameLayout->addWidget(infoWidget);
+    frameLayout->addWidget(valuesWidget);
 }
 QString SensorPanel::getName(){
     return name->text();

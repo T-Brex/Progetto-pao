@@ -52,7 +52,6 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
                 sensoreObject[valuesName[i]] = values[i];
             }
             sensoriArray.append(sensoreObject);
-
             // Scrivi il JSON aggiornato sul file
             if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
                 QJsonDocument jsonDocument(sensoriArray);
@@ -65,13 +64,40 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             //return "ok";
         }
     } else {
-
         return "empty";
     }
 return "0";
 }
 
-void Json::salvaSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
+
+void Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
+    QFile file(newFileName);
+    if (file.open(QIODevice::WriteOnly)) {
+        QJsonArray sensoriArray;
+
+        for (const auto& sensore : sensori) {
+            QJsonObject sensoreObject;
+            sensoreObject["nome"] = sensore->getName();
+            sensoreObject["tipo"] = sensore->getType();
+            sensoreObject["creationDate"] = sensore->getCreationDate().toString(Qt::ISODate);
+
+            QVector<double> values = sensore->getValue();
+            QVector<QString> valuesName = sensore->getNameValues();
+
+            for (auto i = 0; i < values.size(); ++i) {
+                sensoreObject[valuesName[i]] = values[i];
+            }
+
+            sensoriArray.append(sensoreObject);
+        }
+
+        QJsonDocument jsonDocument(sensoriArray);
+        file.write(jsonDocument.toJson());
+        file.close();
+    }
+}
+
+void Json::nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
     for (const auto& sensore : nuoviSensori) {
         QString nomeSensore = sensore->getName();
         QString tipoSensore = sensore->getType();

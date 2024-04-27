@@ -25,11 +25,14 @@ MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent),layoutsWidget(new LayoutsWidget()),menuBar(new MenuBar)
 {
+    // Imposta le dimensioni massime della finestra
+    //QSize screenSize = QApplication::primaryScreen()->availableSize();
+    //setMaximumSize(screenSize);
 
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
     connect(menuBar, &MenuBar::showAddDialog, layoutsWidget->addDialog, [&](){
-        layoutsWidget->addDialog->open();
+        layoutsWidget->addDialog->show();
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
 
@@ -68,6 +71,16 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
+
+
+
+
+
+
+
+
+
+
 //Eliminabile(?)
 MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     QMainWindow(parent),
@@ -79,7 +92,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     setMenuBar(menuBar);
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
     connect(menuBar, &MenuBar::showAddDialog, layoutsWidget->addDialog, [&](){
-        layoutsWidget->addDialog->open();
+        layoutsWidget->addDialog->show();
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);

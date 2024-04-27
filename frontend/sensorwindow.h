@@ -17,6 +17,9 @@ public:
     QWidget *sensWidget;
     QVBoxLayout *sensLayout;
 
+
+    QVector<QWidget *> sensorsTypeWidget;
+    QVector<QHBoxLayout *> sensorsTypeLayout;
     QWidget *dustWidget;
     QHBoxLayout *dustLayout;
     QWidget *humidityWidget;

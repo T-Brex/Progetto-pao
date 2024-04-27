@@ -1,34 +1,39 @@
 #include "searchMenu.h"
+#include "backend/json.h"
 #include <QVBoxlayout>
 //#include "frontend/mainwindow.h"
 //#include <QString>
+#include <QFileDialog>
 
 SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
-    layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),addButton(new QPushButton("Add")),deleteButton(new QPushButton("Delete"))
+    layout(new QVBoxLayout(this)),lineEdit(new QLineEdit(nullptr)),addButton(new QPushButton("Add")),saveAsButton(new QPushButton("Save as")),deleteButton(new QPushButton("Delete"))
 {
-    //QVBoxLayout * layout = new QVBoxLayout(this);
-    //QLineEdit *lineEdit = new QLineEdit("ass");
-    //QPushButton *add=new QPushButton("add");
 
     layout->addWidget(lineEdit);
     layout->addWidget(addButton);
+    layout->addWidget(saveAsButton);
     layout->addWidget(deleteButton);
     //layout->addWidget(new QPushButton("remove all"));
     //layout->addWidget(new QPushButton("submit"));
     layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
-    this->setMaximumSize(150,300);
-    //std::cout<<QString::toStdString(text());
+    //layout->setAlignment(Qt::AlignTop);
 
-    // Connessione del segnale textChanged() al relativo slot
+    this->setPalette(Qt::yellow);
+    this->setAutoFillBackground(true);
+
+    this->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
 
     connect(lineEdit, &QLineEdit::textChanged, this, [=](){
         qDebug()<<lineEdit->text();
         });
 
-
-    connect(addButton, &QPushButton::clicked, this, [=](){
-        qDebug()<<lineEdit->text();
-    });
     connect(addButton, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
     connect(deleteButton, &QPushButton::clicked, this, &SearchMenu::showDeleteDialog);
+    connect(saveAsButton, &QPushButton::clicked, this, [=]() {
+        QString newFileName = QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("JSON Files (*.json)"));
+        if (!newFileName.isEmpty()) {
+            Json::saveAs(Json::caricaSensori(), newFileName);
+            qDebug() << "Sensori salvati in:" << newFileName;
+        }
+    });
 }
