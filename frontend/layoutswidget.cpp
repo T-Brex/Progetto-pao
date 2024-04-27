@@ -6,6 +6,7 @@
 #include "qpushbutton.h"
 #include "backend/json.h"
 #include <QScrollArea>
+#include <QFileDialog>
 
 
 LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
@@ -52,6 +53,13 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
                 }
             });
     connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
+    connect(sensWindow->searchMenu, &SearchMenu::showSaveAsDialog, this, [=]() {
+        QString newFileName = QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("JSON Files (*.json)"));
+        if (!newFileName.isEmpty()) {
+            Json::saveAs(Json::caricaSensori(), newFileName);
+            qDebug() << "Sensori salvati in:" << newFileName;
+        }
+    });
 
     connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
             {

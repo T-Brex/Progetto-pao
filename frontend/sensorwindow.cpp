@@ -40,7 +40,6 @@ sensorWindow::sensorWindow(QWidget *parent)
         (*it)->setAlignment(Qt::AlignLeft);
         //(*it)->totalMinimumHeightForWidth()
     }
-    //FARE GLI ALTRI
 
 
 
@@ -50,7 +49,7 @@ sensorWindow::sensorWindow(QWidget *parent)
         sensorScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         sensorScrollArea->setWidgetResizable(true);
         sensorScrollArea->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-
+        //(*it)->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
         //auto *hScrollBar=sensorScrollArea->verticalScrollBar();
         //hScrollBar->setStyleSheet("QScrollBar:horizontal  { background-color: yellow; }");
 

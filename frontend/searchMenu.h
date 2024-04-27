@@ -28,5 +28,6 @@ public slots:
 signals:
     void showAddDialog();
     void showDeleteDialog();
+    void showSaveAsDialog();
 };
 #endif // SEARCHMENU_H

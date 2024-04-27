@@ -97,10 +97,14 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
     });
     connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
 
-    /*connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
+    connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
-        Json::salvaSensori(s);
-            });*/
+        QString newFileName = QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("JSON Files (*.json)"));
+        if (!newFileName.isEmpty()) {
+            Json::saveAs(Json::caricaSensori(), newFileName);
+            qDebug() << "Sensori salvati in:" << newFileName;
+        }
+            });
 
 
     connect(menuBar, &MenuBar::loadTrigger, this, [&]()
