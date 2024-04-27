@@ -37,6 +37,7 @@ public:
 public slots:
     void addSensor(Sensor *s);
     void deleteSensor(QString s);
+    void deleteAllSensors();
 
 signals:
 };

@@ -53,7 +53,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             }
             sensoriArray.append(sensoreObject);
             // Scrivi il JSON aggiornato sul file
-            if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            if (file.open(QIODevice::WriteOnly)) {
                 QJsonDocument jsonDocument(sensoriArray);
                 file.write(jsonDocument.toJson());
                 file.close();
@@ -107,7 +107,7 @@ void Json::nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fil
 
 void Json::eliminaSensore(const QString& sensoreDaRimuovere, const QString& fileName) {
     QFile file(fileName);
-    QJsonArray sensoriArray = Json::leggiJson(fileName);
+    QJsonArray sensoriArray = Json::leggiJson();
 
     for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
         QJsonObject sensoreObject = it->toObject();
@@ -121,6 +121,18 @@ void Json::eliminaSensore(const QString& sensoreDaRimuovere, const QString& file
                 file.close();
             }
             break;
+        }
+    }
+}
+
+void Json::eliminaSensori(const QString& fileName) {
+    QFile file(fileName);
+    if (file.exists()) {
+        // Apri il file in modalità di scrittura senza eliminare i dati esistenti
+        if (file.open(QIODevice::ReadWrite)) {
+            // Sovrascrivi i dati del file con un JSON vuoto
+            file.resize(0);
+            file.close();
         }
     }
 }

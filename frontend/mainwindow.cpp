@@ -36,10 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
 
-    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::show);
 
 
-    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::show);
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
                 QString fileName = QFileDialog::getSaveFileName(this, "Salva file JSON", "", "JSON Files (*.json)");
@@ -95,7 +95,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
         layoutsWidget->addDialog->show();
         layoutsWidget->addDialog->lineEdit->setFocus();
     });
-    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::open);
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::show);
 
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
@@ -125,7 +125,7 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
             qDebug() << "Nessun file selezionato.";
         }
     });
-    setCentralWidget(layoutsWidget);
+    //setCentralWidget(layoutsWidget);
 }
 
 void MainWindow::changeLayout(){

@@ -48,7 +48,8 @@ sensorWindow::sensorWindow(QWidget *parent)
         sensorScrollArea->setWidget(*it);
         sensorScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         sensorScrollArea->setWidgetResizable(true);
-        sensorScrollArea->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+        sensorScrollArea->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+        sensorScrollArea->setMinimumHeight(300);
         //(*it)->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
         //auto *hScrollBar=sensorScrollArea->verticalScrollBar();
         //hScrollBar->setStyleSheet("QScrollBar:horizontal  { background-color: yellow; }");
@@ -99,8 +100,20 @@ void sensorWindow::deleteSensor(QString s) {
             // Assicurati di non superare la fine del vettore
             if (it == sensorsPanels.end())
                 break;
-
         }
+    }
+}
+void sensorWindow::deleteAllSensors() {
+    for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ) {
+        // Rimuovi il widget dalla disposizione
+        sensLayout->removeWidget(*it);
+        sensLayout->update();
+
+        // Dealloca il widget
+        delete *it;
+
+        // Rimuovi il puntatore dal vettore
+        it = sensorsPanels.erase(it);
     }
 
 }

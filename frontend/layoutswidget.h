@@ -4,6 +4,7 @@
 #include "frontend/adddialog.h"
 #include "frontend/deletedialog.h"
 //#include "frontend/searchMenu.h"
+#include "frontend/deletewarning.h"
 #include "frontend/sensorwindow.h"
 #include <QStackedWidget>
 
@@ -17,6 +18,7 @@ public:
 
     AddDialog *addDialog;
     DeleteDialog *deleteDialog;
+    DeleteWarning *deleteWarning;
 
     LayoutsWidget(QWidget * parent = nullptr);
     //LayoutsWidget(QVector<QWidget*> frame,QWidget *parent = nullptr);//Eliminabile(?)
