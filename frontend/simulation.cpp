@@ -4,26 +4,33 @@
 Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
     QHBoxLayout *layout = new QHBoxLayout(this);
 
-    // Crea e aggiungi SimBar al layout
-    simBar = new SimBar(s, this);
+    QWidget *leftBar = new QWidget(this);
+    QVBoxLayout *layoutLeftBar = new QVBoxLayout(leftBar);
+    legend= new Legend(leftBar);
+    layoutLeftBar->addWidget(legend);
+    simBar = new SimBar(s, leftBar);
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
     scrollArea->setWidget(simBar);
-    //scrollArea->setWidgetResizable(true);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    layout->addWidget(scrollArea);
 
 
-    // Aggiungi uno spaziatore elastico per spingere plane a destra
+    layoutLeftBar->addWidget(scrollArea);
+    layout->addWidget(leftBar);
+
+
+
     //layout->addStretch();
 
-    // Crea e aggiungi CartesianPlane al layout
+
     plane = new CartesianPlane(this);
     plane->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     plane->setMinimumSize(160, 90);
     plane->setStyleSheet("background-color: black; border: 1px solid gray;"); // Imposta lo stile di CartesianPlane
     layout->addWidget(plane);
+
+
 
     connect(simBar, &SimBar::add, this, &Simulation::addSensor);
     connect(simBar, &SimBar::remove, this, &Simulation::removeSensor);

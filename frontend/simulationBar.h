@@ -5,12 +5,16 @@
 #include <QWidget>
 #include <QHBoxLayout>
 
+
+
 class SimBar:public QWidget{
     Q_OBJECT
 private:
     static int nButtons;
+    //QVector<QObjects*> garbage;
 public:
-    SimBar(QVector<Sensor*> s,QWidget* parent = nullptr);
+    SimBar(const QVector<Sensor*>& s,QWidget* parent = nullptr);
+    //~SimBar();
 signals:
     void add(Sensor *sensor, int i, int n);
     void remove(int n);

@@ -1,11 +1,11 @@
 #include "frontend/simulationBar.h"
 #include "qlabel.h"
-#include "qscrollarea.h"
 #include <QToolButton>
 #include<QFrame>
 #include <QColor>
+
 int SimBar::nButtons = 0;
-SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
+SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addStretch();
     int hue,colorCounter=0;
@@ -16,6 +16,7 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
     for (int i = 0; i < s.size(); ++i) {
         QFrame *panel = new QFrame(this);
         QHBoxLayout *panelLayout = new QHBoxLayout(panel);
+
         panel->setFrameStyle(QFrame::Box | QFrame::Plain);
         panel->setLineWidth(1);
         panel->setMidLineWidth(0);
@@ -62,13 +63,21 @@ SimBar::SimBar(QVector<Sensor*> s, QWidget* parent) : QWidget(parent) {
                     emit updatePlane(s[i], j, n);
             });
             buttonLayout->addWidget(slot);
+
         }
 
 
         panelLayout->addWidget(labels);
         panelLayout->addWidget(buttons);
         mainLayout->addWidget(panel);
+
+
+
     }
     nButtons = 0;
     mainLayout->addStretch();
 }
+
+//SimBar::~SimBar() {
+
+//}
