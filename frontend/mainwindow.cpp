@@ -131,6 +131,10 @@ MainWindow::MainWindow(const QVector<Sensor*>& s, QWidget *parent):
 void MainWindow::changeLayout(){
 
     if(layoutsWidget->currentIndex()==0){
+        delete layoutsWidget->widget(1);
+
+        // Crea una nuova istanza della simulazione e aggiungila al LayoutsWidget
+        layoutsWidget->insertWidget(1, new Simulation(Json::caricaSensori()));
         layoutsWidget->setCurrentIndex(1);
         menuBar->changeLayoutAct->setText(tr("Sensori"));
     }else{
