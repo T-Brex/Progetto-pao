@@ -20,7 +20,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
     //DA CAMBIARE IL FATTO CHE SENSWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
     this->addWidget(sensWindow);
-    this->addWidget(new QPushButton("suca"));
+    this->addWidget(new Simulation(Json::caricaSensori()));
 
     //ModifyDialog* modifyDialog = new ModifyDialog;
 
