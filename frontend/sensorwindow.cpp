@@ -115,6 +115,45 @@ void sensorWindow::deleteAllSensors() {
         // Rimuovi il puntatore dal vettore
         it = sensorsPanels.erase(it);
     }
+}
+
+
+void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
+    addSensor(Json::costruttore(newName, newType));
+    deleteSensor(oldName);
 
 }
 
+void sensorWindow::filterSensors(const QString& searchText) {
+    // Nascondi tutti i sensori
+    for (auto layout : sensorsTypeLayout) {
+        for (int i = 0; i < layout->count(); ++i) {
+            layout->itemAt(i)->widget()->setVisible(false);
+        }
+    }
+
+    // Mostra solo i sensori che corrispondono alla sottostringa
+    for (auto panel : sensorsPanels) {
+        if (panel->getName().contains(searchText, Qt::CaseInsensitive)) {
+            // Trova l'indice del layout corrispondente al tipo di sensore
+            int layoutIndex = -1;
+            if (panel->getType() == "Dust") {
+                layoutIndex = 0;
+            } else if (panel->getType() == "Humidity") {
+                layoutIndex = 1;
+            } else if (panel->getType() == "Wind") {
+                layoutIndex = 2;
+            } else if (panel->getType() == "Termometer") {
+                layoutIndex = 3;
+            } else if (panel->getType() == "AirQuality") {
+                layoutIndex = 4;
+            }
+
+            // Se è stato trovato un layout corrispondente, mostra il pannello
+            if (layoutIndex != -1) {
+                sensorsTypeLayout[layoutIndex]->addWidget(panel);
+                panel->setVisible(true);
+            }
+        }
+    }
+}

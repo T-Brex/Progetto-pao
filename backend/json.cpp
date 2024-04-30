@@ -24,8 +24,9 @@ QJsonArray Json::leggiJson(const QString& fileName) {
 }
 
 QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName) {
-    if (!nome.isEmpty()) {
-
+    if (nome.isEmpty()) {
+        return "empty";
+    } else {
         QJsonArray sensoriArray = Json::leggiJson(fileName);
         QFile file(fileName);
 
@@ -61,15 +62,69 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             } else {
                 return "openError";
             }
-            //return "ok";
         }
-    } else {
-        return "empty";
     }
 return "0";
 }
 
+QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo, const QString& fileName) {
+    if (nuovoNome.isEmpty()) {
+        qDebug() << "Il nuovo nome del sensore non può essere vuoto.";
+        return "empty";
+    }
 
+    QJsonArray sensoriArray = Json::leggiJson(fileName);
+
+    bool nomeEsistente = false;
+    for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
+        QJsonObject sensoreObject = it->toObject();
+        if (sensoreObject["nome"] == nomeSensore) {
+
+            if (sensoreObject["nome"] != nuovoNome) {
+                // Verifica se il nuovo nome del sensore esiste già
+                for (auto it2 = sensoriArray.begin(); it2 != sensoriArray.end(); ++it2) {
+                    QJsonObject sensoreObject2 = it2->toObject();
+                    if (sensoreObject2["nome"] == nuovoNome) {
+                        nomeEsistente = true;
+                        break;
+                    }
+                }
+            } else {
+                // Il nuovo nome è lo stesso del nome attuale del sensore
+                nomeEsistente = false;
+            }
+            break;
+        }
+    }
+
+    if (!nomeEsistente) {
+        // Modifica il nome e il tipo del sensore
+        for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
+            QJsonObject sensoreObject = it->toObject();
+            if (sensoreObject["nome"] == nomeSensore) {
+                sensoreObject["nome"] = nuovoNome;
+                sensoreObject["tipo"] = nuovoTipo;
+                *it = sensoreObject; // Aggiorna l'oggetto nell'array
+                break;
+            }
+        }
+
+        // Scrivi il JSON aggiornato sul file
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly)) {
+            QJsonDocument jsonDocument(sensoriArray);
+            file.write(jsonDocument.toJson());
+            file.close();
+            return "ok";
+        } else {
+            qDebug() << "Impossibile aprire il file per la scrittura.";
+            return "fileError";
+        }
+    } else {
+        qDebug() << "Esiste già un sensore con il nome specificato.";
+        return "existing";
+    }
+}
 void Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
     QFile file(newFileName);
     if (file.open(QIODevice::WriteOnly)) {
@@ -157,6 +212,30 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
 
     return sensori;
 }
+
+QVector<Sensor*> Json::trovaSensoriPerNome(const QString& substrNome, const QString& fileName) {
+    QVector<Sensor*> sensoriTrovati;
+    QJsonArray sensoriArray = leggiJson(fileName);
+
+    for (const auto& sensore : sensoriArray) {
+        QJsonObject sensoreObject = sensore.toObject();
+        QString nome = sensoreObject["nome"].toString();
+
+        // Controlla se il nome del sensore contiene la sottostringa specificata
+        if (nome.contains(substrNome, Qt::CaseInsensitive)) {
+            QString tipo = sensoreObject["tipo"].toString();
+            Sensor* nuovoSensore = costruttore(nome, tipo);
+            if (nuovoSensore) {
+                sensoriTrovati.append(nuovoSensore);
+            } else {
+                qDebug() << "Tipo di sensore non valido: " << tipo;
+            }
+        }
+    }
+
+    return sensoriTrovati;
+}
+
 
 Sensor* Json::costruttore(const QString& nome, const QString& tipo) {
     Sensor* nuovoSensore = nullptr;

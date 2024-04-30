@@ -5,5 +5,6 @@
         <file>resources/Wind.ico</file>
         <file>resources/Humidity.ico</file>
         <file>resources/Dust.ico</file>
+	<file>resources/buttonModifica.png</file>
     </qresource>
 </RCC>

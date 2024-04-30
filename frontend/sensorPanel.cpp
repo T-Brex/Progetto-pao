@@ -36,9 +36,9 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     ico->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(ico);
 
-    QLabel* sensorType = new QLabel(sensor.getType());
-    sensorType->setAlignment(Qt::AlignCenter);
-    infoLayout->addWidget(sensorType);
+    type = new QLabel(sensor.getType());
+    type->setAlignment(Qt::AlignCenter);
+    infoLayout->addWidget(type);
 
     auto valuesList = sensor.getValue();
     auto namesList = sensor.getNameValues();
@@ -61,6 +61,9 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
 }
 QString SensorPanel::getName(){
     return name->text();
+}
+QString SensorPanel::getType(){
+    return type->text();
 }
 SensorPanel::SensorPanel(const SensorPanel& s, QWidget* parent): QWidget(parent), name(s.name), values(s.values), ico(s.ico){
 

@@ -13,6 +13,7 @@ class SensorPanel: public QWidget {
     Q_OBJECT
 private:
     QLabel* name;
+    QLabel* type;
     QLabel* values;
     QLabel* valuesName;
     QLabel* ico;
@@ -22,6 +23,7 @@ public:
     SensorPanel(const Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
     QString getName();
+    QString getType();
     static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
 };
 #endif

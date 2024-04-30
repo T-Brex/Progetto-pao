@@ -5,9 +5,8 @@
 #include <QMessageBox>
 
 AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea"))
-    //,emptyNameMessage(new QMessageBox)
+
 {
-    //emptyNameMessage->setText("Inserire un nome");
 
     sceltaTipo->addItem("Dust");
     sceltaTipo->addItem("Humidity");
