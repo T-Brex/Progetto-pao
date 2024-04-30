@@ -62,25 +62,11 @@ int main(int argc, char *argv[])
     //emptyName.setDefaultButton(new QPushButton);
     //emptyName.setText("Inserire un nome");
     //emptyName.open();
+
     w.show();
     w.setWindowTitle("Sensori");
     w.showMaximized();
 
-
-
-    /*
-    CartesianPlane window;
-    window.setWindowTitle("Piano Cartesiano");
-    window.resize(800, 500);
-    Sensor * d = new Dust("gigi");
-    window.addSensor(d);
-<<<<<<< HEAD
-    window.addSensor(d);
-    //window.show();
-=======
-
-    window.show();
-*/
     Simulation window(s);
     window.setWindowTitle("simulation bar");
     window.resize(900,900);
