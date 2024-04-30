@@ -1,6 +1,7 @@
 #ifndef SEARCHMENU_H
 #define SEARCHMENU_H
 
+#include "backend/sensors.h"
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QWidget>
@@ -16,9 +17,16 @@ public:
     //unsigned int order;   //memorizza l'ordine di visualizzazione dei sensori (il tipo è da rivedere)
     //unsigned int *filters;
     QVBoxLayout * layout;
+
+    QWidget *foundSensorsWidget;
+    QVBoxLayout *foundSensorsLayout;
+
     QLineEdit *lineEdit;
     QPushButton *addButton;
+    QPushButton *importButton;
+    QPushButton *saveAsButton;
     QPushButton *deleteButton;
+    QPushButton *deleteAllButton;
     SearchMenu(QWidget* parent = nullptr);
 
 public slots:
@@ -26,5 +34,9 @@ public slots:
 signals:
     void showAddDialog();
     void showDeleteDialog();
+    void showSaveAsDialog();
+    void showDeleteAllDialog();
+    void showImportDialog();
+    void showModifyDialog(const Sensor* sensor);
 };
 #endif // SEARCHMENU_H

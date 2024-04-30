@@ -3,6 +3,8 @@ debug/adddialog.o
 debug/cartesianPlane.o
 debug/deletedialog.o
 debug/legend.o
+debug/deletewarning.o
+debug/modifydialog.o
 debug/searchMenu.o
 debug/layoutswidget.o
 debug/menubar.o
@@ -18,9 +20,11 @@ debug/qrc_resources.o
 debug/moc_adddialog.o
 debug/moc_cartesianPlane.o
 debug/moc_deletedialog.o
+debug/moc_deletewarning.o
 debug/moc_layoutswidget.o
 debug/moc_legend.o
 debug/moc_mainwindow.o
+debug/moc_modifydialog.o
 debug/moc_searchMenu.o
 debug/moc_menubar.o
 debug/moc_sensorwindow.o

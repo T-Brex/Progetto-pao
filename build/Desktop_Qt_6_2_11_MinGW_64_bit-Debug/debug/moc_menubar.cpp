@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MenuBar_t {
-    uint offsetsAndSizes[12];
-    char stringdata0[72];
+    uint offsetsAndSizes[14];
+    char stringdata0[84];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MenuBar_t::offsetsAndSizes) + ofs), len 
@@ -33,11 +33,12 @@ static const qt_meta_stringdata_MenuBar_t qt_meta_stringdata_MenuBar = {
         QT_MOC_LITERAL(8, 19),  // "changeLayoutTrigger"
         QT_MOC_LITERAL(28, 0),  // ""
         QT_MOC_LITERAL(29, 13),  // "showAddDialog"
-        QT_MOC_LITERAL(43, 11),  // "loadTrigger"
-        QT_MOC_LITERAL(55, 16)   // "showDeleteDialog"
+        QT_MOC_LITERAL(43, 11),  // "saveTrigger"
+        QT_MOC_LITERAL(55, 11),  // "loadTrigger"
+        QT_MOC_LITERAL(67, 16)   // "showDeleteDialog"
     },
     "MenuBar\0changeLayoutTrigger\0\0showAddDialog\0"
-    "loadTrigger\0showDeleteDialog"
+    "saveTrigger\0loadTrigger\0showDeleteDialog"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,20 +48,22 @@ static const uint qt_meta_data_MenuBar[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x06,    1 /* Public */,
-       3,    0,   39,    2, 0x06,    2 /* Public */,
-       4,    0,   40,    2, 0x06,    3 /* Public */,
-       5,    0,   41,    2, 0x06,    4 /* Public */,
+       1,    0,   44,    2, 0x06,    1 /* Public */,
+       3,    0,   45,    2, 0x06,    2 /* Public */,
+       4,    0,   46,    2, 0x06,    3 /* Public */,
+       5,    0,   47,    2, 0x06,    4 /* Public */,
+       6,    0,   48,    2, 0x06,    5 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -77,8 +80,9 @@ void MenuBar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->changeLayoutTrigger(); break;
         case 1: _t->showAddDialog(); break;
-        case 2: _t->loadTrigger(); break;
-        case 3: _t->showDeleteDialog(); break;
+        case 2: _t->saveTrigger(); break;
+        case 3: _t->loadTrigger(); break;
+        case 4: _t->showDeleteDialog(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -99,15 +103,22 @@ void MenuBar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         }
         {
             using _t = void (MenuBar::*)();
-            if (_t _q_method = &MenuBar::loadTrigger; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (_t _q_method = &MenuBar::saveTrigger; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 2;
                 return;
             }
         }
         {
             using _t = void (MenuBar::*)();
-            if (_t _q_method = &MenuBar::showDeleteDialog; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (_t _q_method = &MenuBar::loadTrigger; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (MenuBar::*)();
+            if (_t _q_method = &MenuBar::showDeleteDialog; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 4;
                 return;
             }
         }
@@ -122,7 +133,7 @@ const QMetaObject MenuBar::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_MenuBar_t
-, QtPrivate::TypeAndForceComplete<MenuBar, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<MenuBar, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 
@@ -150,13 +161,13 @@ int MenuBar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
@@ -174,15 +185,21 @@ void MenuBar::showAddDialog()
 }
 
 // SIGNAL 2
-void MenuBar::loadTrigger()
+void MenuBar::saveTrigger()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }
 
 // SIGNAL 3
-void MenuBar::showDeleteDialog()
+void MenuBar::loadTrigger()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void MenuBar::showDeleteDialog()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

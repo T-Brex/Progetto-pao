@@ -1,32 +1,69 @@
 #include "sensorwindow.h"
 #include "backend/json.h"
+#include <QScrollBar>
 
 sensorWindow::sensorWindow(QWidget *parent)
     : QWidget(parent),
+
     layout(new QHBoxLayout(this)),
+
     sensScrollArea(new QScrollArea()),sensWidget(new QWidget()),sensLayout(new QVBoxLayout(sensWidget)),
+
     dustWidget(new QWidget), dustLayout(new QHBoxLayout(dustWidget)),
     humidityWidget(new QWidget), humidityLayout(new QHBoxLayout(humidityWidget)),
     windWidget(new QWidget), windLayout(new QHBoxLayout(windWidget)),
     termometerWidget(new QWidget), termometerLayout(new QHBoxLayout(termometerWidget)),
     airQualityWidget(new QWidget), airQualityLayout(new QHBoxLayout(airQualityWidget)),
+
     searchMenu(new SearchMenu(nullptr))
 {
     sensScrollArea->setWidgetResizable(true);
     sensScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    auto *vScrollBar=sensScrollArea->verticalScrollBar();
+    vScrollBar->setStyleSheet("QScrollBar:vertical { background-color: yellow; }");
+
     sensScrollArea->setWidget(sensWidget);
 
-    sensLayout->addWidget(dustWidget);
-    sensLayout->addWidget(humidityWidget);
-    sensLayout->addWidget(windWidget);
-    sensLayout->addWidget(termometerWidget);
-    sensLayout->addWidget(airQualityWidget);
+    sensorsTypeWidget.push_back(dustWidget);
+    sensorsTypeWidget.push_back(humidityWidget);
+    sensorsTypeWidget.push_back(windWidget);
+    sensorsTypeWidget.push_back(termometerWidget);
+    sensorsTypeWidget.push_back(airQualityWidget);
+
+    sensorsTypeLayout.push_back(dustLayout);
+    sensorsTypeLayout.push_back(humidityLayout);
+    sensorsTypeLayout.push_back(windLayout);
+    sensorsTypeLayout.push_back(termometerLayout);
+    sensorsTypeLayout.push_back(airQualityLayout);
+
+    for(auto it=sensorsTypeLayout.begin();it!=sensorsTypeLayout.end();++it){
+        (*it)->setAlignment(Qt::AlignLeft);
+        //(*it)->totalMinimumHeightForWidth()
+    }
+
+
+
+    for(auto it=sensorsTypeWidget.begin();it!=sensorsTypeWidget.end();++it){
+        QScrollArea *sensorScrollArea=new QScrollArea(nullptr);
+        sensorScrollArea->setWidget(*it);
+        sensorScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        sensorScrollArea->setWidgetResizable(true);
+        sensorScrollArea->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+        sensorScrollArea->setMinimumHeight(300);
+        //(*it)->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+        //auto *hScrollBar=sensorScrollArea->verticalScrollBar();
+        //hScrollBar->setStyleSheet("QScrollBar:horizontal  { background-color: yellow; }");
+
+        sensLayout->addWidget(sensorScrollArea);
+    }
 
     QVector<Sensor*> sensors=Json::caricaSensori();
     for(auto it=sensors.begin();it!=sensors.end();++it){
         addSensor(*it);
     }
 
+
+    //searchMenu->set
     layout->addWidget(searchMenu);
     layout->addWidget(sensScrollArea);
 }
@@ -53,18 +90,70 @@ void sensorWindow::deleteSensor(QString s) {
             // Rimuovi il widget dalla disposizione
             sensLayout->removeWidget(*it);
             sensLayout->update();
+
             // Dealloca il widget
             delete *it;
+
             // Rimuovi il puntatore dal vettore
             it = sensorsPanels.erase(it);
-
 
             // Assicurati di non superare la fine del vettore
             if (it == sensorsPanels.end())
                 break;
-
         }
     }
+}
+void sensorWindow::deleteAllSensors() {
+    for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ) {
+        // Rimuovi il widget dalla disposizione
+        sensLayout->removeWidget(*it);
+        sensLayout->update();
+
+        // Dealloca il widget
+        delete *it;
+
+        // Rimuovi il puntatore dal vettore
+        it = sensorsPanels.erase(it);
+    }
+}
+
+
+void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
+    addSensor(Json::costruttore(newName, newType));
+    deleteSensor(oldName);
 
 }
 
+void sensorWindow::filterSensors(const QString& searchText) {
+    // Nascondi tutti i sensori
+    for (auto layout : sensorsTypeLayout) {
+        for (int i = 0; i < layout->count(); ++i) {
+            layout->itemAt(i)->widget()->setVisible(false);
+        }
+    }
+
+    // Mostra solo i sensori che corrispondono alla sottostringa
+    for (auto panel : sensorsPanels) {
+        if (panel->getName().contains(searchText, Qt::CaseInsensitive)) {
+            // Trova l'indice del layout corrispondente al tipo di sensore
+            int layoutIndex = -1;
+            if (panel->getType() == "Dust") {
+                layoutIndex = 0;
+            } else if (panel->getType() == "Humidity") {
+                layoutIndex = 1;
+            } else if (panel->getType() == "Wind") {
+                layoutIndex = 2;
+            } else if (panel->getType() == "Termometer") {
+                layoutIndex = 3;
+            } else if (panel->getType() == "AirQuality") {
+                layoutIndex = 4;
+            }
+
+            // Se è stato trovato un layout corrispondente, mostra il pannello
+            if (layoutIndex != -1) {
+                sensorsTypeLayout[layoutIndex]->addWidget(panel);
+                panel->setVisible(true);
+            }
+        }
+    }
+}

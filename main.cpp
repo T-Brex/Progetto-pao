@@ -67,9 +67,6 @@ int main(int argc, char *argv[])
     w.show();
     w.setWindowTitle("Sensori");
 
-
-
-
     Simulation window(s);
     //window.setWindowTitle("simulation bar");
     //window.resize(900,900);

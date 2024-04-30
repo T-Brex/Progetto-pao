@@ -3,10 +3,10 @@
 #include "qjsonobject.h"
 #include "backend/json.h"
 
-DeleteDialog::DeleteDialog(QWidget *parent):QDialog(parent),sceltaNome(new QComboBox),deleteButton(new QPushButton("Elimina")),layout(new QVBoxLayout(this))
+DeleteDialog::DeleteDialog(QWidget *parent):QDialog(parent),sceltaNome(new QComboBox),deleteButton(new QPushButton("Elimina"))
 {
     QJsonArray sensoriArray = Json::leggiJson();
-
+    QVBoxLayout *layout = new QVBoxLayout(this);
     for (const auto& sensore : sensoriArray) {
         QJsonObject sensoreObject = sensore.toObject();
         QString nome = sensoreObject["nome"].toString();

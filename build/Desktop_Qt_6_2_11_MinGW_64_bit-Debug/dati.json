@@ -32,13 +32,6 @@
         "tipo": "AirQuality"
     },
     {
-        "creationDate": "2024-04-27T18:59:07",
-        "nome": "p",
-        "pm10": 0,
-        "pm25": 0,
-        "tipo": "Dust"
-    },
-    {
         "creationDate": "2024-04-27T18:59:12",
         "humidity": 0,
         "nome": "o",
