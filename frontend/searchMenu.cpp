@@ -33,6 +33,7 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
     layout->addWidget(foundSensorsWidget);
 
 
+
     layout->setContentsMargins(5,5,5,5);  // (x,y,w,h)
     layout->setAlignment(Qt::AlignTop);
 

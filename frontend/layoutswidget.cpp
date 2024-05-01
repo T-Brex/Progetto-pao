@@ -65,6 +65,15 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         modifyDialog->lineEdit->setFocus();
     });
 
+    connect(sensWindow,&sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
+        modifyDialog->oldSensorName=sensor->getName();
+        modifyDialog->oldSensorType=sensor->getType();
+        modifyDialog->lineEdit->setText(modifyDialog->oldSensorName);
+        modifyDialog->sceltaTipo->setCurrentText(modifyDialog->oldSensorType);
+        modifyDialog->show();
+        modifyDialog->lineEdit->setFocus();
+    });
+
     connect(modifyDialog->newButton,&QPushButton::clicked, this, [&]()
             {
         qDebug()<<modifyDialog->oldSensorName;
@@ -97,6 +106,8 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         }
 
             });
+
+
 
     connect(sensWindow->searchMenu,&SearchMenu::showImportDialog, this, [&]()
             {

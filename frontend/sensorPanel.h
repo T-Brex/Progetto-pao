@@ -17,7 +17,9 @@ private:
     QLabel* values;
     QLabel* valuesName;
     QLabel* ico;
+
 public:
+     QPushButton* buttonModify;
     //SensorPanel(const Sensor&);
     //virtual void update();
     SensorPanel(const Sensor& s,QWidget* parent = 0);
@@ -25,6 +27,7 @@ public:
     QString getName();
     QString getType();
     static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
+
 };
 #endif
 

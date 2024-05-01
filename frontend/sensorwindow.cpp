@@ -66,13 +66,18 @@ sensorWindow::sensorWindow(QWidget *parent)
     //searchMenu->set
     layout->addWidget(searchMenu);
     layout->addWidget(sensScrollArea);
+
+
+
 }
 
 
 
 void sensorWindow::addSensor(Sensor *s) {
     sensorsPanels.push_back(new SensorPanel(*s));
-
+    connect(sensorsPanels.last()->buttonModify,&QPushButton::clicked,this,[s, this]() {
+        emit showModifyDialog(s);
+    });
     if(s->getType()=="Dust")
         dustLayout->addWidget(sensorsPanels.last());
     if(s->getType()=="Humidity")

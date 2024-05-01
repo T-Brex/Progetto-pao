@@ -2,7 +2,7 @@
 #include <QLabel>
 #include <QString>
 
-SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent)
+SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent),buttonModify(new QPushButton("Modifica"))
 {
     QVBoxLayout* layout = new QVBoxLayout(this); // Imposta il layout principale su questo widget
 
@@ -48,16 +48,21 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
         values = new QLabel( QString::number(valuesList[i]) );
         valuesName->setAlignment(Qt::AlignCenter);
         values->setAlignment(Qt::AlignCenter);
+
         QWidget* valueWidget = new QWidget;
         QHBoxLayout* valueLayout = new QHBoxLayout(valueWidget);
         valueLayout->addWidget(valuesName);
         valueLayout->addWidget(values);
         valuesLayout->addWidget(valueWidget);
+
     }
 
     // Aggiungi infoWidget e valuesWidget al frameLayout
     frameLayout->addWidget(infoWidget);
     frameLayout->addWidget(valuesWidget);
+    valuesLayout->addWidget(buttonModify);
+    //Sensor* sensorNonConst=const_cast<Sensor*>(&sensor);
+
 }
 QString SensorPanel::getName(){
     return name->text();
