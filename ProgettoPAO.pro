@@ -13,6 +13,7 @@ SOURCES += \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/deletedialog.cpp \
+    frontend/legend.cpp \
     frontend/deletewarning.cpp \
     frontend/modifydialog.cpp \
     frontend/searchMenu.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     frontend/deletedialog.h \
     frontend/deletewarning.h \
     frontend/layoutswidget.h \
+    frontend/legend.h \
     frontend/mainwindow.h \
     frontend/modifydialog.h \
     frontend/searchMenu.h \

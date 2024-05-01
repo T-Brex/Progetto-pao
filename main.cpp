@@ -59,18 +59,19 @@ int main(int argc, char *argv[])
 
 
     MainWindow w;
+
     //emptyName.setDefaultButton(new QPushButton);
     //emptyName.setText("Inserire un nome");
     //emptyName.open();
 
     w.show();
     w.setWindowTitle("Sensori");
-    w.showMaximized();
 
     Simulation window(s);
-    window.setWindowTitle("simulation bar");
-    window.resize(900,900);
+    //window.setWindowTitle("simulation bar");
+    //window.resize(900,900);
     //window.show();
+
 
 
 

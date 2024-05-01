@@ -14,7 +14,7 @@ void Sensor::modifyName(const QString& n){
 
 Sensor::~Sensor(){}
 
-int Sensor::getRandomNumber() const{return rand() % 21 -10;}
+
 
 
 
@@ -31,12 +31,12 @@ Dust::Dust(const Dust& d):
 
 void Dust::updateValue(){
     static std::mt19937 generator(std::random_device{}());
+    std::uniform_real_distribution<double> distributionPm10(0.0, -50.0);
+    std::uniform_real_distribution<double> distributionPm25(0.0, -35.0);
 
-    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
 
-
-    pm25 = distribution(generator);
-    pm10 = distribution(generator);
+    pm25 = distributionPm25(generator);
+    pm10 = distributionPm10(generator);
 }
 
 
@@ -62,11 +62,11 @@ Humidity::Humidity(const Humidity& h):
 void Humidity::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+    std::uniform_real_distribution<double> distributionHum(0.0, -23.0);
+    std::uniform_real_distribution<double> distributionPer(0.0, -10.0);   //0 = 0% , 10 = 100%
 
-
-    humidity = distribution(generator);
-    percentage = distribution(generator);
+    humidity = distributionHum(generator);
+    percentage = distributionPer(generator);
 
 }
 
@@ -93,7 +93,7 @@ Wind::Wind(const Wind& w):
 void Wind::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+    std::uniform_real_distribution<double> distribution(0.0, -10.0);   //0 = 0 km/h , 10 = 100 km/h
 
 
     wind = distribution(generator);
@@ -122,7 +122,7 @@ Termometer::Termometer(const Termometer& t):
 void Termometer::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+    std::uniform_real_distribution<double> distribution(20.0, -30.0);
 
 
     temperature = distribution(generator);

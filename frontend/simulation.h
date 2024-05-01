@@ -2,6 +2,7 @@
 #define SIMULATION_H
 #include "frontend/simulationBar.h"
 #include "frontend/cartesianPlane.h"
+#include "frontend/legend.h"
 
 
 class Simulation :public QWidget{
@@ -9,6 +10,8 @@ class Simulation :public QWidget{
 private:
     SimBar *simBar;
     CartesianPlane *plane;
+    Legend *legend;
+
 public:
     Simulation(QVector<Sensor*> s, QWidget* parent=nullptr);
 

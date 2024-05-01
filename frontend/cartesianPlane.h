@@ -17,11 +17,12 @@ public:
     CartesianPlane(QWidget *parent = nullptr);
     CartesianPlane(const QVector<QPolygonF*> s,QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
-    void drawPlane(QPainter& painter);
-    void drawSensors(QPainter& painter,QVector<QPolygonF*> s);              //PER PAINTEVENT(): DISEGNA CARTESIANPLANE.SENSORS
+    void drawPlane(QPainter& painter) const;
+    void drawSensors(QPainter& painter,QVector<QPolygonF*> s) const;              //PER PAINTEVENT(): DISEGNA CARTESIANPLANE.SENSORS
     void addSensor(Sensor * s, int i, int n);                //AGGIUNGERA' AL GRAFICO UN ALTRO SENSORE, COSTRUIRA' DA UN SENSORE UN ARRAY DI DIM QPOINT CON SENSOR::GETVALUE()
     void removeSensor(int n);             //RIMUOVERA' IL SENSORE SELEZIONATO
     void wheelEvent(QWheelEvent *event) ;
+    ~CartesianPlane();
 
 
 };

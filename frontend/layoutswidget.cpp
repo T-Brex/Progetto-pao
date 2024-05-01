@@ -1,18 +1,23 @@
 #include "layoutswidget.h"
-#include "frontend/modifydialog.h"
 #include "frontend/sensorwindow.h"
+#include "frontend/simulation.h"
+#include "frontend/modifydialog.h"
 #include "qdialog.h"
 #include "qmessagebox.h"
 #include "qpushbutton.h"
+
+
 #include "backend/json.h"
 #include <QScrollArea>
 #include <QFileDialog>
 
 
 LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
+
     sensWindow(new sensorWindow(nullptr)), addDialog(new AddDialog),
     deleteDialog(new DeleteDialog(nullptr)),deleteWarning(new DeleteWarning(nullptr)),
     modifyDialog(new ModifyDialog)
+
 {
     //UTILE SE LA "simulationWindow" e "sensWindow" condividessero gli stessi sensori!
     //QVector<Sensor*> sensors=Json::caricaSensori();
@@ -193,10 +198,15 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
     }
 
     this->addWidget(sensWindow);
-
+    simuWidget = new Simulation(sensors);
     //costruzione layout simulazione
+<<<<<<< HEAD
+    //simuLayout->addWidget(new QPushButton("SUCA"));
+    this->addWidget(simuWidget);
+=======
     simuLayout->addWidget(new QPushButton("SUCA"));
     this->addWidget(simuWindow);
+>>>>>>> main
 
     sensWindowLayout->addWidget(searchMenu);
     sensWindowLayout->addWidget(sensScrollArea);
