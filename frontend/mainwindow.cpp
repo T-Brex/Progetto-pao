@@ -92,10 +92,10 @@ void MainWindow::changeLayout(){
         // Crea una nuova istanza della simulazione e aggiungila al LayoutsWidget
         layoutsWidget->insertWidget(1, new Simulation(Json::caricaSensori()));
         layoutsWidget->setCurrentIndex(1);
-        menuBar->changeLayoutAct->setText(tr("Sensori"));
+        menuBar->getChangeLayoutAct()->setText(tr("Sensori"));
     }else{
         layoutsWidget->setCurrentIndex(0);
-        menuBar->changeLayoutAct->setText(tr("Simulazione"));
+        menuBar->getChangeLayoutAct()->setText(tr("Simulazione"));
     }
 };
 
