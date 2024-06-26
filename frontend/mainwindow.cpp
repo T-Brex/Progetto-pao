@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menuBar, &MenuBar::changeLayoutTrigger, this, &MainWindow::changeLayout);
 
 
-    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::show);
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->getDeleteDialog(), &DeleteDialog::show);
 
 
-    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->deleteDialog, &DeleteDialog::show);
+    connect(menuBar, &MenuBar::showDeleteDialog, layoutsWidget->getDeleteDialog(), &DeleteDialog::show);
     connect(menuBar, &MenuBar::saveTrigger, this,  [&]()
             {
                 QString fileName = QFileDialog::getSaveFileName(this, "Salva file JSON", "", "JSON Files (*.json)");
@@ -49,8 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                         if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
-                            layoutsWidget->sensWindow->addSensor(*i);
-                            layoutsWidget->deleteDialog->getSceltaNome()->addItem((*i)->getName());
+                            layoutsWidget->getSensWindow()->addSensor(*i);
+                            layoutsWidget->getDeleteDialog()->getSceltaNome()->addItem((*i)->getName());
                         }
                     }
                 } else {
@@ -67,15 +67,15 @@ MainWindow::MainWindow(QWidget *parent)
         }
                 // Verifica se l'utente ha selezionato un file
                 if (!fileName.isEmpty()) {
-                    layoutsWidget->sensWindow->deleteAllSensors();
-                    layoutsWidget->deleteDialog->getSceltaNome()->clear();
+                    layoutsWidget->getSensWindow()->deleteAllSensors();
+                    layoutsWidget->getDeleteDialog()->getSceltaNome()->clear();
                     qDebug() << "Hai selezionato il file:" << fileName;
                     //Json::eliminaSensori();
 
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
-                            layoutsWidget->sensWindow->addSensor(*i);
-                            layoutsWidget->deleteDialog->getSceltaNome()->addItem((*i)->getName());
+                            layoutsWidget->getSensWindow()->addSensor(*i);
+                            layoutsWidget->getDeleteDialog()->getSceltaNome()->addItem((*i)->getName());
                     }
                 } else {
                     qDebug() << "Nessun file selezionato.";
