@@ -32,7 +32,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
         if (result == "ok") {
             sensWindow->addSensor(Json::costruttore(addDialog->getLineEdit()->text(), addDialog->getSceltaTipo()->currentText()));
-            deleteDialog->sceltaNome->addItem(addDialog->getLineEdit()->text());
+            deleteDialog->getSceltaNome()->addItem(addDialog->getLineEdit()->text());
             addDialog->getLineEdit()->clear();
             addDialog->hide();
             this->update();
@@ -75,14 +75,16 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->oldSensorName, modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
-            //deleteDialog->sceltaNome->removeItem();
-            deleteDialog->sceltaNome->addItem(modifyDialog->getLineEdit()->text());
+
+            deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
             // Rimuovere l'elemento dalla lista a discesa sceltaTipo
-            int indexToRemove = modifyDialog->getSceltaTipo()->findText(modifyDialog->oldSensorName);
+            int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->oldSensorName);
             if (indexToRemove != -1) {
-                modifyDialog->getSceltaTipo()->removeItem(indexToRemove);
+                deleteDialog->getSceltaNome()->removeItem(indexToRemove);
             }
+
+
             modifyDialog->getLineEdit()->clear();
             modifyDialog->hide();
             this->update();
@@ -102,41 +104,13 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
 
-
-    connect(sensWindow->searchMenu,&SearchMenu::showImportDialog, this, [&]()
-            {
-        QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
-
-        // Verifica se l'utente ha selezionato un file
-        if (!fileName.isEmpty()) {
-            qDebug() << "Hai selezionato il file:" << fileName;
-            QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
-            for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
-                if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
-                    sensWindow->addSensor(*i);
-                    deleteDialog->sceltaNome->addItem((*i)->getName());
-                }
-            }
-        } else {
-            qDebug() << "Nessun file selezionato.";
-        }
-            });
-
-
-    connect(sensWindow->searchMenu, &SearchMenu::showSaveAsDialog, this, [=]() {
-        QString newFileName = QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("JSON Files (*.json)"));
-        if (!newFileName.isEmpty()) {
-            Json::saveAs(Json::caricaSensori(), newFileName);
-            qDebug() << "Sensori salvati in:" << newFileName;
-        }
-    });
     connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+    connect(deleteDialog->getDeleteButton(),&QPushButton::clicked,this,[&]()
             {
-                Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
-                sensWindow->deleteSensor(deleteDialog->sceltaNome->currentText());
+                Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
+                sensWindow->deleteSensor(deleteDialog->getSceltaNome()->currentText());
                 deleteDialog->hide();
-                deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+                deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
             });
 
     // Connect per mostrare il DeleteWarning e conservare il puntatore al sensore
@@ -147,9 +121,9 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         // Connect aggiornato per confermare l'eliminazione e usare il puntatore al sensore
         connect(deleteOneWarning, &DeleteWarning::confirmed, this, [this, sensor]() {
             if (sensor != nullptr) {
-                int indexToRemove = deleteDialog->sceltaNome->findText(sensor->getName());
+                int indexToRemove = deleteDialog->getSceltaNome()->findText(sensor->getName());
                 if (indexToRemove != -1) {
-                    deleteDialog->sceltaNome->removeItem(indexToRemove);
+                    deleteDialog->getSceltaNome()->removeItem(indexToRemove);
                 }
 
                 Json::eliminaSensore(sensor->getName());
@@ -168,7 +142,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
     for(auto it=sensWindow->sensorsPanels.begin();it!=sensWindow->sensorsPanels.end();++it){
         Json::eliminaSensore((*it)->getName());
-        deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+        deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
     }
     sensWindow->deleteAllSensors();
     deleteAllWarning->hide();
@@ -238,7 +212,7 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
 
                 if(result=="ok"){
                     sensWindow->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
-                    deleteDialog->sceltaNome->addItem(addDialog->lineEdit->text());
+                    deleteDialog->getSceltaNome()->addItem(addDialog->lineEdit->text());
                     addDialog->lineEdit->clear();
                     addDialog->close();
 
@@ -246,13 +220,13 @@ LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(
             });
 
 
-    connect(deleteDialog->deleteButton,&QPushButton::clicked,this,[&]()
+    connect(deleteDialog->getDeleteButton(),&QPushButton::clicked,this,[&]()
             {
 
-                Json::eliminaSensore(deleteDialog->sceltaNome->currentText());
-                sensWindow->deleteSensor(deleteDialog->sceltaNome->currentText());
+                Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
+                sensWindow->deleteSensor(deleteDialog->getSceltaNome()->currentText());
                 deleteDialog->close();
-                deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
+                deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
             });
 
 

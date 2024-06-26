@@ -9,7 +9,7 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
     layout(new QVBoxLayout(this)),foundSensorsWidget(new QWidget),
     foundSensorsLayout(new QVBoxLayout(foundSensorsWidget)),
     lineEdit(new QLineEdit(nullptr)),
-    addButton(new QPushButton("Add")),importButton(new QPushButton("Import")),saveAsButton(new QPushButton("Save as"))
+    addButton(new QPushButton("Add"))
     ,deleteButton(new QPushButton("Delete")),deleteAllButton(new QPushButton("Delete All"))
 {
     //FARE FUNZIONE
@@ -32,8 +32,6 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
 
     layout->addWidget(lineEdit);
     layout->addWidget(addButton);
-    layout->addWidget(importButton);
-    layout->addWidget(saveAsButton);
     layout->addWidget(deleteButton);
     layout->addWidget(deleteAllButton);
     layout->addWidget(foundSensorsWidget);
@@ -79,9 +77,6 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
 
 
     connect(addButton, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
-    connect(importButton, &QPushButton::clicked, this, &SearchMenu::showImportDialog);
     connect(deleteButton, &QPushButton::clicked, this, &SearchMenu::showDeleteDialog);
-    connect(saveAsButton, &QPushButton::clicked, this, &SearchMenu::showSaveAsDialog);
     connect(deleteAllButton, &QPushButton::clicked, this, &SearchMenu::showDeleteAllDialog);
-    //connect(editIcon, &QPushButton::clicked, this, &SensorPanel::avviaModifica);
 }

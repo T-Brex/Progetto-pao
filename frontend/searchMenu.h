@@ -23,8 +23,7 @@ public:
 
     QLineEdit *lineEdit;
     QPushButton *addButton;
-    QPushButton *importButton;
-    QPushButton *saveAsButton;
+
     QPushButton *deleteButton;
     QPushButton *deleteAllButton;
     SearchMenu(QWidget* parent = nullptr);
@@ -33,10 +32,8 @@ public slots:
     //static void onTextChanged(const QString &text);
 signals:
     void showAddDialog();
-    void showDeleteDialog();
-    void showSaveAsDialog();
+    void showDeleteDialog();;
     void showDeleteAllDialog();
-    void showImportDialog();
     void showModifyDialog(const Sensor* sensor);
 };
 #endif // SEARCHMENU_H

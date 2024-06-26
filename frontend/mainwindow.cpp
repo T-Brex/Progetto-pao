@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                         if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
                             layoutsWidget->sensWindow->addSensor(*i);
-                            layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
+                            layoutsWidget->deleteDialog->getSceltaNome()->addItem((*i)->getName());
                         }
                     }
                 } else {
@@ -68,14 +68,14 @@ MainWindow::MainWindow(QWidget *parent)
                 // Verifica se l'utente ha selezionato un file
                 if (!fileName.isEmpty()) {
                     layoutsWidget->sensWindow->deleteAllSensors();
-                    layoutsWidget->deleteDialog->sceltaNome->clear();
+                    layoutsWidget->deleteDialog->getSceltaNome()->clear();
                     qDebug() << "Hai selezionato il file:" << fileName;
                     //Json::eliminaSensori();
 
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                             layoutsWidget->sensWindow->addSensor(*i);
-                            layoutsWidget->deleteDialog->sceltaNome->addItem((*i)->getName());
+                            layoutsWidget->deleteDialog->getSceltaNome()->addItem((*i)->getName());
                     }
                 } else {
                     qDebug() << "Nessun file selezionato.";
