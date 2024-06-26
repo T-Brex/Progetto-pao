@@ -52,34 +52,34 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow->searchMenu, &SearchMenu::showModifyDialog, this, [&](const Sensor* sensor) {
-        modifyDialog->oldSensorName = sensor->getName();
-        modifyDialog->oldSensorType = sensor->getType();
-        modifyDialog->getLineEdit()->setText(modifyDialog->oldSensorName);
-        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->oldSensorType);
+        modifyDialog->getOldSensorName() = sensor->getName();
+        modifyDialog->getOldSensorType() = sensor->getType();
+        modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
         modifyDialog->show();
         modifyDialog->getLineEdit()->setFocus();
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
-        modifyDialog->oldSensorName = sensor->getName();
-        modifyDialog->oldSensorType = sensor->getType();
-        modifyDialog->getLineEdit()->setText(modifyDialog->oldSensorName);
-        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->oldSensorType);
+        modifyDialog->getOldSensorName() = sensor->getName();
+        modifyDialog->getOldSensorType() = sensor->getType();
+        modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
         modifyDialog->show();
         modifyDialog->getLineEdit()->setFocus();
     });
 
     connect(modifyDialog->getNewButton(), &QPushButton::clicked, this, [&]() {
-        qDebug() << modifyDialog->oldSensorName;
-        QString result = Json::modificaSensore(modifyDialog->oldSensorName, modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+        qDebug() << modifyDialog->getOldSensorName();
+        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
 
         if (result == "ok") {
-            sensWindow->modifySensor(modifyDialog->oldSensorName, modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+            sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
 
             deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
             // Rimuovere l'elemento dalla lista a discesa sceltaTipo
-            int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->oldSensorName);
+            int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
             if (indexToRemove != -1) {
                 deleteDialog->getSceltaNome()->removeItem(indexToRemove);
             }
