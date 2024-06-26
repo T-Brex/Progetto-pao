@@ -22,7 +22,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     this->addWidget(sensWindow);
     this->addWidget(new Simulation(Json::caricaSensori()));
 
-    connect(sensWindow->searchMenu, &SearchMenu::showAddDialog, this, [&]() {
+    connect(sensWindow->getSearchMenu(), &SearchMenu::showAddDialog, this, [&]() {
         addDialog->show();
         addDialog->getLineEdit()->setFocus();
     });
@@ -51,7 +51,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         }
     });
 
-    connect(sensWindow->searchMenu, &SearchMenu::showModifyDialog, this, [&](const Sensor* sensor) {
+    connect(sensWindow->getSearchMenu(), &SearchMenu::showModifyDialog, this, [&](const Sensor* sensor) {
         modifyDialog->getOldSensorName() = sensor->getName();
         modifyDialog->getOldSensorType() = sensor->getType();
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
@@ -104,7 +104,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
 
-    connect(sensWindow->searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
+    connect(sensWindow->getSearchMenu(),&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
     connect(deleteDialog->getDeleteButton(),&QPushButton::clicked,this,[&]()
             {
                 Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
@@ -135,12 +135,12 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
 
-    connect(sensWindow->searchMenu, &::SearchMenu::showDeleteAllDialog, this, [=]() {
+    connect(sensWindow->getSearchMenu(), &::SearchMenu::showDeleteAllDialog, this, [=]() {
         deleteAllWarning->show();
     });
 
 connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
-    for(auto it=sensWindow->sensorsPanels.begin();it!=sensWindow->sensorsPanels.end();++it){
+    for(auto it=sensWindow->getSensorsPanels().begin();it!=sensWindow->getSensorsPanels().end();++it){
         Json::eliminaSensore((*it)->getName());
         deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
     }
@@ -149,7 +149,7 @@ connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
 
 });
 
-    connect(sensWindow->searchMenu->getLineEdit(), &QLineEdit::textChanged, this, [&](const QString& searchText) {
+    connect(sensWindow->getSearchMenu()->getLineEdit(), &QLineEdit::textChanged, this, [&](const QString& searchText) {
         sensWindow->filterSensors(searchText);
     });
 
