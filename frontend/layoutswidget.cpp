@@ -15,19 +15,15 @@
 LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
     sensWindow(new sensorWindow(nullptr)), addDialog(new AddDialog),
-    deleteDialog(new DeleteDialog(nullptr)),deleteWarning(new DeleteWarning(nullptr)),
+    deleteDialog(new DeleteDialog(nullptr)),deleteAllWarning(new DeleteWarning(nullptr)),//deleteOneWarning(new DeleteWarning(sensor->getName())),
     modifyDialog(new ModifyDialog)
 
 {
-    //UTILE SE LA "simulationWindow" e "sensWindow" condividessero gli stessi sensori!
-    //QVector<Sensor*> sensors=Json::caricaSensori();
 
 
     //DA CAMBIARE IL FATTO CHE SENSWINDOW NON RICEVE PARAMETRI, DEVE AVERE GLI STESSI SENSORI DI LAYOUTSWDIGET
     this->addWidget(sensWindow);
     this->addWidget(new Simulation(Json::caricaSensori()));
-
-    //ModifyDialog* modifyDialog = new ModifyDialog;
 
 
     connect(sensWindow->searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
@@ -150,17 +146,39 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
                 deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
             });
 
+    // Connect per mostrare il DeleteWarning e conservare il puntatore al sensore
+    connect(sensWindow, &sensorWindow::showDeleteWarning, this, [=](const Sensor* sensor) {
+        deleteOneWarning = new DeleteWarning(sensor->getName());
+        deleteOneWarning->show();
 
-    connect(sensWindow->searchMenu,&SearchMenu::showDeleteAllDialog, deleteWarning,&DeleteWarning::show);
+        // Connect aggiornato per confermare l'eliminazione e usare il puntatore al sensore
+        connect(deleteOneWarning, &DeleteWarning::confirmed, this, [this, sensor]() {
+            if (sensor != nullptr) {
+                int indexToRemove = deleteDialog->sceltaNome->findText(sensor->getName());
+                if (indexToRemove != -1) {
+                    deleteDialog->sceltaNome->removeItem(indexToRemove);
+                }
+
+                Json::eliminaSensore(sensor->getName());
+                sensWindow->deleteSensor(sensor->getName());
+                // Nascondi il DeleteWarning
+                deleteOneWarning->hide();
+            }
+        });
+    });
 
 
-connect(deleteWarning,&DeleteWarning::confirmed, deleteWarning,[&]() {
+    connect(sensWindow->searchMenu, &::SearchMenu::showDeleteAllDialog, this, [=]() {
+        deleteAllWarning->show();
+    });
+
+connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
     for(auto it=sensWindow->sensorsPanels.begin();it!=sensWindow->sensorsPanels.end();++it){
         Json::eliminaSensore((*it)->getName());
         deleteDialog->sceltaNome->removeItem(deleteDialog->sceltaNome->currentIndex());
     }
     sensWindow->deleteAllSensors();
-    deleteWarning->hide();
+    deleteAllWarning->hide();
 
 });
 
@@ -168,7 +186,6 @@ connect(deleteWarning,&DeleteWarning::confirmed, deleteWarning,[&]() {
         sensWindow->filterSensors(searchText);
     });
 
-//connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
 
 }
 

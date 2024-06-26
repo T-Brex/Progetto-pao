@@ -145,7 +145,7 @@ QVector<QString> Termometer::getNameValues() const{
 
 
 AirQuality::AirQuality(const QString& n):
-    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n)
+    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0)
     {this->updateType("AirQuality");}
 
 AirQuality::AirQuality(const AirQuality& a):

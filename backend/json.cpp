@@ -6,7 +6,7 @@
 #include <QDateTime> // Aggiunto per gestire la data e l'ora
 
 Json::Json() {}
-
+QString Json::path="dati.json";
 QJsonArray Json::leggiJson(const QString& fileName) {
     QFile file(fileName);
     QJsonArray sensoriArray;
@@ -35,6 +35,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         bool sensorePresente = false;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
+            qDebug()<<sensoreObject["nome"]<<"=="<<nome;
             if (sensoreObject["nome"] == nome) {
                 sensorePresente = true;
                 return "existing";

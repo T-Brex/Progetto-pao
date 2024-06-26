@@ -42,7 +42,8 @@ public slots:
     void filterSensors(const QString& searchText);
 signals:
     void showModifyDialog(Sensor* s);
-signals:
+    void showDeleteWarning(Sensor* s);
+
 };
 
 #endif //SENSORWINDOW_H

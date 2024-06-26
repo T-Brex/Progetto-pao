@@ -25,7 +25,7 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     this->setMaximumSize(200,100);
     this->setModal(true);
     this->setFocus();
-    this->setPalette(Qt::yellow);
+    //this->setPalette(Qt::yellow);
     this->setAutoFillBackground(true);
 
     // Imposta il layout per la QDialog

@@ -20,7 +20,8 @@ public:
 
     AddDialog *addDialog;
     DeleteDialog *deleteDialog;
-    DeleteWarning *deleteWarning;
+    DeleteWarning *deleteAllWarning;
+    DeleteWarning* deleteOneWarning;
     ModifyDialog* modifyDialog;
 
     LayoutsWidget(QWidget * parent = nullptr);

@@ -19,7 +19,8 @@ private:
     QLabel* ico;
 
 public:
-     QPushButton* buttonModify;
+    QPushButton* buttonModify;
+    QPushButton* buttonDelete;
     //SensorPanel(const Sensor&);
     //virtual void update();
     SensorPanel(const Sensor& s,QWidget* parent = 0);

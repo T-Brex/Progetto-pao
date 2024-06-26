@@ -13,16 +13,17 @@ public:
 
 
     QAction *changeLayoutAct;
-    QAction* newAct;
-    QAction* loadAct;
+
+    QAction* openAct;
+    QAction* loadAct;   
     QAction* saveAct;
-    QAction* deleteAct;
+    //QAction* deleteAct;
 
     MenuBar(QWidget* parent = nullptr);
     virtual ~MenuBar();
 signals:
     void changeLayoutTrigger();
-    void showAddDialog();
+    void showOpenDialog();
 
     void saveTrigger();
     void loadTrigger();
