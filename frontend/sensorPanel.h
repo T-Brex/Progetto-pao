@@ -17,16 +17,17 @@ private:
     QLabel* values;
     QLabel* valuesName;
     QLabel* ico;
-
-public:
     QPushButton* buttonModify;
     QPushButton* buttonDelete;
-    //SensorPanel(const Sensor&);
-    //virtual void update();
+
+public:
+
     SensorPanel(const Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
     QString getName();
     QString getType();
+    QPushButton* getButtonModify() const { return buttonModify; }
+    QPushButton* getButtonDelete() const { return buttonDelete; }
     static QWidget* getSensorsWidget(const QVector<SensorPanel*>& sp);
 
 };

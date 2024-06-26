@@ -59,10 +59,10 @@ sensorWindow::sensorWindow(QWidget *parent)
 
 void sensorWindow::addSensor(Sensor *s) {
     sensorsPanels.push_back(new SensorPanel(*s));
-    connect(sensorsPanels.last()->buttonModify,&QPushButton::clicked,this,[s, this]() {
+    connect(sensorsPanels.last()->getButtonModify(),&QPushButton::clicked,this,[s, this]() {
         emit showModifyDialog(s);
     });
-    connect(sensorsPanels.last()->buttonDelete,&QPushButton::clicked,this,[s, this]() {
+    connect(sensorsPanels.last()->getButtonDelete(),&QPushButton::clicked,this,[s, this]() {
         emit showDeleteWarning(s);
     });
     if(s->getType()=="Dust")
