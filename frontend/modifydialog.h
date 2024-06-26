@@ -10,7 +10,7 @@ public:
     QString oldSensorName;
     QString oldSensorType;
 
-    ModifyDialog();
+    ModifyDialog(QWidget *parent);
 };
 
 #endif // MODIFYDIALOG_H
