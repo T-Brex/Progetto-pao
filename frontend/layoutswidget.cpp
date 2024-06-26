@@ -149,7 +149,7 @@ connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
 
 });
 
-    connect(sensWindow->searchMenu->lineEdit, &QLineEdit::textChanged, this, [&](const QString& searchText) {
+    connect(sensWindow->searchMenu->getLineEdit(), &QLineEdit::textChanged, this, [&](const QString& searchText) {
         sensWindow->filterSensors(searchText);
     });
 
