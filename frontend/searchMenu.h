@@ -33,6 +33,8 @@ public:
     QPushButton* getAddButton() const { return addButton; }
     QPushButton* getDeleteButton() const { return deleteButton; }
     QPushButton* getDeleteAllButton() const { return deleteAllButton; }
+    void aggiuntaSensori();
+    void updateSensori();
 
     SearchMenu(QWidget* parent = nullptr);
 signals:

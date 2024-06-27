@@ -111,8 +111,8 @@ void sensorWindow::deleteAllSensors() {
 
 
 void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
-    addSensor(Json::costruttore(newName, newType));
     deleteSensor(oldName);
+    addSensor(Json::costruttore(newName, newType)); 
     this->update();
 
 }

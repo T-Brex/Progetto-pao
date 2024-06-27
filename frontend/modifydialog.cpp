@@ -7,3 +7,12 @@ ModifyDialog::ModifyDialog(QWidget *parent):AddDialog(parent),oldSensorName(),ol
 
     this->newButton->setText("Modifica");
 }
+void ModifyDialog::setOldSensorName(const QString &name)
+{
+    oldSensorName=name;
+}
+
+void ModifyDialog::setOldSensorType(const QString &type)
+{
+    oldSensorType=type;
+}

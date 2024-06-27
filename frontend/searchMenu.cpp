@@ -15,20 +15,7 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
     //FARE FUNZIONE
     //da line 17 a linea 30 c'è lo stesso codice da line 62 a 76
     lineEdit->setPlaceholderText("Ricerca sensori");
-    QVector<Sensor*> foundSensors = Json::trovaSensoriPerNome(lineEdit->text());
-    for (const auto& sensor : foundSensors) {
-        QWidget* sensorWidget=new QWidget(nullptr);
-        QHBoxLayout* sensorLayout=new QHBoxLayout(sensorWidget);
-        QPushButton* modifica = new QPushButton("Modifica");
-        sensorLayout->addWidget(new QLabel(sensor->getName()));
-        sensorLayout->addWidget(new QLabel(sensor->getType()));
-        sensorLayout->addWidget(modifica);
-        connect(modifica,&QPushButton::clicked,this,[sensor, this]() {
-            emit showModifyDialog(sensor);
-        });
-
-        foundSensorsLayout->addWidget(sensorWidget);
-    }
+    aggiuntaSensori();
 
     layout->addWidget(lineEdit);
     layout->addWidget(addButton);
@@ -48,35 +35,34 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
 
 
 
-    connect(lineEdit, &QLineEdit::textChanged, this, [this](){
-        // Rimuovi i widget precedenti dal layout dei sensori trovati
-        QLayoutItem* item;
-        while ((item = foundSensorsLayout->takeAt(0)) != nullptr) {
-            //qDebug()<<"dentrox2";
-            delete item->widget();
-            delete item;
-        }
-
-         // Aggiungi i pulsanti dei sensori trovati al layout
-        QVector<Sensor*> foundSensors = Json::trovaSensoriPerNome(lineEdit->text());
-        for (const auto& sensor : foundSensors) {
-            QWidget* sensorWidget=new QWidget(nullptr);
-            QHBoxLayout* sensorLayout=new QHBoxLayout(sensorWidget);
-            QPushButton* modifica = new QPushButton("Modifica");
-            sensorLayout->addWidget(new QLabel(sensor->getName()));
-            sensorLayout->addWidget(new QLabel(sensor->getType()));
-            sensorLayout->addWidget(modifica);
-            foundSensorsLayout->addWidget(sensorWidget);
-
-            connect(modifica,&QPushButton::clicked,this,[sensor, this]() {
-                emit showModifyDialog(sensor);
-            });
-        }
-    });
-
-
-
+    connect(lineEdit, &QLineEdit::textChanged, this,&SearchMenu::updateSensori);
     connect(addButton, &QPushButton::clicked, this, &SearchMenu::showAddDialog);
     connect(deleteButton, &QPushButton::clicked, this, &SearchMenu::showDeleteDialog);
     connect(deleteAllButton, &QPushButton::clicked, this, &SearchMenu::showDeleteAllDialog);
+}
+void SearchMenu::aggiuntaSensori(){
+    QVector<Sensor*> foundSensors = Json::trovaSensoriPerNome(lineEdit->text());
+    for (const auto& sensor : foundSensors) {
+        QWidget* sensorWidget=new QWidget(nullptr);
+        QHBoxLayout* sensorLayout=new QHBoxLayout(sensorWidget);
+        QPushButton* modifica = new QPushButton("Modifica");
+        sensorLayout->addWidget(new QLabel(sensor->getName()));
+        sensorLayout->addWidget(new QLabel(sensor->getType()));
+        sensorLayout->addWidget(modifica);
+        foundSensorsLayout->addWidget(sensorWidget);
+
+        connect(modifica,&QPushButton::clicked,this,[sensor, this]() {
+            emit showModifyDialog(sensor);
+        });
+    }
+}
+void SearchMenu::updateSensori(){
+    // Rimuovi i widget precedenti dal layout dei sensori trovati
+    QLayoutItem* item;
+    while ((item = foundSensorsLayout->takeAt(0)) != nullptr) {
+        delete item->widget();
+        delete item;
+    }
+    // Aggiungi i pulsanti dei sensori trovati al layout
+    aggiuntaSensori();
 }

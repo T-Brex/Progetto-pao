@@ -35,6 +35,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             deleteDialog->getSceltaNome()->addItem(addDialog->getLineEdit()->text());
             addDialog->getLineEdit()->clear();
             addDialog->hide();
+            sensWindow->getSearchMenu()->updateSensori();
             this->update();
         } else if (result == "existing") {
             QMessageBox *existingName = new QMessageBox(nullptr);
@@ -52,8 +53,9 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow->getSearchMenu(), &SearchMenu::showModifyDialog, this, [&](const Sensor* sensor) {
-        modifyDialog->getOldSensorName() = sensor->getName();
-        modifyDialog->getOldSensorType() = sensor->getType();
+        modifyDialog->setOldSensorName(sensor->getName());
+        modifyDialog->setOldSensorType(sensor->getType());
+        qDebug()<<modifyDialog->getOldSensorName()<<" _ _ "<<sensor->getType();
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
         modifyDialog->show();
@@ -61,8 +63,9 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
-        modifyDialog->getOldSensorName() = sensor->getName();
-        modifyDialog->getOldSensorType() = sensor->getType();
+        modifyDialog->setOldSensorName(sensor->getName());
+        modifyDialog->setOldSensorType(sensor->getType());
+        qDebug()<<sensor->getType()<<"---"<<sensor->getType();
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
         modifyDialog->show();
@@ -70,12 +73,12 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(modifyDialog->getNewButton(), &QPushButton::clicked, this, [&]() {
-        qDebug() << modifyDialog->getOldSensorName();
+
         QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
-
+            qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
             deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
             // Rimuovere l'elemento dalla lista a discesa sceltaTipo
@@ -87,6 +90,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
             modifyDialog->getLineEdit()->clear();
             modifyDialog->hide();
+            sensWindow->getSearchMenu()->updateSensori();
             this->update();
         } else if (result == "existing") {
             QMessageBox *existingName = new QMessageBox(nullptr);
@@ -109,6 +113,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             {
                 Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
                 sensWindow->deleteSensor(deleteDialog->getSceltaNome()->currentText());
+                sensWindow->getSearchMenu()->updateSensori();
                 deleteDialog->hide();
                 deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
             });
@@ -128,6 +133,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
                 Json::eliminaSensore(sensor->getName());
                 sensWindow->deleteSensor(sensor->getName());
+                sensWindow->getSearchMenu()->updateSensori();
                 // Nascondi il DeleteWarning
                 deleteOneWarning->hide();
             }
@@ -146,6 +152,7 @@ connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
     }
     sensWindow->deleteAllSensors();
     deleteAllWarning->hide();
+    sensWindow->getSearchMenu()->updateSensori();
 
 });
 

@@ -12,6 +12,8 @@ private:
 public:
     QString getOldSensorName() const { return oldSensorName; }
     QString getOldSensorType() const { return oldSensorType; }
+    void setOldSensorName(const QString &name); // Setter per il nome del sensore vecchio
+    void setOldSensorType(const QString &type); //
 
     ModifyDialog(QWidget *parent);
 };
