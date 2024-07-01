@@ -64,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
                         if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){
                             layoutsWidget->getSensWindow()->addSensor(*i);
                             layoutsWidget->getDeleteDialog()->getSceltaNome()->addItem((*i)->getName());
+                            layoutsWidget->getSensWindow()->getSearchMenu()->updateSensori();
                         }
                     }
                 } else {
@@ -89,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent)
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                             layoutsWidget->getSensWindow()->addSensor(*i);
                             layoutsWidget->getDeleteDialog()->getSceltaNome()->addItem((*i)->getName());
+                            layoutsWidget->getSensWindow()->getSearchMenu()->updateSensori();
                     }
                 } else {
                     qDebug() << "Nessun file selezionato.";

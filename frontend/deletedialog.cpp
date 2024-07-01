@@ -3,7 +3,7 @@
 #include "qjsonobject.h"
 #include "backend/json.h"
 
-DeleteDialog::DeleteDialog(QWidget *parent):QDialog(parent),sceltaNome(new QComboBox),deleteButton(new QPushButton("Elimina"))
+DeleteDialog::DeleteDialog(QWidget *parent):QDialog(parent),sceltaNome(new QComboBox(this)),deleteButton(new QPushButton("Elimina"))
 {
     QJsonArray sensoriArray = Json::leggiJson();
     QVBoxLayout *layout = new QVBoxLayout(this);

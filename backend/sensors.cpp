@@ -32,8 +32,8 @@ Dust::Dust(const Dust& d):
 
 void Dust::updateValue(){
     static std::mt19937 generator(std::random_device{}());
-    std::uniform_real_distribution<double> distributionPm10(0.0, 50.0);
-    std::uniform_real_distribution<double> distributionPm25(0.0, 35.0);
+    std::uniform_real_distribution<double> distributionPm10(0.0, -50.0);
+    std::uniform_real_distribution<double> distributionPm25(0.0, -35.0);
 
 
     pm25 = distributionPm25(generator);

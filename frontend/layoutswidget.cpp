@@ -14,10 +14,10 @@
 
 LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     sensWindow(new sensorWindow(nullptr)),
-    addDialog(new AddDialog),
-    deleteDialog(new DeleteDialog(nullptr)),
-    deleteAllWarning(new DeleteWarning(nullptr)),
-    modifyDialog(new ModifyDialog(nullptr))
+    addDialog(new AddDialog(this)),
+    deleteDialog(new DeleteDialog(this)),
+    deleteAllWarning(new DeleteWarning(this)),
+    modifyDialog(new ModifyDialog(this))
 {
     this->addWidget(sensWindow);
     this->addWidget(new Simulation(Json::caricaSensori()));
@@ -108,7 +108,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
 
-    connect(sensWindow->getSearchMenu(),&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
+    connect(sensWindow->getSearchMenu(),&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::open);
     connect(deleteDialog->getDeleteButton(),&QPushButton::clicked,this,[&]()
             {
                 Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
