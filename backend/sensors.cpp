@@ -21,12 +21,13 @@ Sensor::~Sensor(){}
 //-------------------------------------------dust
 Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
     this->updateType("Dust");
+    Dust::updateValue();
 }
 
 Dust::Dust(const Dust& d):
     Sensor(d.getName()),
     pm10(d.pm10),
-    pm25(d.pm25){this->updateType("Dust");}
+    pm25(d.pm25){this->updateType("Dust");Dust::updateValue();}
 
 
 void Dust::updateValue(){
@@ -145,7 +146,7 @@ QVector<QString> Termometer::getNameValues() const{
 
 
 AirQuality::AirQuality(const QString& n):
-    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n)
+    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0)
     {this->updateType("AirQuality");}
 
 AirQuality::AirQuality(const AirQuality& a):

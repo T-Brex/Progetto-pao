@@ -6,7 +6,7 @@
 #include <QDateTime> // Aggiunto per gestire la data e l'ora
 
 Json::Json() {}
-
+QString Json::path="dati.json";
 QJsonArray Json::leggiJson(const QString& fileName) {
     QFile file(fileName);
     QJsonArray sensoriArray;
@@ -35,6 +35,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         bool sensorePresente = false;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
+            qDebug()<<sensoreObject["nome"]<<"=="<<nome;
             if (sensoreObject["nome"] == nome) {
                 sensorePresente = true;
                 return "existing";
@@ -126,7 +127,7 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
         return "existing";
     }
 }
-void Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
+bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
     QFile file(newFileName);
     if (file.open(QIODevice::WriteOnly)) {
         QJsonArray sensoriArray;
@@ -140,8 +141,16 @@ void Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
             QVector<double> values = sensore->getValue();
             QVector<QString> valuesName = sensore->getNameValues();
 
-            for (auto i = 0; i < values.size(); ++i) {
-                sensoreObject[valuesName[i]] = values[i];
+            // Verifica che values e valuesName abbiano la stessa dimensione
+            if (values.size() != valuesName.size()) {
+                qWarning() << "Errore: dimensioni di values e valuesName non corrispondono.";
+                continue; // Oppure gestisci l'errore in un altro modo
+            }
+
+            for (int i = 0; i < values.size(); ++i) {
+                // Converte il valore numerico in QJsonValue
+                QJsonValue value = QJsonValue::fromVariant(values[i]);
+                sensoreObject[valuesName[i]] = value;
             }
 
             sensoriArray.append(sensoreObject);
@@ -150,7 +159,10 @@ void Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
         QJsonDocument jsonDocument(sensoriArray);
         file.write(jsonDocument.toJson());
         file.close();
+        return true;
     }
+
+    return false;
 }
 
 void Json::nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {

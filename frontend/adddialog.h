@@ -8,12 +8,16 @@
 class AddDialog : public QDialog
 {
     Q_OBJECT
-
-public:
+protected:
     QLineEdit *lineEdit;
     QComboBox *sceltaTipo;
     QPushButton *newButton;
+public:
+
     AddDialog(QWidget *parent = nullptr);
+    QLineEdit* getLineEdit() const { return lineEdit; }
+    QComboBox* getSceltaTipo() const { return sceltaTipo; }
+    QPushButton* getNewButton() const { return newButton; }
 
 };
 

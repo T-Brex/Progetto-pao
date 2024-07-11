@@ -19,40 +19,24 @@ sensorWindow::sensorWindow(QWidget *parent)
 {
     sensScrollArea->setWidgetResizable(true);
     sensScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    auto *vScrollBar=sensScrollArea->verticalScrollBar();
-    vScrollBar->setStyleSheet("QScrollBar:vertical { background-color: yellow; }");
-
     sensScrollArea->setWidget(sensWidget);
 
-    sensorsTypeWidget.push_back(dustWidget);
-    sensorsTypeWidget.push_back(humidityWidget);
-    sensorsTypeWidget.push_back(windWidget);
-    sensorsTypeWidget.push_back(termometerWidget);
-    sensorsTypeWidget.push_back(airQualityWidget);
-
-    sensorsTypeLayout.push_back(dustLayout);
-    sensorsTypeLayout.push_back(humidityLayout);
-    sensorsTypeLayout.push_back(windLayout);
-    sensorsTypeLayout.push_back(termometerLayout);
-    sensorsTypeLayout.push_back(airQualityLayout);
+    sensorsTypeWidget ={dustWidget,humidityWidget,windWidget,termometerWidget,airQualityWidget};
+    sensorsTypeLayout ={dustLayout,humidityLayout,windLayout,termometerLayout,airQualityLayout};
 
     for(auto it=sensorsTypeLayout.begin();it!=sensorsTypeLayout.end();++it){
         (*it)->setAlignment(Qt::AlignLeft);
-        //(*it)->totalMinimumHeightForWidth()
     }
-
-
 
     for(auto it=sensorsTypeWidget.begin();it!=sensorsTypeWidget.end();++it){
         QScrollArea *sensorScrollArea=new QScrollArea(nullptr);
         sensorScrollArea->setWidget(*it);
-        sensorScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         sensorScrollArea->setWidgetResizable(true);
         sensorScrollArea->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-        sensorScrollArea->setMinimumHeight(300);
-        //(*it)->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-        //auto *hScrollBar=sensorScrollArea->verticalScrollBar();
-        //hScrollBar->setStyleSheet("QScrollBar:horizontal  { background-color: yellow; }");
+        sensorScrollArea->setMinimumHeight(350);
+        (*it)->setPalette(Qt::white);
+        (*it)->setAutoFillBackground(true);
+
 
         sensLayout->addWidget(sensorScrollArea);
     }
@@ -63,16 +47,24 @@ sensorWindow::sensorWindow(QWidget *parent)
     }
 
 
-    //searchMenu->set
     layout->addWidget(searchMenu);
     layout->addWidget(sensScrollArea);
+    this->setPalette(Qt::gray);
+
+
+
 }
 
 
 
 void sensorWindow::addSensor(Sensor *s) {
     sensorsPanels.push_back(new SensorPanel(*s));
-
+    connect(sensorsPanels.last()->getButtonModify(),&QPushButton::clicked,this,[s, this]() {
+        emit showModifyDialog(s);
+    });
+    connect(sensorsPanels.last()->getButtonDelete(),&QPushButton::clicked,this,[s, this]() {
+        emit showDeleteWarning(s);
+    });
     if(s->getType()=="Dust")
         dustLayout->addWidget(sensorsPanels.last());
     if(s->getType()=="Humidity")
@@ -119,8 +111,9 @@ void sensorWindow::deleteAllSensors() {
 
 
 void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
-    addSensor(Json::costruttore(newName, newType));
     deleteSensor(oldName);
+    addSensor(Json::costruttore(newName, newType)); 
+    this->update();
 
 }
 

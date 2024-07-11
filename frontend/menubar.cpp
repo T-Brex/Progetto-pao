@@ -3,24 +3,24 @@
 MenuBar::MenuBar(QWidget* parent):
     QMenuBar(parent),
     fileMenu(new QMenu()),
-    changeLayoutAct(new QAction(tr("&Simulazione"))),newAct(new QAction(tr("&Nuovo Sensore"))),loadAct(new QAction(tr("&Apri"))),saveAct(new QAction(tr("&Salva con nome")))
-    ,deleteAct(new QAction(tr("&Elimina")))
+    changeLayoutAct(new QAction(tr("&Simulazione"))),openAct(new QAction(tr("&Apri"))),loadAct(new QAction(tr("&Importa"))),saveAct(new QAction(tr("&Salva con nome")))
+    //,deleteAct(new QAction(tr("&Elimina")))
 
 
 {
     this->addAction(changeLayoutAct);
     this->addMenu(fileMenu);
     fileMenu = this->addMenu(tr("&File"));
-    fileMenu->addAction(newAct);
+    fileMenu->addAction(openAct);
     fileMenu->addAction(loadAct);
     fileMenu->addAction(saveAct);
-    fileMenu->addAction(deleteAct);
+    //fileMenu->addAction(deleteAct);
 
     connect(changeLayoutAct, &QAction::triggered, this, &MenuBar::changeLayoutTrigger);
-    connect(newAct, &QAction::triggered, this, &MenuBar::showAddDialog);
+    connect(openAct, &QAction::triggered, this, &MenuBar::showOpenDialog);
     connect(loadAct, &QAction::triggered, this, &MenuBar::loadTrigger);
     connect(saveAct, &QAction::triggered, this, &MenuBar::saveTrigger);
-    connect(deleteAct, &QAction::triggered, this, &MenuBar::showDeleteDialog);
+    //connect(deleteAct, &QAction::triggered, this, &MenuBar::showDeleteDialog);
 }
 
 MenuBar::~MenuBar() {};

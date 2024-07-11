@@ -6,11 +6,16 @@
 class ModifyDialog : public AddDialog
 {
     Q_OBJECT
-public:
+private:
     QString oldSensorName;
     QString oldSensorType;
+public:
+    QString getOldSensorName() const { return oldSensorName; }
+    QString getOldSensorType() const { return oldSensorType; }
+    void setOldSensorName(const QString &name); // Setter per il nome del sensore vecchio
+    void setOldSensorType(const QString &type); //
 
-    ModifyDialog();
+    ModifyDialog(QWidget *parent);
 };
 
 #endif // MODIFYDIALOG_H

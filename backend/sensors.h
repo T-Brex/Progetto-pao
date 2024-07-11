@@ -14,7 +14,6 @@ public:
     const QString& getName() const;
     virtual QVector<QString> getNameValues() const = 0;
     void modifyName(const QString&);
-    //static Sensor* costruttore(const QString& nome, const QString& tipo);
     virtual QVector<double> getValue() const = 0 ;
     virtual QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
