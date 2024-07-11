@@ -42,7 +42,7 @@ void Dust::updateValue(){
 
 QVector<double> Dust::getValue() const{
     QVector<double> out = {pm10,pm25};
-    return out;}//-----------------------------------spazzatura
+    return out;}
 
 QVector<QString> Dust::getNameValues() const{
     QVector<QString> v = {"pm10","pm25"};
