@@ -74,6 +74,4 @@ SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
     mainLayout->addStretch();
 }
 
-//SimBar::~SimBar() {
 
-//}

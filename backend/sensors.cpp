@@ -161,10 +161,6 @@ QVector<double> AirQuality::getValue() const{
 }
 
 
-QVector<double> AirQuality::getAll(){
-QVector<double> out ={(Dust::getValue())[0],(Dust::getValue())[1],(Humidity::getValue())[0],(Humidity::getValue())[1], (Wind::getValue())[0], (Termometer::getValue())[0]};
-return out;}
-
 void AirQuality::updateValue(){
     Dust::updateValue();
     Humidity::updateValue();
