@@ -27,13 +27,13 @@ Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
 Dust::Dust(const Dust& d):
     Sensor(d.getName()),
     pm10(d.pm10),
-    pm25(d.pm25){this->updateType("Dust");Dust::updateValue();}
+    pm25(d.pm25){this->updateType("Dust");}
 
 
 void Dust::updateValue(){
     static std::mt19937 generator(std::random_device{}());
-    std::uniform_real_distribution<double> distributionPm10(0.0, -50.0);
-    std::uniform_real_distribution<double> distributionPm25(0.0, -35.0);
+    std::uniform_real_distribution<double> distributionPm10(0.0, 50.0);
+    std::uniform_real_distribution<double> distributionPm25(0.0, 35.0);
 
 
     pm25 = distributionPm25(generator);
@@ -51,7 +51,7 @@ QVector<QString> Dust::getNameValues() const{
 }
 //-------------------------------------------humidity
 Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0){
-    this->updateType("Humidity");
+    this->updateType("Humidity");Humidity::updateValue();
 }
 
 Humidity::Humidity(const Humidity& h):
@@ -63,8 +63,8 @@ Humidity::Humidity(const Humidity& h):
 void Humidity::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distributionHum(0.0, -23.0);
-    std::uniform_real_distribution<double> distributionPer(0.0, -10.0);   //0 = 0% , 10 = 100%
+    std::uniform_real_distribution<double> distributionHum(0.0, 23.0);
+    std::uniform_real_distribution<double> distributionPer(0.0, 10.0);   //0 = 0% , 10 = 100%
 
     humidity = distributionHum(generator);
     percentage = distributionPer(generator);
@@ -84,7 +84,7 @@ QVector<QString> Humidity::getNameValues() const{
 //-------------------------------------------wind
 
 Wind::Wind(const QString &n):Sensor(n),wind(0){
-    this->updateType("Wind");
+    this->updateType("Wind");Wind::updateValue();
 }
 
 Wind::Wind(const Wind& w):
@@ -94,7 +94,7 @@ Wind::Wind(const Wind& w):
 void Wind::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distribution(0.0, -10.0);   //0 = 0 km/h , 10 = 100 km/h
+    std::uniform_real_distribution<double> distribution(0.0, 10.0);   //0 = 0 km/h , 10 = 100 km/h
 
 
     wind = distribution(generator);
@@ -113,7 +113,7 @@ QVector<QString> Wind::getNameValues() const{
 //-------------------------------------------termometer
 
 Termometer::Termometer(const QString &n):Sensor(n),temperature(0){
-    this->updateType("Termometer");
+    this->updateType("Termometer");Termometer::updateValue();
 }
 
 Termometer::Termometer(const Termometer& t):
@@ -123,7 +123,7 @@ Termometer::Termometer(const Termometer& t):
 void Termometer::updateValue(){
     static std::mt19937 generator(std::random_device{}());
 
-    std::uniform_real_distribution<double> distribution(20.0, -30.0);
+    std::uniform_real_distribution<double> distribution(-20.0, 30.0);
 
 
     temperature = distribution(generator);
@@ -147,7 +147,7 @@ QVector<QString> Termometer::getNameValues() const{
 
 AirQuality::AirQuality(const QString& n):
     Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0)
-    {this->updateType("AirQuality");}
+    {this->updateType("AirQuality");AirQuality::updateValue();}
 
 AirQuality::AirQuality(const AirQuality& a):
     Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a)

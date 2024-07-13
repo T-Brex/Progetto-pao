@@ -21,7 +21,7 @@ Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
 
 
 
-    //layout->addStretch();
+
 
 
     plane = new CartesianPlane(this);

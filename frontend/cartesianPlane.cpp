@@ -1,11 +1,6 @@
 #include "frontend/cartesianPlane.h"
 
 CartesianPlane::CartesianPlane( QWidget *parent) : QWidget(parent) ,sensors (*new QVector<QPolygonF*>(10,nullptr)), dimFun(8000),zoom(1){
-    //setMinimumSize(400, 400);
-    //this->setStyleSheet("background-color: lightblue;");
-    //this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-
-
 
 }
 
@@ -19,7 +14,7 @@ CartesianPlane::~CartesianPlane() {
 }
 
 
-CartesianPlane::CartesianPlane(const QVector<QPolygonF*> s, QWidget *parent) : QWidget(parent) ,sensors(s) ,dimFun(8000), zoom(1){}
+
 
 
 void CartesianPlane::paintEvent(QPaintEvent *event){
@@ -27,13 +22,7 @@ void CartesianPlane::paintEvent(QPaintEvent *event){
 
         QPainter painter(this);
         drawPlane(painter);
-        //painter.setRenderHint(QPainter::Antialiasing);
 
-        //painter.translate(width() / 2, height() / 2); // Centra il piano cartesiano
-
-        //for(int i=0; i<sensors.size();i++){
-            //painter.drawPolyline(*sensors[i]);
-        //}
         QVector<QPolygonF*> zoomSensors;
         for (int i = 0; i < sensors.size(); i++) {
             if (sensors[i]) {
@@ -184,9 +173,7 @@ void CartesianPlane::drawPlane(QPainter& painter) const{
 void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const {
 
         int hue=0;
-        //for(int i=0; i<sensors.size();i++){
-           // painter.drawPolyline(*sensors[i]);
-        //}
+
         painter.translate(width() / 2, height() / 2);
         for (int i=0; i<s.size(); i++) {
             hue = (i * 360 / 15) % 360; // Variazione dell'indice di tonalità
@@ -195,7 +182,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
             if(s[i])
                 painter.drawPolyline(*s[i]);
 
-            //painter.drawPolygon(*polygon);
+
         }
 
     }
@@ -206,7 +193,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
 
             for (int X = 0; X < dimFun; X+=50) {
                 QVector<double> sensorValues = s->getValue();
-                Y = sensorValues[i];
+                Y = sensorValues[i] * -1;
                 s->updateValue();
                 *fun << QPointF((X - dimFun / 2),( Y * 20));
             }
@@ -218,7 +205,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
             if (sensors[n]) {
                 delete sensors[n];
             }
-            // Inserisci il nuovo elemento nella posizione n
+
             sensors[n]= fun;
 
         update();
@@ -237,19 +224,18 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
 
     void CartesianPlane::wheelEvent(QWheelEvent *event) {
 
-        int delta = event->angleDelta().y(); // Ottieni la variazione dell'angolo dalla rotella del mouse
+        int delta = event->angleDelta().y();
 
             if (delta > 0) {
                 // Zoom in
-                zoom += 0.05; // Aumenta la dimensione della funzione
-            } else {
+                zoom += 0.05;
+            }else{
                 // Zoom out
-                zoom -= 0.05; // Diminuisci la dimensione della funzione
+                zoom -= 0.05;
             }
             if(zoom<0.25){
                 zoom=0.25;
         }
-        update(); // Aggiorna il widget per visualizzare il cambiamento
-        //event->accept(); // Accetta l'evento per impedire il passaggio ad altri widget
+        update();
     }
 

@@ -21,4 +21,4 @@ public:
 
 };
 
-#endif // ADDDIALOG_H
+#endif

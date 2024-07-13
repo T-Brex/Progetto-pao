@@ -45,7 +45,7 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
 
     for(unsigned int i = 0; i < valuesList.size(); i++){
         valuesName = new QLabel(namesList[i]);
-        values = new QLabel( QString::number(valuesList[i]) );
+        values = new QLabel( QString::number(valuesList[i],'f',1) );
         valuesName->setAlignment(Qt::AlignCenter);
         values->setAlignment(Qt::AlignCenter);
 

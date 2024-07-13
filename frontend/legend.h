@@ -9,4 +9,4 @@ class Legend :public QWidget{
 public:
     Legend(QWidget* parent=nullptr);
 };
-#endif // LEGEND_H
+#endif

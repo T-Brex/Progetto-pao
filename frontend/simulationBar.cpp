@@ -39,7 +39,7 @@ SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
 
             hue = (colorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
             colorCounter++;
-            //buttonColors.append(QColor(r, g, b));
+
             toggleButton->setStyleSheet(QString("background-color: %1").arg(QColor::fromHsv(hue, 255, 255).name()));
             toggleButton->setText(s[i]->getNameValues()[j]);
 
