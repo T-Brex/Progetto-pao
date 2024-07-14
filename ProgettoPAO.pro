@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     backend/json.cpp \
+    backend/sensors.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/deletedialog.cpp \
@@ -23,13 +24,12 @@ SOURCES += \
     main.cpp \
     frontend/mainwindow.cpp \
     frontend/simulation.cpp \
-    frontend/editor.cpp \
     frontend/sensorPanel.cpp \
-    backend/sensors.cpp \
     frontend/simulationBar.cpp
 
 HEADERS += \
     backend/json.h \
+    backend/sensors.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
     frontend/deletedialog.h \
@@ -42,9 +42,7 @@ HEADERS += \
     frontend/menubar.h \
     frontend/sensorwindow.h \
     frontend/simulation.h \
-    frontend/editor.h \
     frontend/sensorPanel.h \
-    backend/sensors.h \
     frontend/simulationBar.h
 
 RESOURCES = resources.qrc \

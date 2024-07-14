@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "backend/json.h"
-#include "frontend/sensorPanel.h"
-#include "backend/json.h"
 #include <QApplication>
 #include <QRadioButton>
 #include <QMenuBar>
@@ -9,13 +7,6 @@
 
 
 
-
-MainWindow::MainWindow(SearchMenu *menu, QWidget *parent)
-    : QMainWindow(parent)
-{
-
-    setCentralWidget(menu);
-}
 
 
 
@@ -75,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menuBar, &MenuBar::showOpenDialog, this, [&]()
             {
                 QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
-        //qDebug()<<Json::path<<fileName;
+
         if(Json::path!=fileName){
                     Json::path=fileName;
         }
@@ -84,7 +75,6 @@ MainWindow::MainWindow(QWidget *parent)
                     layoutsWidget->getSensWindow()->deleteAllSensors();
                     layoutsWidget->getDeleteDialog()->getSceltaNome()->clear();
                     qDebug() << "Hai selezionato il file:" << fileName;
-                    //Json::eliminaSensori();
 
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){

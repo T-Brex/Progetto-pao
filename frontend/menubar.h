@@ -34,4 +34,4 @@ signals:
     void showDeleteDialog();
 };
 
-#endif // MENUBAR_H
+#endif

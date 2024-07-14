@@ -12,8 +12,7 @@ SearchMenu::SearchMenu(QWidget* parent): QWidget(parent),
     addButton(new QPushButton("Add"))
     ,deleteButton(new QPushButton("Delete")),deleteAllButton(new QPushButton("Delete All"))
 {
-    //FARE FUNZIONE
-    //da line 17 a linea 30 c'è lo stesso codice da line 62 a 76
+
     lineEdit->setPlaceholderText("Ricerca sensori");
     aggiuntaSensori();
 
@@ -48,7 +47,6 @@ void SearchMenu::aggiuntaSensori(){
         QPushButton* modifica = new QPushButton("Modifica");
         sensorLayout->addWidget(new QLabel(sensor->getName()));
         sensorLayout->addWidget(new QLabel(sensor->getType()));
-        sensorLayout->addWidget(modifica);
         foundSensorsLayout->addWidget(sensorWidget);
 
         connect(modifica,&QPushButton::clicked,this,[sensor, this]() {

@@ -21,9 +21,7 @@ SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
         QWidget *labels = new QWidget(panel);
         QVBoxLayout *labelsLayout = new QVBoxLayout(labels);
         QLabel *name = new QLabel(s[i]->getName(), panel);
-        QLabel *type = new QLabel(s[i]->getType(), panel);
         labelsLayout->addWidget(name);
-        labelsLayout->addWidget(type);
 
         QWidget *buttons = new QWidget(panel);
         QVBoxLayout *buttonLayout = new QVBoxLayout(buttons);

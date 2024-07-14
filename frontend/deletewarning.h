@@ -13,4 +13,4 @@ signals:
     void confirmed();
 };
 
-#endif // DELETEWARNING_H
+#endif

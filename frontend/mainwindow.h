@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 
-#include "frontend/sensorPanel.h"
+
 #include "frontend/layoutswidget.h"
 #include "frontend/menubar.h"
 #include <QMainWindow>
@@ -25,10 +25,8 @@ private:
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    MainWindow(const QVector<Sensor*>& s, QWidget *parent = nullptr);
-    MainWindow(SearchMenu *menu, QWidget *parent=nullptr);//Eliminabile(?)
-    MainWindow(QVector<SensorPanel*> sp, QWidget *parent = nullptr);//Eliminabile(?)
-    MainWindow(QVector<QWidget*> frame, QWidget *parent  = nullptr);//Eliminabile(?)
+
+
 
     ~MainWindow();
 
@@ -37,4 +35,4 @@ public slots:
 
 
 };
-#endif // MAINWINDOW_H
+#endif

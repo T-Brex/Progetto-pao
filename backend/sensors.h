@@ -66,7 +66,7 @@ public:
 
 class Termometer:virtual public Sensor{
 private:
-    double temperature;  // celsius     da -20 a 30 (scelta arbitraria)
+    double temperature;  // celsius     da -20 a 30
 public:
     Termometer(const QString&);
     Termometer(const Termometer&);
@@ -84,8 +84,8 @@ public:
     AirQuality(const AirQuality&);
     void updateValue() ;
     QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;        //restituisce tutti gli attributi   (Attenzione all'immondizia)
-    QVector<double> getAll() ;             //restituisce la qualità dell'aria
+    QVector<QString> getNameValues() const;        //restituisce tutti gli attributi
+
 };
 
 #endif // SENSORS_H

@@ -55,7 +55,6 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     connect(sensWindow->getSearchMenu(), &SearchMenu::showModifyDialog, this, [&](const Sensor* sensor) {
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
-        qDebug()<<modifyDialog->getOldSensorName()<<" _ _ "<<sensor->getType();
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
         modifyDialog->show();

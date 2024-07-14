@@ -68,4 +68,4 @@ signals:
 
 };
 
-#endif //SENSORWINDOW_H
+#endif

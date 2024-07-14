@@ -6,18 +6,9 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-class Json
-{
-
+class Json{
 
 public:
-
-/*
-    QFile file;
-    QJsonArray sensoriArray;
-    QJsonDocument jsonDocument;
-    QJsonObject jsonObject;
-*/
 
     Json();
     static QString path;
@@ -34,4 +25,4 @@ public:
     static Sensor* costruttore(const QString& nome, const QString& tipo);
 };
 
-#endif // JSON_H
+#endif

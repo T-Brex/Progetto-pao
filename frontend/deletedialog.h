@@ -24,4 +24,4 @@ public:
     }
 };
 
-#endif // DELETEDIALOG_H
+#endif

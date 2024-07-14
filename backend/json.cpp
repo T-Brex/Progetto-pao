@@ -22,6 +22,13 @@ QJsonArray Json::leggiJson(const QString& fileName) {
 
     return sensoriArray;
 }
+void Json::nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
+    for (const auto& sensore : nuoviSensori) {
+        QString nomeSensore = sensore->getName();
+        QString tipoSensore = sensore->getType();
+        nuovoSensore(nomeSensore, tipoSensore, fileName);
+    }
+}
 
 
 QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QString& fileName) {
@@ -165,13 +172,6 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
     return false;
 }
 
-void Json::nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName) {
-    for (const auto& sensore : nuoviSensori) {
-        QString nomeSensore = sensore->getName();
-        QString tipoSensore = sensore->getType();
-        nuovoSensore(nomeSensore, tipoSensore, fileName);
-    }
-}
 
 void Json::eliminaSensore(const QString& sensoreDaRimuovere, const QString& fileName) {
     QFile file(fileName);
@@ -213,7 +213,7 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
         QJsonObject sensoreObject = sensore.toObject();
         QString nome = sensoreObject["nome"].toString();
         QString tipo = sensoreObject["tipo"].toString();
-        //QDateTime timestamp = QDateTime::fromString(sensoreObject["creationDate"].toString(), Qt::ISODate); // Ottieni la data e l'ora dal JSON
+
 
         Sensor* nuovoSensore = Json::costruttore(nome, tipo);
         if (nuovoSensore) {

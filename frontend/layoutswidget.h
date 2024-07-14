@@ -35,4 +35,4 @@ public:
 
 };
 
-#endif // LAYOUTSWIDGET_H
+#endif

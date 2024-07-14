@@ -62,7 +62,6 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     frameLayout->addWidget(valuesWidget);
     valuesLayout->addWidget(buttonModify);
     valuesLayout->addWidget(buttonDelete);
-    //Sensor* sensorNonConst=const_cast<Sensor*>(&sensor);
 
 }
 QString SensorPanel::getName(){
