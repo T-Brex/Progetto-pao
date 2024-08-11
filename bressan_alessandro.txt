@@ -3,16 +3,16 @@ Studente: Bressan Alessandro
 Valutazione del progetto: Insufficiente
 
 Vincoli obbligatori
-- Non usa polimorfismo in maniera non banale (vincolo 8)
+- [] Non usa polimorfismo in maniera non banale (vincolo 8)
   Gli unici metodi dichiarati virtuali, e che quindi possono essere
   associati al polimorfismo, sono:
-  - ~Sensor: distruttore, non utile ai fini del vincolo
-  - getCreationDate: un getter dichiarato virtuale, ma mai sovrascritto
-  - updateType: un getter dichiarato virtuale, ma mai sovrascritto
-  - getType: un getter dichiarato virtuale, ma mai sovrascritto (vedere sez. successiva)
-  - getNameValues: restituiscono vettori di stringhe costanti (vedere sez. successiva)
-  - getValue: restituiscono i valori del sensore (vedere sez. successiva)
-  - updateValue: di fatto implementato allo stesso modo in tutte le classi,
+  - [] ~Sensor: distruttore, non utile ai fini del vincolo
+  - [] getCreationDate: un getter dichiarato virtuale, ma mai sovrascritto
+  - [] updateType: un getter dichiarato virtuale, ma mai sovrascritto
+  - [] getType: un getter dichiarato virtuale, ma mai sovrascritto (vedere sez. successiva)
+  - [] getNameValues: restituiscono vettori di stringhe costanti (vedere sez. successiva)
+  - [] getValue: restituiscono i valori del sensore (vedere sez. successiva)
+  - [] updateValue: di fatto implementato allo stesso modo in tutte le classi,
     cambiano solo i valori numerici cablati nel codice (i quali dovrebbero
     invece essere gestiti come costanti), questo è l'unico vero esempio di
     polimorfismo, purtroppo da solo non sufficiente per soddisfare il vincolo
@@ -20,7 +20,7 @@ Vincoli obbligatori
   La soluzione raccomandata è l'uso di un pattern,
   come il Visitor, ad esempio per creare dinamicamente widget come visto
   a lezione
-- In alcuni punti del codice viene utilizzato il metodo getType per
+- [] In alcuni punti del codice viene utilizzato il metodo getType per
   decidere come comportarsi. Questo tipo di approccio è antipolimorfo,
   in quanto richiede di gestire manualmente ed esplicitamente tutti i
   possibili tipi concreti, costringendo a "ricordarsi" dove sono state
@@ -51,11 +51,11 @@ Orientamento ad oggetti
 + Incapsulamento
 + Modularità (modello logico e la GUI sono separati)
 + Efficienza e robustezza
-- Generalmente è preferibile avere una classe per file, quindi
+- [] Generalmente è preferibile avere una classe per file, quindi
   gli header file e le implementazioni di Dust, Humidity, Wind,
   Termometer e AirQuality dovrebbero essere separate in altrettante
   coppie di file
-- L'approccio basato sulla coppia di metodi getValue e getNameValues
+- [] L'approccio basato sulla coppia di metodi getValue e getNameValues
   presenta diversi problemi. In primo luogo così vengono separati
   due dati che dovrebbero essere incapsulati insieme, ovvero il nome
   di una misura e il proprio valore, violando uno dei principi della
@@ -81,7 +81,7 @@ Funzionalità
 + Funzionalità di ricerca e filtro
 + Ricerca in tempo reale
 + Ricerca case-insensitive
-- Migliorabile consentendo di modificare i parametri dei sensori
+- [] Migliorabile consentendo di modificare i parametri dei sensori
   (per es. valori massimi e minimi delle distribuzioni), che attualmente
   sono cablate nel codice
 
@@ -94,7 +94,7 @@ GUI
 
 
 Relazione
-- La sezione "Polimorfismo" non indica quali sono le chiamate polimorfe,
+- [] La sezione "Polimorfismo" non indica quali sono le chiamate polimorfe,
   si parla di widget che ricevono dei sensor e salvataggio in JSON.
   È opportuno riscriverla in maniera più chiara, dopo aver effettivamente
   sfruttato il polimorfismo.
