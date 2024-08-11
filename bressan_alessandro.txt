@@ -1,0 +1,104 @@
+Feedback Progetto di Programmazione ad Oggetti
+Studente: Bressan Alessandro
+Valutazione del progetto: Insufficiente
+
+Vincoli obbligatori
+- Non usa polimorfismo in maniera non banale (vincolo 8)
+  Gli unici metodi dichiarati virtuali, e che quindi possono essere
+  associati al polimorfismo, sono:
+  - ~Sensor: distruttore, non utile ai fini del vincolo
+  - getCreationDate: un getter dichiarato virtuale, ma mai sovrascritto
+  - updateType: un getter dichiarato virtuale, ma mai sovrascritto
+  - getType: un getter dichiarato virtuale, ma mai sovrascritto (vedere sez. successiva)
+  - getNameValues: restituiscono vettori di stringhe costanti (vedere sez. successiva)
+  - getValue: restituiscono i valori del sensore (vedere sez. successiva)
+  - updateValue: di fatto implementato allo stesso modo in tutte le classi,
+    cambiano solo i valori numerici cablati nel codice (i quali dovrebbero
+    invece essere gestiti come costanti), questo è l'unico vero esempio di
+    polimorfismo, purtroppo da solo non sufficiente per soddisfare il vincolo
+    richiesto.
+  La soluzione raccomandata è l'uso di un pattern,
+  come il Visitor, ad esempio per creare dinamicamente widget come visto
+  a lezione
+- In alcuni punti del codice viene utilizzato il metodo getType per
+  decidere come comportarsi. Questo tipo di approccio è antipolimorfo,
+  in quanto richiede di gestire manualmente ed esplicitamente tutti i
+  possibili tipi concreti, costringendo a "ricordarsi" dove sono state
+  utilizzate delle catene di if-else in caso di modifiche alla gerarchia,
+  senza possibilità di ausilio da parte del compilatore.
+  Questa gestione, inoltre, è particolarmente grave in quanto ci si
+  affida a una stringa scritta a mano, procedimento che può portare
+  facilmente a errori e sviste: invocando setType e passando una stringa
+  errata al sensore si ha un comportamento indefinito, se si estende
+  la gerarchia con una nuova classe bisogna "sapere" che nel costruttore
+  bisogna chiamare updateType con la stringa opportuna (e questa stringa
+  va mantenuta consistente laddove vi siano catene di if-else), in
+  caso di ereditarietà da una classe esistente bisogna stare attenti
+  a quale versione del metodo si invoca, onde evitare di utilizzare
+  il getType di una superclasse, in generale è facile commettere
+  un errore nelle stringhe nelle catene di if-else (per es. lowercase)
+  portando a compotamenti indefiniti.
+  La soluzione formalmente corretta è il polimorfismo, eventualmente
+  implementato tramite Visitor. In alternativa, dopo aver soddisfatto
+  il vincolo relativo al polimorfismo, può essere accettata una soluzione
+  non polimorfa, purché sia implementata utilizzando strumenti
+  come typeid o dynamic_cast che, pur soffrendo di problemi analoghi
+  a quelli descritti, almeno non si basano su stringhe scritte
+  "a mano" e offrono quindi un minimo di tutela da alcuni errori.
+
+
+Orientamento ad oggetti
++ Incapsulamento
++ Modularità (modello logico e la GUI sono separati)
++ Efficienza e robustezza
+- Generalmente è preferibile avere una classe per file, quindi
+  gli header file e le implementazioni di Dust, Humidity, Wind,
+  Termometer e AirQuality dovrebbero essere separate in altrettante
+  coppie di file
+- L'approccio basato sulla coppia di metodi getValue e getNameValues
+  presenta diversi problemi. In primo luogo così vengono separati
+  due dati che dovrebbero essere incapsulati insieme, ovvero il nome
+  di una misura e il proprio valore, violando uno dei principi della
+  programmazione a oggetti.
+  In secondo luogo non è possibile accedere a una specifica misura,
+  è necessario ottenere l'interno vettore e accede alla posizione
+  che contiene l'informazione desiderata (preso ad esempio Dust, 0 per
+  pm10 e 1 per pm25). Oltre a essere inefficiente, viola in parte
+  il principio dell'information hiding: il fatto che pm10 venga
+  prima di pm25 in una qualche lista è un dettaglio implementativo
+  che non deve essere esposto al chiamante, il quale non deve
+  ragionare sull'offset di un vettore che può essere, eventualmente,
+  una logica interna della classe.
+  L'uso di un vettore di misure, però, è una sovrastruttura che ha
+  senso qualora un sensore potesse generare un insieme di misure
+  di quantità e tipologia non note a priori, e non è questo il caso.
+  Invece andrebbero previsti metodi getter (ed eventualmente setter)
+  specifici per ciascun tipo di dato, la cui gestione dovrebbe
+  essere demandata al polimorfismo.
+
+
+Funzionalità
++ Funzionalità di ricerca e filtro
++ Ricerca in tempo reale
++ Ricerca case-insensitive
+- Migliorabile consentendo di modificare i parametri dei sensori
+  (per es. valori massimi e minimi delle distribuzioni), che attualmente
+  sono cablate nel codice
+
+
+GUI
++ Visualizza i diversi tipi di dato in maniera opportuna
++ Usabile e intuitiva
++ Robusta, gestisce ridimensionamento
++ Utilizza icone
+
+
+Relazione
+- La sezione "Polimorfismo" non indica quali sono le chiamate polimorfe,
+  si parla di widget che ricevono dei sensor e salvataggio in JSON.
+  È opportuno riscriverla in maniera più chiara, dopo aver effettivamente
+  sfruttato il polimorfismo.
+
+
+Suggerimenti non collegati alla valutazione
+Nessuno.
