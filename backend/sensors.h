@@ -15,7 +15,7 @@ public:
     virtual QVector<QString> getNameValues() const = 0;
     void modifyName(const QString&);
     virtual QVector<double> getValue() const = 0 ;
-    virtual QDateTime getCreationDate() const;
+    QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
     virtual ~Sensor();
     virtual void updateType(const QString& s){type =s;}
