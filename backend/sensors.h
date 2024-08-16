@@ -18,7 +18,7 @@ public:
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
     virtual ~Sensor();
-    virtual void updateType(const QString& s){type =s;}
+    void updateType(const QString& s){type =s;}
     virtual QString getType() const {return type;}
 
 };

@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     backend/json.cpp \
+    backend/measurement.cpp \
     backend/sensors.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     backend/json.h \
+    backend/measurement.h \
     backend/sensors.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
