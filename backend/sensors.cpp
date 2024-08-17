@@ -12,14 +12,14 @@ void Sensor::modifyName(const QString& n){
     name=n;
 }
 
-Sensor::~Sensor(){}
+//Sensor::~Sensor(){}
 
 
 
 
 
 //-------------------------------------------dust
-Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
+Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0),Mpm10("pm10",0),Mpm25("pm25",0){
     this->updateType("Dust");
     Dust::updateValue();
 }
@@ -27,7 +27,9 @@ Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
 Dust::Dust(const Dust& d):
     Sensor(d.getName()),
     pm10(d.pm10),
-    pm25(d.pm25){this->updateType("Dust");}
+    pm25(d.pm25),
+    Mpm10(d.Mpm10),Mpm25(d.Mpm25)
+    {this->updateType("Dust");}
 
 
 void Dust::updateValue(){
@@ -50,14 +52,17 @@ QVector<QString> Dust::getNameValues() const{
     return v;
 }
 //-------------------------------------------humidity
-Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0){
+Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0),Mhumidity("humidity",0),Mpercentage("percentage",0){
     this->updateType("Humidity");Humidity::updateValue();
 }
 
 Humidity::Humidity(const Humidity& h):
     Sensor(h.getName()),
     humidity(h.humidity),
-    percentage(h.percentage){this->updateType("Humidity");}
+    percentage(h.percentage),
+    Mhumidity(h.Mhumidity),
+    Mpercentage(h.Mpercentage)
+{this->updateType("Humidity");}
 
 
 void Humidity::updateValue(){
@@ -83,13 +88,14 @@ QVector<QString> Humidity::getNameValues() const{
 
 //-------------------------------------------wind
 
-Wind::Wind(const QString &n):Sensor(n),wind(0){
+Wind::Wind(const QString &n):Sensor(n),wind(0),Mwind("wind",0){
     this->updateType("Wind");Wind::updateValue();
 }
 
 Wind::Wind(const Wind& w):
     Sensor(w.getName()),
-    wind(w.wind){this->updateType("Wind");}
+    wind(w.wind),Mwind(w.Mwind)
+{this->updateType("Wind");}
 
 void Wind::updateValue(){
     static std::mt19937 generator(std::random_device{}());
@@ -112,13 +118,14 @@ QVector<QString> Wind::getNameValues() const{
 
 //-------------------------------------------termometer
 
-Termometer::Termometer(const QString &n):Sensor(n),temperature(0){
+Termometer::Termometer(const QString &n):Sensor(n),temperature(0),Mtemperature("temperature",0){
     this->updateType("Termometer");Termometer::updateValue();
 }
 
 Termometer::Termometer(const Termometer& t):
     Sensor(t.getName()),
-    temperature(t.temperature){this->updateType("Termometer");}
+    temperature(t.temperature), Mtemperature(t.Mtemperature)
+{this->updateType("Termometer");}
 
 void Termometer::updateValue(){
     static std::mt19937 generator(std::random_device{}());
@@ -146,11 +153,11 @@ QVector<QString> Termometer::getNameValues() const{
 
 
 AirQuality::AirQuality(const QString& n):
-    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0)
+    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0), Mquality("quality",0)
     {this->updateType("AirQuality");AirQuality::updateValue();}
 
 AirQuality::AirQuality(const AirQuality& a):
-    Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a)
+        Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a), quality(a.quality), Mquality(a.Mquality)
     {this->updateType("AirQuality");}
 
 

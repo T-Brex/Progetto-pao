@@ -13,6 +13,7 @@ public:
     //explicit Measurement(QObject *parent = nullptr);
     Measurement(const QString&, double);
     Measurement(const Measurement&);
+    //void updateValue() ;
     QString getName() const;
     double getValue() const;
     void setValue(double);

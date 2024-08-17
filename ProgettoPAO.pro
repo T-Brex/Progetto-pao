@@ -12,6 +12,7 @@ SOURCES += \
     backend/json.cpp \
     backend/measurement.cpp \
     backend/sensors.cpp \
+    backend/visitor.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/deletedialog.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     backend/json.h \
     backend/measurement.h \
     backend/sensors.h \
+    backend/visitor.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
     frontend/deletedialog.h \
