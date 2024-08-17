@@ -4,6 +4,7 @@
 #include <QString>
 #include<QVector>
 #include "measurement.h"
+#include "visitor.h"
 
 class Sensor{
 private:
@@ -21,6 +22,7 @@ public:
     //virtual ~Sensor();
     void updateType(const QString& s){type =s;}
     virtual QString getType() const {return type;}
+    virtual void accept(Visitor&);
 
 };
 
@@ -37,6 +39,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
+    void accept(Visitor &);
 
 
 };
@@ -54,6 +57,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
+    void accept(Visitor &);
 };
 
 
@@ -67,6 +71,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
+    void accept(Visitor &);
 };
 
 
@@ -80,6 +85,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
+    void accept(Visitor &);
 };
 
 
@@ -93,6 +99,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;        //restituisce tutti gli attributi
+    void accept(Visitor &);
 
 };
 
