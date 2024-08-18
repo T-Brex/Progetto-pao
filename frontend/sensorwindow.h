@@ -36,25 +36,25 @@ public:
 
     explicit sensorWindow(QWidget *parent = nullptr);
 
-    QHBoxLayout* getLayout() const { return layout; }
-    QVector<SensorPanel*>& getSensorsPanels() { return sensorsPanels; }
-    QScrollArea* getScrollArea() const { return sensScrollArea; }
-    QWidget* getSensorWidget() const { return sensWidget; }
-    QVBoxLayout* getSensorLayout() const { return sensLayout; }
-    QVector<QWidget *>& getSensorsTypeWidgets() { return sensorsTypeWidget; }
-    QVector<QHBoxLayout *>& getSensorsTypeLayouts() { return sensorsTypeLayout; }
-    QWidget* getDustWidget() const { return dustWidget; }
-    QHBoxLayout* getDustLayout() const { return dustLayout; }
-    QWidget* getHumidityWidget() const { return humidityWidget; }
-    QHBoxLayout* getHumidityLayout() const { return humidityLayout; }
-    QWidget* getWindWidget() const { return windWidget; }
-    QHBoxLayout* getWindLayout() const { return windLayout; }
-    QWidget* getTermometerWidget() const { return termometerWidget; }
-    QHBoxLayout* getTermometerLayout() const { return termometerLayout; }
-    QWidget* getAirQualityWidget() const { return airQualityWidget; }
-    QHBoxLayout* getAirQualityLayout() const { return airQualityLayout; }
+    QHBoxLayout* getLayout() const;
+    QVector<SensorPanel*>& getSensorsPanels();
+    SearchMenu* getSearchMenu() const;
+    QScrollArea* getScrollArea() const;
+    QWidget* getSensorWidget() const;
+    QVBoxLayout* getSensorLayout() const;
+    QVector<QWidget *>& getSensorsTypeWidgets();
+    QVector<QHBoxLayout *>& getSensorsTypeLayouts();
+    QWidget* getDustWidget() const;
+    QHBoxLayout* getDustLayout() const;
+    QWidget* getHumidityWidget() const;
+    QHBoxLayout* getHumidityLayout() const;
+    QWidget* getWindWidget() const;
+    QHBoxLayout* getWindLayout() const;
+    QWidget* getTermometerWidget() const;
+    QHBoxLayout* getTermometerLayout() const;
+    QWidget* getAirQualityWidget() const;
+    QHBoxLayout* getAirQualityLayout() const;
 
-    SearchMenu* getSearchMenu() const { return searchMenu; }
 
 public slots:
     void addSensor(Sensor *s);

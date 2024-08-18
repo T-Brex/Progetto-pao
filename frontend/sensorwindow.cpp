@@ -155,3 +155,21 @@ void sensorWindow::filterSensors(const QString& searchText) {
         }
     }
 }
+QHBoxLayout* sensorWindow::getLayout() const { return layout; }
+QVector<SensorPanel*>& sensorWindow::getSensorsPanels() { return sensorsPanels; }
+SearchMenu* sensorWindow::getSearchMenu() const { return searchMenu; }
+QScrollArea* sensorWindow::getScrollArea() const { return sensScrollArea; }
+QWidget* sensorWindow::getSensorWidget() const { return sensWidget; }
+QVBoxLayout* sensorWindow::getSensorLayout() const { return sensLayout; }
+QVector<QWidget *>& sensorWindow::getSensorsTypeWidgets() { return sensorsTypeWidget; }
+QVector<QHBoxLayout *>& sensorWindow::getSensorsTypeLayouts() { return sensorsTypeLayout; }
+QWidget* sensorWindow::getDustWidget() const { return dustWidget; }
+QHBoxLayout* sensorWindow::getDustLayout() const { return dustLayout; }
+QWidget* sensorWindow::getHumidityWidget() const { return humidityWidget; }
+QHBoxLayout* sensorWindow::getHumidityLayout() const { return humidityLayout; }
+QWidget* sensorWindow::getWindWidget() const { return windWidget; }
+QHBoxLayout* sensorWindow::getWindLayout() const { return windLayout; }
+QWidget* sensorWindow::getTermometerWidget() const { return termometerWidget; }
+QHBoxLayout* sensorWindow::getTermometerLayout() const { return termometerLayout; }
+QWidget* sensorWindow::getAirQualityWidget() const { return airQualityWidget; }
+QHBoxLayout* sensorWindow::getAirQualityLayout() const { return airQualityLayout; }

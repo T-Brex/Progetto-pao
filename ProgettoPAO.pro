@@ -23,6 +23,7 @@ SOURCES += \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
     frontend/sensorlayoutchooser.cpp \
+    frontend/sensorvisibility.cpp \
     frontend/sensorwindow.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     frontend/searchMenu.h \
     frontend/menubar.h \
     frontend/sensorlayoutchooser.h \
+    frontend/sensorvisibility.h \
     frontend/sensorwindow.h \
     frontend/simulation.h \
     frontend/sensorPanel.h \
