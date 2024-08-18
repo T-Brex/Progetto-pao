@@ -51,6 +51,9 @@ QVector<QString> Dust::getNameValues() const{
     QVector<QString> v = {"pm10","pm25"};
     return v;
 }
+void Dust::accept(Visitor &visitor){
+     visitor.visit(*this);
+}
 //-------------------------------------------humidity
 Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0),Mhumidity("humidity",0),Mpercentage("percentage",0){
     this->updateType("Humidity");Humidity::updateValue();
@@ -85,7 +88,9 @@ QVector<QString> Humidity::getNameValues() const{
     QVector<QString> v = {"humidity","percentage"};
     return v;
 }
-
+void Humidity::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------wind
 
 Wind::Wind(const QString &n):Sensor(n),wind(0),Mwind("wind",0){
@@ -115,7 +120,9 @@ QVector<QString> Wind::getNameValues() const{
     QVector<QString> v = {"wind"};
     return v;
 }
-
+void Wind::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------termometer
 
 Termometer::Termometer(const QString &n):Sensor(n),temperature(0),Mtemperature("temperature",0){
@@ -146,7 +153,9 @@ QVector<QString> Termometer::getNameValues() const{
     QVector<QString> v = {"temperature"};
     return v;
 }
-
+void Termometer::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------air quality
 
 
@@ -186,4 +195,7 @@ void AirQuality::updateValue(){
 QVector<QString> AirQuality::getNameValues() const{
     QVector<QString> v = {"quality"};
     return v;
+}
+void AirQuality::accept(Visitor &visitor){
+    visitor.visit(*this);
 }

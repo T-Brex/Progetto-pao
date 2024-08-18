@@ -35,12 +35,12 @@ private:
 public:
 
     explicit sensorWindow(QWidget *parent = nullptr);
+
     QHBoxLayout* getLayout() const { return layout; }
     QVector<SensorPanel*>& getSensorsPanels() { return sensorsPanels; }
     QScrollArea* getScrollArea() const { return sensScrollArea; }
     QWidget* getSensorWidget() const { return sensWidget; }
     QVBoxLayout* getSensorLayout() const { return sensLayout; }
-
     QVector<QWidget *>& getSensorsTypeWidgets() { return sensorsTypeWidget; }
     QVector<QHBoxLayout *>& getSensorsTypeLayouts() { return sensorsTypeLayout; }
     QWidget* getDustWidget() const { return dustWidget; }

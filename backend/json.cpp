@@ -53,7 +53,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             Sensor* sensore = Json::costruttore(nome, tipo);
             QJsonObject sensoreObject;
             sensoreObject["nome"] = nome;
-            sensoreObject["tipo"] = sensore->getType();
+            sensoreObject["tipo"] = tipo;
             sensoreObject["creationDate"] = sensore->getCreationDate().toString(Qt::ISODate); // Aggiungi data e ora al JSON
             QVector<double> values = sensore->getValue();
             QVector<QString> valuesName = sensore->getNameValues();
