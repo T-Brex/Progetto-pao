@@ -40,8 +40,16 @@ void Dust::updateValue(){
 
     pm25 = distributionPm25(generator);
     pm10 = distributionPm10(generator);
+    Mpm25.setValue(distributionPm25(generator));
+    Mpm10.setValue(distributionPm10(generator));
 }
 
+Measurement Dust::getMpm10() const{
+    return Mpm10;
+}
+Measurement Dust::getMpm25() const{
+    return Mpm25;
+}
 
 QVector<double> Dust::getValue() const{
     QVector<double> out = {pm10,pm25};
@@ -76,9 +84,17 @@ void Humidity::updateValue(){
 
     humidity = distributionHum(generator);
     percentage = distributionPer(generator);
+    Mhumidity.setValue(distributionHum(generator));
+    Mpercentage.setValue(distributionPer(generator));
 
 }
 
+Measurement Humidity::getMhumidity() const{
+    return Mhumidity;
+}
+Measurement Humidity::getMpercentage() const{
+    return Mpercentage;
+}
 
 QVector<double> Humidity::getValue() const{
     QVector<double> out = {humidity,percentage};
@@ -109,7 +125,12 @@ void Wind::updateValue(){
 
 
     wind = distribution(generator);
+    Mwind.setValue(distribution(generator));
 
+}
+
+Measurement Wind::getMwind() const{
+    return Mwind;
 }
 
 QVector<double> Wind::getValue() const{
@@ -141,9 +162,13 @@ void Termometer::updateValue(){
 
 
     temperature = distribution(generator);
+    Mtemperature.setValue(distribution(generator));
 
    }
 
+Measurement Termometer::getMtemperature() const{
+    return Mtemperature;
+}
 QVector<double> Termometer::getValue() const{
     QVector<double> v = {temperature};
     return v;
@@ -169,6 +194,9 @@ AirQuality::AirQuality(const AirQuality& a):
         Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a), quality(a.quality), Mquality(a.Mquality)
     {this->updateType("AirQuality");}
 
+    Measurement AirQuality::getMquality() const{
+        return Mquality;
+    }
 
 QVector<double> AirQuality::getValue() const{
     QVector<double> v = {quality};
@@ -189,6 +217,7 @@ void AirQuality::updateValue(){
 
 
     quality = distribution(generator);
+    Mquality.setValue(distribution(generator));
 
     }
 

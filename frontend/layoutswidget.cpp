@@ -76,7 +76,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
-            qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
+            //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
             deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
             // Rimuovere l'elemento dalla lista a discesa sceltaTipo

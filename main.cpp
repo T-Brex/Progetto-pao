@@ -22,7 +22,14 @@ int main(int argc, char *argv[])
     SensorLayoutChooser slc;
     s->accept(slc);
     s=&d;
-    s->accept(slc);*/
+    s->accept(slc);
+
+    Measurement paolo("paolo",3);
+    qDebug()<<paolo.getName()<<":"<<paolo.getValue();
+    Measurement gino("gino",5);
+    Measurement copio(gino);
+    qDebug()<<copio.getName()<<":"<<copio.getValue();*/
+
 
     mw.show();
     mw.setWindowTitle("Sensori");

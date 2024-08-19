@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     backend/json.cpp \
     backend/measurement.cpp \
+    backend/sensorgetter.cpp \
     backend/sensors.cpp \
     backend/visitor.cpp \
     frontend/adddialog.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
     frontend/sensorlayoutchooser.cpp \
-    frontend/sensorvisibility.cpp \
     frontend/sensorwindow.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
     backend/json.h \
     backend/measurement.h \
+    backend/sensorgetter.h \
     backend/sensors.h \
     backend/visitor.h \
     frontend/adddialog.h \
@@ -48,7 +49,6 @@ HEADERS += \
     frontend/searchMenu.h \
     frontend/menubar.h \
     frontend/sensorlayoutchooser.h \
-    frontend/sensorvisibility.h \
     frontend/sensorwindow.h \
     frontend/simulation.h \
     frontend/sensorPanel.h \

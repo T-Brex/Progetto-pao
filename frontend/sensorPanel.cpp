@@ -1,8 +1,9 @@
 #include "frontend/sensorPanel.h"
+#include "backend/sensorgetter.h"
 #include <QLabel>
 #include <QString>
 
-SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent),buttonModify(new QPushButton("Modifica")),buttonDelete(new QPushButton("Elimina"))
+SensorPanel::SensorPanel(Sensor& sensor, QWidget* parent): QWidget(parent),buttonModify(new QPushButton("Modifica")),buttonDelete(new QPushButton("Elimina"))
 {
     QVBoxLayout* layout = new QVBoxLayout(this); // Imposta il layout principale su questo widget
 
@@ -40,12 +41,19 @@ SensorPanel::SensorPanel( const Sensor& sensor, QWidget* parent): QWidget(parent
     type->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(type);
 
-    auto valuesList = sensor.getValue();
-    auto namesList = sensor.getNameValues();
+    QVector<Measurement*> measurements;
+    SensorGetter sg(measurements);
 
-    for(unsigned int i = 0; i < valuesList.size(); i++){
-        valuesName = new QLabel(namesList[i]);
-        values = new QLabel( QString::number(valuesList[i],'f',1) );
+    Sensor *ps(&sensor);
+
+    ps->accept(sg);
+
+    //auto valuesList = s.accept();
+    //auto namesList = sensor.getNameValues();
+
+    for(unsigned int i = 0; i < measurements.size(); i++){
+        valuesName = new QLabel(measurements[i]->getName());
+        values = new QLabel( QString::number(measurements[i]->getValue(),'f',1) );
         valuesName->setAlignment(Qt::AlignCenter);
         values->setAlignment(Qt::AlignCenter);
 

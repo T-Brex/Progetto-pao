@@ -22,7 +22,7 @@ private:
 
 public:
 
-    SensorPanel(const Sensor& s,QWidget* parent = 0);
+    SensorPanel(Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
     QString getName();
     QString getType();

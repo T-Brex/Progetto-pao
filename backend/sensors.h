@@ -40,6 +40,8 @@ public:
     Dust(const QString&);
     Dust(const Dust&);
     void updateValue() ;
+    Measurement getMpm10() const;
+    Measurement getMpm25() const;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
 
@@ -58,6 +60,8 @@ private:
 public:
     Humidity(const QString&);
     Humidity(const Humidity&);
+    Measurement getMhumidity() const;
+    Measurement getMpercentage() const;
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
@@ -72,6 +76,8 @@ private:
 public:
     Wind(const QString&);
     Wind(const Wind&);
+
+    Measurement getMwind() const;
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
@@ -86,6 +92,8 @@ private:
 public:
     Termometer(const QString&);
     Termometer(const Termometer&);
+
+    Measurement getMtemperature() const;
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
@@ -100,6 +108,8 @@ private:
 public:
     AirQuality(const QString&);
     AirQuality(const AirQuality&);
+
+    Measurement getMquality() const;
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;        //restituisce tutti gli attributi
