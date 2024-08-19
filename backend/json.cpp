@@ -1,7 +1,6 @@
 #include "backend/json.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
-#include "sensorconstructor.h"
 #include "sensorgetter.h"
 #include <QJsonArray>
 #include <QFile>
