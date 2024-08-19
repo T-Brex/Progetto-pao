@@ -23,7 +23,9 @@ public:
     //virtual ~Sensor();
     void updateType(const QString& s){type =s;}
     virtual QString getType() const {return type;}
+
     virtual void accept(Visitor&) = 0;
+
 
 };
 
@@ -40,6 +42,7 @@ public:
     void updateValue() ;
     QVector<double> getValue() const;
     QVector<QString> getNameValues() const;
+
     void accept(Visitor &) override;
 
 

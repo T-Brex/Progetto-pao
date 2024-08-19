@@ -66,12 +66,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menuBar, &MenuBar::showOpenDialog, this, [&]()
             {
                 QString fileName = QFileDialog::getOpenFileName(nullptr, "Seleziona un file", "", "JSON Files (*.json)");
-
-        if(Json::path!=fileName){
-                    Json::path=fileName;
-        }
+        if(!fileName.isEmpty()){
+            if(Json::path!=fileName){
+                Json::path=fileName;
+            }
                 // Verifica se l'utente ha selezionato un file
-                if (!fileName.isEmpty()) {
                     layoutsWidget->getSensWindow()->deleteAllSensors();
                     layoutsWidget->getDeleteDialog()->getSceltaNome()->clear();
                     qDebug() << "Hai selezionato il file:" << fileName;
@@ -87,6 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
                 }
             });
     setCentralWidget(layoutsWidget);
+
 }
 
 void MainWindow::changeLayout(){

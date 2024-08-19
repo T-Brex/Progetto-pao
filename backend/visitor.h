@@ -21,6 +21,7 @@ public:
     virtual void visit(Humidity&) = 0;
     virtual void visit(AirQuality&) = 0;
 
+
 signals:
 };
 

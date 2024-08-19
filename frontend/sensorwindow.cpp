@@ -135,6 +135,8 @@ void sensorWindow::filterSensors(const QString& searchText) {
         if (panel->getName().contains(searchText, Qt::CaseInsensitive)) {
             // Trova l'indice del layout corrispondente al tipo di sensore
             int layoutIndex = -1;
+//avrei bisogno di un sensor che chiami l'accept(sensorVisibility), ma quale dovrebbe essere il sensor in questione?
+//In questo caso, se il panel derivasse o avesse all'interno un sensor*, si potrebbe fare del polimorfismo!
             if (panel->getType() == "Dust") {
                 layoutIndex = 0;
             } else if (panel->getType() == "Humidity") {
@@ -146,6 +148,7 @@ void sensorWindow::filterSensors(const QString& searchText) {
             } else if (panel->getType() == "AirQuality") {
                 layoutIndex = 4;
             }
+
 
             // Se è stato trovato un layout corrispondente, mostra il pannello
             if (layoutIndex != -1) {

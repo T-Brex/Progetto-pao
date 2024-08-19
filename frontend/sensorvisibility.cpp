@@ -3,18 +3,19 @@
 SensorVisibility::SensorVisibility(QObject *parent)
     : Visitor{parent}
 {}
-int SensorVisibility::visit(Dust&){
-    return 0;
+SensorVisibility::SensorVisibility(int & pIndex):index(&pIndex){}
+void SensorVisibility::visit(Dust&){
+    *index=0;
 }
-int SensorVisibility::visit(Wind&){
-    return 1;
+void SensorVisibility::visit(Wind&){
+    *index=1;
 }
-int SensorVisibility::visit(Termometer&){
-    return 2;
+void SensorVisibility::visit(Termometer&){
+    *index=2;
 }
-int SensorVisibility::visit(Humidity&){
-    return 3;
+void SensorVisibility::visit(Humidity&){
+    *index=3;
 }
-int SensorVisibility::visit(AirQuality&){
-    return 4;
+void SensorVisibility::visit(AirQuality&){
+    *index=4;
 }

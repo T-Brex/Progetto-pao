@@ -1,6 +1,7 @@
 #include "backend/json.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
+#include "sensorconstructor.h"
 #include <QJsonArray>
 #include <QFile>
 #include <QDateTime> // Aggiunto per gestire la data e l'ora
@@ -252,6 +253,9 @@ QVector<Sensor*> Json::trovaSensoriPerNome(const QString& substrNome, const QStr
 
 Sensor* Json::costruttore(const QString& nome, const QString& tipo) {
     Sensor* nuovoSensore = nullptr;
+    sensorConstructor sc;
+//avrei bisogno di un sensor che chiami l'accept(sensorConstructor), ma quale dovrebbe essere il sensor in questione?
+//in questo caso credo si debba lasciare così dato che non esiste un sensor finchè non lo creo con il new
     if (tipo == "Dust") {
         nuovoSensore = new Dust(nome);
     } else if (tipo == "Humidity") {

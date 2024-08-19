@@ -7,13 +7,16 @@
 class SensorVisibility : public Visitor
 {
     Q_OBJECT
+private:
+    int *index;
 public:
     explicit SensorVisibility(QObject *parent = nullptr);
-    int visit(Dust&);
-    int visit(Wind&);
-    int visit(Termometer&);
-    int visit(Humidity&);
-    int visit(AirQuality&);
+    SensorVisibility(int&);
+    void visit(Dust&);
+    void visit(Wind&);
+    void visit(Termometer&);
+    void visit(Humidity&);
+    void visit(AirQuality&);
 };
 
 #endif // SENSORVISIBILITY_H
