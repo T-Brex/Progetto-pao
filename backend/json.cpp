@@ -1,6 +1,7 @@
 #include "backend/json.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
+#include "sensorgetter.h"
 #include <QJsonArray>
 #include <QFile>
 #include <QDateTime> // Aggiunto per gestire la data e l'ora
@@ -42,7 +43,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         bool sensorePresente = false;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
-            qDebug()<<sensoreObject["nome"]<<"=="<<nome;
+            //qDebug()<<sensoreObject["nome"]<<"=="<<nome;
             if (sensoreObject["nome"] == nome) {
                 sensorePresente = true;
                 return "existing";
@@ -53,14 +54,21 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             Sensor* sensore = Json::costruttore(nome, tipo);
             QJsonObject sensoreObject;
             sensoreObject["nome"] = nome;
-            sensoreObject["tipo"] = sensore->getType();
+            sensoreObject["tipo"] = tipo;
             sensoreObject["creationDate"] = sensore->getCreationDate().toString(Qt::ISODate); // Aggiungi data e ora al JSON
-            QVector<double> values = sensore->getValue();
-            QVector<QString> valuesName = sensore->getNameValues();
 
-            for (auto i = 0; i < values.size(); ++i) {
-                sensoreObject[valuesName[i]] = values[i];
+
+
+            QVector<Measurement*> measurements;
+            SensorGetter sg(measurements);
+            sensore->accept(sg);
+
+            for (auto i = 0; i < measurements.size(); ++i) {
+                //qDebug()<<measurements[i]->getName()<<" : "<<measurements[i]->getValue();
+                sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
             }
+
+
             sensoriArray.append(sensoreObject);
             // Scrivi il JSON aggiornato sul file
             if (file.open(QIODevice::WriteOnly)) {
@@ -145,19 +153,14 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
             sensoreObject["tipo"] = sensore->getType();
             sensoreObject["creationDate"] = sensore->getCreationDate().toString(Qt::ISODate);
 
-            QVector<double> values = sensore->getValue();
-            QVector<QString> valuesName = sensore->getNameValues();
+            QVector<Measurement*> measurements;
+            SensorGetter sg(measurements);
+            sensore->accept(sg);
 
-            // Verifica che values e valuesName abbiano la stessa dimensione
-            if (values.size() != valuesName.size()) {
-                qWarning() << "Errore: dimensioni di values e valuesName non corrispondono.";
-                continue; // Oppure gestisci l'errore in un altro modo
-            }
-
-            for (int i = 0; i < values.size(); ++i) {
+            for (int i = 0; i < measurements.size(); ++i) {
                 // Converte il valore numerico in QJsonValue
-                QJsonValue value = QJsonValue::fromVariant(values[i]);
-                sensoreObject[valuesName[i]] = value;
+                QJsonValue value = QJsonValue::fromVariant(measurements[i]->getValue());
+                sensoreObject[measurements[i]->getName()] = value;
             }
 
             sensoriArray.append(sensoreObject);
@@ -252,6 +255,8 @@ QVector<Sensor*> Json::trovaSensoriPerNome(const QString& substrNome, const QStr
 
 Sensor* Json::costruttore(const QString& nome, const QString& tipo) {
     Sensor* nuovoSensore = nullptr;
+//avrei bisogno di un sensor che chiami l'accept(sensorConstructor), ma quale dovrebbe essere il sensor in questione?
+//in questo caso credo si debba lasciare così dato che non esiste un sensor finchè non lo creo con il new
     if (tipo == "Dust") {
         nuovoSensore = new Dust(nome);
     } else if (tipo == "Humidity") {

@@ -17,12 +17,13 @@ private:
     QLabel* values;
     QLabel* valuesName;
     QLabel* ico;
+
     QPushButton* buttonModify;
     QPushButton* buttonDelete;
 
 public:
 
-    SensorPanel(const Sensor& s,QWidget* parent = 0);
+    SensorPanel(Sensor& s,QWidget* parent = 0);
     SensorPanel(const SensorPanel& s ,QWidget* parent = 0);
     QString getName();
     QString getType();

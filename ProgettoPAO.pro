@@ -10,7 +10,10 @@ CONFIG += c++17
 
 SOURCES += \
     backend/json.cpp \
+    backend/measurement.cpp \
+    backend/sensorgetter.cpp \
     backend/sensors.cpp \
+    backend/visitor.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/deletedialog.cpp \
@@ -20,6 +23,7 @@ SOURCES += \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
+    frontend/sensorlayoutchooser.cpp \
     frontend/sensorwindow.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
@@ -29,7 +33,10 @@ SOURCES += \
 
 HEADERS += \
     backend/json.h \
+    backend/measurement.h \
+    backend/sensorgetter.h \
     backend/sensors.h \
+    backend/visitor.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
     frontend/deletedialog.h \
@@ -40,6 +47,7 @@ HEADERS += \
     frontend/modifydialog.h \
     frontend/searchMenu.h \
     frontend/menubar.h \
+    frontend/sensorlayoutchooser.h \
     frontend/sensorwindow.h \
     frontend/simulation.h \
     frontend/sensorPanel.h \

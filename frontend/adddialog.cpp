@@ -4,7 +4,8 @@
 #include "qpushbutton.h"
 #include <QMessageBox>
 
-AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),newButton(new QPushButton("Crea"))
+AddDialog::AddDialog(QWidget *parent) : QDialog(parent),
+    lineEdit(new QLineEdit(this)),sceltaTipo(new QComboBox(this)),confirmButton(new QPushButton("Crea")),layout(new QVBoxLayout(this))
 
 {
 
@@ -15,12 +16,15 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),lineEdit(new QLineEdit(t
     sceltaTipo->addItem("AirQuality");
 
     // Creazione del layout per la QDialog
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    //QVBoxLayout *layout = new QVBoxLayout(this);
 
     // Aggiunta del QLineEdit al layout
     layout->addWidget(lineEdit);
     layout->addWidget(sceltaTipo);
-    layout->addWidget(newButton);
+    //confirmButton->
+    //QHBoxLayout* confirmButtonLayout=new QHBoxLayout(confirmButton);
+    //confirmButtonLayout->addSpacerItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    layout->addWidget(confirmButton);
 
     this->setMaximumSize(200,100);
     this->setModal(true);

@@ -12,14 +12,14 @@ void Sensor::modifyName(const QString& n){
     name=n;
 }
 
-Sensor::~Sensor(){}
+//Sensor::~Sensor(){}
 
 
 
 
 
 //-------------------------------------------dust
-Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
+Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0),Mpm10("pm10",0),Mpm25("pm25",0){
     this->updateType("Dust");
     Dust::updateValue();
 }
@@ -27,7 +27,9 @@ Dust::Dust(const QString &n):Sensor(n),pm10(0),pm25(0){
 Dust::Dust(const Dust& d):
     Sensor(d.getName()),
     pm10(d.pm10),
-    pm25(d.pm25){this->updateType("Dust");}
+    pm25(d.pm25),
+    Mpm10(d.Mpm10),Mpm25(d.Mpm25)
+    {this->updateType("Dust");}
 
 
 void Dust::updateValue(){
@@ -38,8 +40,16 @@ void Dust::updateValue(){
 
     pm25 = distributionPm25(generator);
     pm10 = distributionPm10(generator);
+    Mpm25.setValue(distributionPm25(generator));
+    Mpm10.setValue(distributionPm10(generator));
 }
 
+Measurement Dust::getMpm10() const{
+    return Mpm10;
+}
+Measurement Dust::getMpm25() const{
+    return Mpm25;
+}
 
 QVector<double> Dust::getValue() const{
     QVector<double> out = {pm10,pm25};
@@ -49,15 +59,21 @@ QVector<QString> Dust::getNameValues() const{
     QVector<QString> v = {"pm10","pm25"};
     return v;
 }
+void Dust::accept(Visitor &visitor){
+     visitor.visit(*this);
+}
 //-------------------------------------------humidity
-Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0){
+Humidity::Humidity(const QString &n):Sensor(n),humidity(0),percentage(0),Mhumidity("humidity",0),Mpercentage("percentage",0){
     this->updateType("Humidity");Humidity::updateValue();
 }
 
 Humidity::Humidity(const Humidity& h):
     Sensor(h.getName()),
     humidity(h.humidity),
-    percentage(h.percentage){this->updateType("Humidity");}
+    percentage(h.percentage),
+    Mhumidity(h.Mhumidity),
+    Mpercentage(h.Mpercentage)
+{this->updateType("Humidity");}
 
 
 void Humidity::updateValue(){
@@ -68,9 +84,17 @@ void Humidity::updateValue(){
 
     humidity = distributionHum(generator);
     percentage = distributionPer(generator);
+    Mhumidity.setValue(distributionHum(generator));
+    Mpercentage.setValue(distributionPer(generator));
 
 }
 
+Measurement Humidity::getMhumidity() const{
+    return Mhumidity;
+}
+Measurement Humidity::getMpercentage() const{
+    return Mpercentage;
+}
 
 QVector<double> Humidity::getValue() const{
     QVector<double> out = {humidity,percentage};
@@ -80,16 +104,19 @@ QVector<QString> Humidity::getNameValues() const{
     QVector<QString> v = {"humidity","percentage"};
     return v;
 }
-
+void Humidity::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------wind
 
-Wind::Wind(const QString &n):Sensor(n),wind(0){
+Wind::Wind(const QString &n):Sensor(n),wind(0),Mwind("wind",0){
     this->updateType("Wind");Wind::updateValue();
 }
 
 Wind::Wind(const Wind& w):
     Sensor(w.getName()),
-    wind(w.wind){this->updateType("Wind");}
+    wind(w.wind),Mwind(w.Mwind)
+{this->updateType("Wind");}
 
 void Wind::updateValue(){
     static std::mt19937 generator(std::random_device{}());
@@ -98,7 +125,12 @@ void Wind::updateValue(){
 
 
     wind = distribution(generator);
+    Mwind.setValue(distribution(generator));
 
+}
+
+Measurement Wind::getMwind() const{
+    return Mwind;
 }
 
 QVector<double> Wind::getValue() const{
@@ -109,16 +141,19 @@ QVector<QString> Wind::getNameValues() const{
     QVector<QString> v = {"wind"};
     return v;
 }
-
+void Wind::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------termometer
 
-Termometer::Termometer(const QString &n):Sensor(n),temperature(0){
+Termometer::Termometer(const QString &n):Sensor(n),temperature(0),Mtemperature("temperature",0){
     this->updateType("Termometer");Termometer::updateValue();
 }
 
 Termometer::Termometer(const Termometer& t):
     Sensor(t.getName()),
-    temperature(t.temperature){this->updateType("Termometer");}
+    temperature(t.temperature), Mtemperature(t.Mtemperature)
+{this->updateType("Termometer");}
 
 void Termometer::updateValue(){
     static std::mt19937 generator(std::random_device{}());
@@ -127,9 +162,13 @@ void Termometer::updateValue(){
 
 
     temperature = distribution(generator);
+    Mtemperature.setValue(distribution(generator));
 
    }
 
+Measurement Termometer::getMtemperature() const{
+    return Mtemperature;
+}
 QVector<double> Termometer::getValue() const{
     QVector<double> v = {temperature};
     return v;
@@ -139,20 +178,25 @@ QVector<QString> Termometer::getNameValues() const{
     QVector<QString> v = {"temperature"};
     return v;
 }
-
+void Termometer::accept(Visitor &visitor){
+    visitor.visit(*this);
+}
 //-------------------------------------------air quality
 
 
 
 
 AirQuality::AirQuality(const QString& n):
-    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0)
+    Sensor(n), Dust(n), Humidity(n), Wind(n), Termometer(n), quality(0), Mquality("quality",0)
     {this->updateType("AirQuality");AirQuality::updateValue();}
 
 AirQuality::AirQuality(const AirQuality& a):
-    Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a)
+        Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a), quality(a.quality), Mquality(a.Mquality)
     {this->updateType("AirQuality");}
 
+    Measurement AirQuality::getMquality() const{
+        return Mquality;
+    }
 
 QVector<double> AirQuality::getValue() const{
     QVector<double> v = {quality};
@@ -173,10 +217,14 @@ void AirQuality::updateValue(){
 
 
     quality = distribution(generator);
+    Mquality.setValue(distribution(generator));
 
     }
 
 QVector<QString> AirQuality::getNameValues() const{
     QVector<QString> v = {"quality"};
     return v;
+}
+void AirQuality::accept(Visitor &visitor){
+    visitor.visit(*this);
 }

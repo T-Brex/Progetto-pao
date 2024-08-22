@@ -5,6 +5,7 @@
 #include "qdialog.h"
 #include "qmessagebox.h"
 #include "qpushbutton.h"
+#include "backend/sensorgetter.h"
 
 
 #include "backend/json.h"
@@ -27,7 +28,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         addDialog->getLineEdit()->setFocus();
     });
 
-    connect(addDialog->getNewButton(), &QPushButton::clicked, this, [&]() {
+    connect(addDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
         QString result = Json::nuovoSensore(addDialog->getLineEdit()->text(), addDialog->getSceltaTipo()->currentText());
 
         if (result == "ok") {
@@ -57,6 +58,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         modifyDialog->setOldSensorType(sensor->getType());
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
+
         modifyDialog->show();
         modifyDialog->getLineEdit()->setFocus();
     });
@@ -64,20 +66,66 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
-        qDebug()<<sensor->getType()<<"---"<<sensor->getType();
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
+
+
+        qDebug()<<modifyDialog->getDatiWidget().size();
+        for (int i=0;i<modifyDialog->getDatiWidget().size();i++){
+            modifyDialog->getLayout()->removeWidget(modifyDialog->getDatiWidget()[i]);
+            delete modifyDialog->getDatiWidget()[i];  // Distrugge il w
+        }
+
+//Possibili problemi con il removeWidget
+
+        //qDebug()<<mVec.size();
+        modifyDialog->getMisure().clear();
+        modifyDialog->getMinimi().clear();
+        modifyDialog->getMassimi().clear();
+        modifyDialog->getDatiLayout().clear();
+        modifyDialog->getDatiWidget().clear();
+
+
+
+
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+        for(int i=0;i<mVec.size();i++){
+
+            //qDebug()<<mVec[i]->getName();
+            //qDebug()<<mVec[i]->getValue();
+            modifyDialog->getMisure().push_back(new QLabel (mVec[i]->getName()));
+            //modifyDialog->getMisure()[i]->setText(mVec[i]->getName());
+            modifyDialog->getMinimi().push_back(new QLineEdit("22"));
+            //modifyDialog->getMinimi()[i]->setText("22");
+            modifyDialog->getMassimi().push_back(new QLineEdit("55"));
+
+
+            //qDebug()<<modifyDialog->getMisure().size();
+            modifyDialog->getDatiWidget().push_back(new QWidget);
+            modifyDialog->getDatiLayout().push_back(new QHBoxLayout(modifyDialog->getDatiWidget()[i]));
+
+            modifyDialog->getDatiLayout()[i]->addWidget(modifyDialog->getMisure()[i]);
+            modifyDialog->getDatiLayout()[i]->addWidget( modifyDialog->getMinimi()[i]);
+            modifyDialog->getDatiLayout()[i]->addWidget( modifyDialog->getMassimi()[i]);
+            modifyDialog->getLayout()->addWidget(modifyDialog->getDatiWidget()[i]);
+
+
+        }
+        //modifyDialog->getLayout()->removeWidget(modifyDialog->getConfirmButton());
+        modifyDialog->getLayout()->addWidget(modifyDialog->getConfirmButton());
         modifyDialog->show();
         modifyDialog->getLineEdit()->setFocus();
     });
 
-    connect(modifyDialog->getNewButton(), &QPushButton::clicked, this, [&]() {
+    connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
 
         QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
-            qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
+            //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
             deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
             // Rimuovere l'elemento dalla lista a discesa sceltaTipo

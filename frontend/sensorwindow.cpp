@@ -1,6 +1,7 @@
 #include "sensorwindow.h"
 #include "backend/json.h"
 #include <QScrollBar>
+#include "SensorLayoutChooser.h"
 
 sensorWindow::sensorWindow(QWidget *parent)
     : QWidget(parent),
@@ -65,16 +66,9 @@ void sensorWindow::addSensor(Sensor *s) {
     connect(sensorsPanels.last()->getButtonDelete(),&QPushButton::clicked,this,[s, this]() {
         emit showDeleteWarning(s);
     });
-    if(s->getType()=="Dust")
-        dustLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Humidity")
-        humidityLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Wind")
-        windLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Termometer")
-        termometerLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="AirQuality")
-        airQualityLayout->addWidget(sensorsPanels.last());
+
+    SensorLayoutChooser slc(*this);
+    s->accept(slc);
 }
 void sensorWindow::deleteSensor(QString s) {
     for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {
@@ -118,35 +112,33 @@ void sensorWindow::modifySensor(const QString& oldName, const QString& newName, 
 }
 
 void sensorWindow::filterSensors(const QString& searchText) {
-    // Nascondi tutti i sensori
-    for (auto layout : sensorsTypeLayout) {
-        for (int i = 0; i < layout->count(); ++i) {
-            layout->itemAt(i)->widget()->setVisible(false);
-        }
-    }
 
     // Mostra solo i sensori che corrispondono alla sottostringa
     for (auto panel : sensorsPanels) {
-        if (panel->getName().contains(searchText, Qt::CaseInsensitive)) {
-            // Trova l'indice del layout corrispondente al tipo di sensore
-            int layoutIndex = -1;
-            if (panel->getType() == "Dust") {
-                layoutIndex = 0;
-            } else if (panel->getType() == "Humidity") {
-                layoutIndex = 1;
-            } else if (panel->getType() == "Wind") {
-                layoutIndex = 2;
-            } else if (panel->getType() == "Termometer") {
-                layoutIndex = 3;
-            } else if (panel->getType() == "AirQuality") {
-                layoutIndex = 4;
-            }
-
-            // Se è stato trovato un layout corrispondente, mostra il pannello
-            if (layoutIndex != -1) {
-                sensorsTypeLayout[layoutIndex]->addWidget(panel);
-                panel->setVisible(true);
-            }
+        if (!panel->getName().contains(searchText, Qt::CaseInsensitive)) {
+            panel->setVisible(false);
+        }
+        else{
+            panel->setVisible(true);
         }
     }
+
 }
+QHBoxLayout* sensorWindow::getLayout() const { return layout; }
+QVector<SensorPanel*>& sensorWindow::getSensorsPanels() { return sensorsPanels; }
+SearchMenu* sensorWindow::getSearchMenu() const { return searchMenu; }
+QScrollArea* sensorWindow::getScrollArea() const { return sensScrollArea; }
+QWidget* sensorWindow::getSensorWidget() const { return sensWidget; }
+QVBoxLayout* sensorWindow::getSensorLayout() const { return sensLayout; }
+QVector<QWidget *>& sensorWindow::getSensorsTypeWidgets() { return sensorsTypeWidget; }
+QVector<QHBoxLayout *>& sensorWindow::getSensorsTypeLayouts() { return sensorsTypeLayout; }
+QWidget* sensorWindow::getDustWidget() const { return dustWidget; }
+QHBoxLayout* sensorWindow::getDustLayout() const { return dustLayout; }
+QWidget* sensorWindow::getHumidityWidget() const { return humidityWidget; }
+QHBoxLayout* sensorWindow::getHumidityLayout() const { return humidityLayout; }
+QWidget* sensorWindow::getWindWidget() const { return windWidget; }
+QHBoxLayout* sensorWindow::getWindLayout() const { return windLayout; }
+QWidget* sensorWindow::getTermometerWidget() const { return termometerWidget; }
+QHBoxLayout* sensorWindow::getTermometerLayout() const { return termometerLayout; }
+QWidget* sensorWindow::getAirQualityWidget() const { return airQualityWidget; }
+QHBoxLayout* sensorWindow::getAirQualityLayout() const { return airQualityLayout; }
