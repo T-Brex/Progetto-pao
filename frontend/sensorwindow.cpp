@@ -66,20 +66,9 @@ void sensorWindow::addSensor(Sensor *s) {
     connect(sensorsPanels.last()->getButtonDelete(),&QPushButton::clicked,this,[s, this]() {
         emit showDeleteWarning(s);
     });
-    //potrei creare una classe "SensorLayoutChooser" derivante da "visitor" oppure dei metodi per ogni sensor?
+
     SensorLayoutChooser slc(*this);
     s->accept(slc);
-    /*
-    if(s->getType()=="Dust")
-        dustLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Humidity")
-        humidityLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Wind")
-        windLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="Termometer")
-        termometerLayout->addWidget(sensorsPanels.last());
-    if(s->getType()=="AirQuality")
-        airQualityLayout->addWidget(sensorsPanels.last());*/
 }
 void sensorWindow::deleteSensor(QString s) {
     for(auto it = sensorsPanels.begin(); it != sensorsPanels.end(); ++it) {

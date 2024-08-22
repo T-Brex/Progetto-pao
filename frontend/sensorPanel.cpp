@@ -43,13 +43,8 @@ SensorPanel::SensorPanel(Sensor& sensor, QWidget* parent): QWidget(parent),butto
 
     QVector<Measurement*> measurements;
     SensorGetter sg(measurements);
-
     Sensor *ps(&sensor);
-
     ps->accept(sg);
-
-    //auto valuesList = s.accept();
-    //auto namesList = sensor.getNameValues();
 
     for(unsigned int i = 0; i < measurements.size(); i++){
         valuesName = new QLabel(measurements[i]->getName());
@@ -64,6 +59,7 @@ SensorPanel::SensorPanel(Sensor& sensor, QWidget* parent): QWidget(parent),butto
         valuesLayout->addWidget(valueWidget);
 
     }
+
 
     // Aggiungi infoWidget e valuesWidget al frameLayout
     frameLayout->addWidget(infoWidget);

@@ -4,6 +4,7 @@
 #include <QComboBox>
 #include <QDialog>
 #include <QLineEdit>
+#include <QVBoxLayout>
 
 class AddDialog : public QDialog
 {
@@ -11,13 +12,15 @@ class AddDialog : public QDialog
 protected:
     QLineEdit *lineEdit;
     QComboBox *sceltaTipo;
-    QPushButton *newButton;
+    QPushButton *confirmButton;
+    QVBoxLayout *layout;
 public:
 
     AddDialog(QWidget *parent = nullptr);
     QLineEdit* getLineEdit() const { return lineEdit; }
     QComboBox* getSceltaTipo() const { return sceltaTipo; }
-    QPushButton* getNewButton() const { return newButton; }
+    QPushButton* getConfirmButton() const { return confirmButton; }
+    QVBoxLayout *getLayout() { return layout; }
 
 };
 

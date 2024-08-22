@@ -57,8 +57,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             sensoreObject["tipo"] = tipo;
             sensoreObject["creationDate"] = sensore->getCreationDate().toString(Qt::ISODate); // Aggiungi data e ora al JSON
 
-            //QVector<double> values = sensore->getValue();
-            //QVector<QString> valuesName = sensore->getNameValues();
+
 
             QVector<Measurement*> measurements;
             SensorGetter sg(measurements);
@@ -69,9 +68,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
                 sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
             }
 
-            /*for (auto i = 0; i < values.size(); ++i) {
-                sensoreObject[valuesName[i]] = values[i];
-            }*/
+
             sensoriArray.append(sensoreObject);
             // Scrivi il JSON aggiornato sul file
             if (file.open(QIODevice::WriteOnly)) {
@@ -159,10 +156,6 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
             QVector<Measurement*> measurements;
             SensorGetter sg(measurements);
             sensore->accept(sg);
-
-            //QVector<double> values = sensore->getValue();
-            //QVector<QString> valuesName = sensore->getNameValues();
-
 
             for (int i = 0; i < measurements.size(); ++i) {
                 // Converte il valore numerico in QJsonValue
@@ -262,7 +255,6 @@ QVector<Sensor*> Json::trovaSensoriPerNome(const QString& substrNome, const QStr
 
 Sensor* Json::costruttore(const QString& nome, const QString& tipo) {
     Sensor* nuovoSensore = nullptr;
-    sensorConstructor sc;
 //avrei bisogno di un sensor che chiami l'accept(sensorConstructor), ma quale dovrebbe essere il sensor in questione?
 //in questo caso credo si debba lasciare così dato che non esiste un sensor finchè non lo creo con il new
     if (tipo == "Dust") {

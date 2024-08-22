@@ -17,6 +17,7 @@ private:
     QLabel* values;
     QLabel* valuesName;
     QLabel* ico;
+
     QPushButton* buttonModify;
     QPushButton* buttonDelete;
 
