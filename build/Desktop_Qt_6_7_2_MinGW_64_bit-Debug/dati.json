@@ -1,0 +1,55 @@
+[
+    {
+        "creationDate": "2024-08-11T18:24:01",
+        "nome": "franco",
+        "pm10": 19.023902816256978,
+        "pm25": 1.7758219034164346,
+        "tipo": "Dust"
+    },
+    {
+        "creationDate": "2024-08-11T18:24:09",
+        "humidity": 9.458325655442572,
+        "nome": "luigi",
+        "percentage": 5.047041208499027,
+        "tipo": "Humidity"
+    },
+    {
+        "creationDate": "2024-08-11T18:24:15",
+        "nome": "mirko",
+        "tipo": "Wind",
+        "wind": 2.6064176699992476
+    },
+    {
+        "creationDate": "2024-08-11T18:24:24",
+        "nome": "fabrissio",
+        "temperature": -13.577872626785133,
+        "tipo": "Termometer"
+    },
+    {
+        "creationDate": "2024-08-11T18:24:34",
+        "nome": "luca",
+        "quality": -5.986710531027822,
+        "tipo": "AirQuality"
+    },
+    {
+        "creationDate": "2024-08-19T18:32:24",
+        "nome": "salvini",
+        "pm10": 19.6502646898473,
+        "pm25": 8.345674039021414,
+        "tipo": "Dust"
+    },
+    {
+        "creationDate": "2024-08-19T18:51:41",
+        "humidity": 22.609039720118087,
+        "nome": "fisio",
+        "percentage": 3.568821779836191,
+        "tipo": "Humidity"
+    },
+    {
+        "creationDate": "2024-08-19T19:26:26",
+        "nome": "baldo",
+        "pm10": 36.045663899619306,
+        "pm25": 10.927778589833713,
+        "tipo": "Dust"
+    }
+]
