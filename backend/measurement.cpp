@@ -5,15 +5,16 @@
 {}*/
 
 
-Measurement::Measurement(const QString& name, double value) : name(name), value(value) {}
-Measurement::Measurement(const Measurement& m){
-    name=m.getName();
-    value=m.getValue();
+Measurement::Measurement(const QString& name, double value, QObject *parent) :QObject(parent), name(name), value(value) {}
+Measurement::Measurement(const Measurement& m):name(m.getName()), value(m.getValue()) {
+
+    //name=m.getName();
+    //value=m.getValue();
 }
 
 QString Measurement::getName() const { return name; }
 double Measurement::getValue() const { return value; }
-void Measurement::setValue(double newValue){
+void Measurement::setValue(double const newValue){
     value=newValue;
 }
 
