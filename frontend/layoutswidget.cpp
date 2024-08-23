@@ -67,16 +67,15 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+        modifyDialog->getLineEdit()->setFocus();
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
 
 
         qDebug()<<modifyDialog->getDatiWidget().size();
         for (int i=0;i<modifyDialog->getDatiWidget().size();i++){
             modifyDialog->getLayout()->removeWidget(modifyDialog->getDatiWidget()[i]);
-            delete modifyDialog->getDatiWidget()[i];  // Distrugge il w
+            delete modifyDialog->getDatiWidget()[i];  // Distrugge il widget
         }
-
-//Possibili problemi con il removeWidget
 
         //qDebug()<<mVec.size();
         modifyDialog->getMisure().clear();
@@ -85,24 +84,15 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         modifyDialog->getDatiLayout().clear();
         modifyDialog->getDatiWidget().clear();
 
-
-
-
         QVector<Measurement*> mVec;
         SensorGetter sg(mVec);
         const_cast<Sensor*>(sensor)->accept(sg);
         for(int i=0;i<mVec.size();i++){
 
-            //qDebug()<<mVec[i]->getName();
-            //qDebug()<<mVec[i]->getValue();
+
             modifyDialog->getMisure().push_back(new QLabel (mVec[i]->getName()));
-            //modifyDialog->getMisure()[i]->setText(mVec[i]->getName());
             modifyDialog->getMinimi().push_back(new QLineEdit("22"));
-            //modifyDialog->getMinimi()[i]->setText("22");
             modifyDialog->getMassimi().push_back(new QLineEdit("55"));
-
-
-            //qDebug()<<modifyDialog->getMisure().size();
             modifyDialog->getDatiWidget().push_back(new QWidget);
             modifyDialog->getDatiLayout().push_back(new QHBoxLayout(modifyDialog->getDatiWidget()[i]));
 
@@ -116,7 +106,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         //modifyDialog->getLayout()->removeWidget(modifyDialog->getConfirmButton());
         modifyDialog->getLayout()->addWidget(modifyDialog->getConfirmButton());
         modifyDialog->show();
-        modifyDialog->getLineEdit()->setFocus();
+
     });
 
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {

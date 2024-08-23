@@ -64,7 +64,6 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             sensore->accept(sg);
 
             for (auto i = 0; i < measurements.size(); ++i) {
-                //qDebug()<<measurements[i]->getName()<<" : "<<measurements[i]->getValue();
                 sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
             }
 
