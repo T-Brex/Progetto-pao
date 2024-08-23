@@ -1,10 +1,10 @@
 [
     {
         "creationDate": "2024-08-11T18:24:01",
-        "nome": "franco",
+        "nome": "Carlo VII",
         "pm10": 19.023902816256978,
         "pm25": 1.7758219034164346,
-        "tipo": "Dust"
+        "tipo": "Humidity"
     },
     {
         "creationDate": "2024-08-11T18:24:09",

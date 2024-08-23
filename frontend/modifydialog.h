@@ -10,21 +10,36 @@ class ModifyDialog : public AddDialog
 private:
     QString oldSensorName;
     QString oldSensorType;
-    QVector<QWidget*> datiWidget;
-    QVector<QHBoxLayout*> datiLayout;
-    QVector<QLabel*> misure;
-    QVector<QLineEdit*> minimi;
-    QVector<QLineEdit*> massimi;
+
+    QWidget* parametriWidget;
+    QGridLayout* parametriLayout;
+
+    QWidget* misureWidget;
+    QVBoxLayout* misureLayout;
+
+    QWidget* minWidget;
+    QVBoxLayout* minLayout;
+
+    QWidget* maxWidget;
+    QVBoxLayout* maxLayout;
 public:
     QString getOldSensorName() const ;
     QString getOldSensorType() const ;
     void setOldSensorName(const QString &name);
     void setOldSensorType(const QString &type);
-    QVector<QWidget*>& getDatiWidget();
-    QVector<QHBoxLayout*>& getDatiLayout();
-    QVector<QLabel*>& getMisure();
-    QVector<QLineEdit*>& getMinimi();
-    QVector<QLineEdit*>& getMassimi();
+    QWidget* getParametriWidget() const;
+    QGridLayout* getParametriLayout() const;
+    QWidget* getMisureWidget() const;
+    QVBoxLayout* getMisureLayout() const;
+    QWidget* getMinWidget() const;
+    QVBoxLayout* getMinLayout() const;
+    QWidget* getMaxWidget() const;
+    QVBoxLayout* getMaxLayout() const;
+    //QVector<QWidget*>& getDatiWidget();
+    //QVector<QHBoxLayout*>& getDatiLayout();
+    //QVector<QLabel*>& getMisure();
+    //QVector<QLineEdit*>& getMinimi();
+    //QVector<QLineEdit*>& getMassimi();
 
     ModifyDialog(QWidget *parent);
 };

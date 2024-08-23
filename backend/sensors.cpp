@@ -11,7 +11,8 @@ QDateTime Sensor::getCreationDate() const {
 void Sensor::modifyName(const QString& n){
     name=n;
 }
-
+void Sensor::updateType(const QString& s){type =s;}
+QString Sensor::getType() const {return type;}
 //Sensor::~Sensor(){}
 
 

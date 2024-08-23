@@ -21,7 +21,6 @@ public:
     static void eliminaSensori(const QString& fileName=path);
     static QVector<Sensor*> trovaSensoriPerNome(const QString& substrNome, const QString& fileName=path);
     static QVector<Sensor*> caricaSensori(const QString& fileName=path);
-
     static Sensor* costruttore(const QString& nome, const QString& tipo);
 };
 
