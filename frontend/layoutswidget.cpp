@@ -71,7 +71,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         modifyDialog->getLineEdit()->setFocus();
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
 
-        //svuotamento modifyDialog.parametriLayout
+        //Svuotamento modifyDialog.parametriLayout
         QLayoutItem* item;
         while ((item = modifyDialog->getParametriLayout()->takeAt(0)) != nullptr) {
             if (QWidget* widget = item->widget()) {
@@ -79,6 +79,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             }
             delete item;
         }
+
 
         QVector<Measurement*> mVec;
         SensorGetter sg(mVec);
@@ -94,9 +95,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             modifyDialog->getParametriLayout()->addWidget(new QLineEdit("22"), i + 1, 1);            // Colonna 1 per "Min"
             modifyDialog->getParametriLayout()->addWidget(new QLineEdit("55"), i + 1, 2);            // Colonna 2 per "Max"
         }
-
         modifyDialog->show();
-
     });
 
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {

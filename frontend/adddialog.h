@@ -17,10 +17,10 @@ protected:
 public:
 
     AddDialog(QWidget *parent = nullptr);
-    QLineEdit* getLineEdit() const { return lineEdit; }
-    QComboBox* getSceltaTipo() const { return sceltaTipo; }
-    QPushButton* getConfirmButton() const { return confirmButton; }
-    QVBoxLayout *getLayout() { return layout; }
+        QLineEdit* getLineEdit() const;
+        QComboBox* getSceltaTipo() const;
+        QPushButton* getConfirmButton() const;
+        QVBoxLayout *getLayout() const;
 
 };
 
