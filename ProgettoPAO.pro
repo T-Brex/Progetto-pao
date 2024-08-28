@@ -25,6 +25,7 @@ SOURCES += \
     frontend/menubar.cpp \
     frontend/sensorlayoutchooser.cpp \
     frontend/sensorwindow.cpp \
+    frontend/simBarVisitor.cpp \
     main.cpp \
     frontend/mainwindow.cpp \
     frontend/simulation.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     frontend/menubar.h \
     frontend/sensorlayoutchooser.h \
     frontend/sensorwindow.h \
+    frontend/simBarVisitor.h \
     frontend/simulation.h \
     frontend/sensorPanel.h \
     frontend/simulationBar.h

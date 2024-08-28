@@ -187,14 +187,58 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
 
     }
     
-    void CartesianPlane::addSensor(Sensor *s, int i, int n){
-        double Y;
-            QPolygonF *fun = new QPolygonF();
 
+    void CartesianPlane::addDust(const Dust &s, int i, int n) {
+        double Y;
+        QPolygonF *fun = new QPolygonF();
+        Dust* d = new Dust(s);
+        if(i){
             for (int X = 0; X < dimFun; X+=50) {
-                QVector<double> sensorValues = s->getValue();
-                Y = sensorValues[i] * -1;
-                s->updateValue();
+                double sensorValue = d->getMpm10().getValue();
+                Y = sensorValue * -1;
+                d->updateValue();
+                *fun << QPointF((X - dimFun / 2),( Y * 20));
+            }
+
+            if (n >= sensors.size()) {
+                sensors.resize(n * 2, nullptr);
+            }
+
+            if (sensors[n]) {
+                delete sensors[n];
+            }
+
+            sensors[n]= fun;
+        }else{
+            for (int X = 0; X < dimFun; X+=50) {
+                double sensorValue = d->getMpm25().getValue();
+                Y = sensorValue * -1;
+                d->updateValue();
+                *fun << QPointF((X - dimFun / 2),( Y * 20));
+            }
+
+            if (n >= sensors.size()) {
+                sensors.resize(n * 2, nullptr);
+            }
+
+            if (sensors[n]) {
+                delete sensors[n];
+            }
+
+            sensors[n]= fun;
+        }
+        delete(d);
+        update();
+    }
+
+    void CartesianPlane::addWind(const Wind& s, int i, int n) {
+        double Y;
+        QPolygonF *fun = new QPolygonF();
+        Wind* w = new Wind(s);
+            for (int X = 0; X < dimFun; X+=50) {
+                double sensorValue = w->getMwind().getValue();
+                Y = sensorValue* -1;
+                w->updateValue();
                 *fun << QPointF((X - dimFun / 2),( Y * 20));
             }
 
@@ -209,8 +253,103 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
             sensors[n]= fun;
 
         update();
+        delete(w);
+    }
 
+    void CartesianPlane::addTermometer(const Termometer& s, int i, int n) {
+        double Y;
+        QPolygonF *fun = new QPolygonF();
+        Termometer* t = new Termometer(s);
+        for (int X = 0; X < dimFun; X+=50) {
+            double sensorValue = t->getMtemperature().getValue();
+            Y = sensorValue * -1;
+            t->updateValue();
+            *fun << QPointF((X - dimFun / 2),( Y * 20));
         }
+
+        if (n >= sensors.size()) {
+            sensors.resize(n * 2, nullptr);
+        }
+
+        if (sensors[n]) {
+            delete sensors[n];
+        }
+
+        sensors[n]= fun;
+
+        update();
+        delete(t);
+    }
+
+    void CartesianPlane::addHumidity(const Humidity& s, int i, int n) {
+        double Y;
+        QPolygonF *fun = new QPolygonF();
+        Humidity* h = new Humidity(s);
+        if(i){
+            for (int X = 0; X < dimFun; X+=50) {
+                double sensorValue = h->getMhumidity().getValue();
+                Y = sensorValue * -1;
+                h->updateValue();
+                *fun << QPointF((X - dimFun / 2),( Y * 20));
+            }
+
+            if (n >= sensors.size()) {
+                sensors.resize(n * 2, nullptr);
+            }
+
+            if (sensors[n]) {
+                delete sensors[n];
+            }
+
+            sensors[n]= fun;
+        }else{
+            for (int X = 0; X < dimFun; X+=50) {
+                double sensorValue = h->getMpercentage().getValue();
+                Y = sensorValue * -1;
+                h->updateValue();
+                *fun << QPointF((X - dimFun / 2),( Y * 20));
+            }
+
+            if (n >= sensors.size()) {
+                sensors.resize(n * 2, nullptr);
+            }
+
+            if (sensors[n]) {
+                delete sensors[n];
+            }
+
+            sensors[n]= fun;
+        }
+
+
+        update();
+        delete(h);
+    }
+
+    void CartesianPlane::addAirQuality(const AirQuality& s, int i, int n) {
+        double Y;
+        QPolygonF *fun = new QPolygonF();
+        AirQuality* a = new AirQuality(s);
+        for (int X = 0; X < dimFun; X+=50) {
+            double sensorValue = a->getMquality().getValue();
+            Y = sensorValue * -1;
+            a->updateValue();
+            *fun << QPointF((X - dimFun / 2),( Y * 20));
+        }
+
+        if (n >= sensors.size()) {
+            sensors.resize(n * 2, nullptr);
+        }
+
+        if (sensors[n]) {
+            delete sensors[n];
+        }
+
+        sensors[n]= fun;
+
+        update();
+        delete(a);
+    }
 
     void CartesianPlane::removeSensor(int n){
 

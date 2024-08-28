@@ -12,7 +12,9 @@ Measurement::Measurement(const Measurement& m){
 }
 
 QString Measurement::getName() const { return name; }
+
 double Measurement::getValue() const { return value; }
+
 void Measurement::setValue(double newValue){
     value=newValue;
 }

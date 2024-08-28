@@ -1,7 +1,9 @@
 #include "frontend/simulation.h"
+#include "frontend/simBarVisitor.h"
 #include "qscrollarea.h"
 
 Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
+
     QHBoxLayout *layout = new QHBoxLayout(this);
 
     QWidget *leftBar = new QWidget(this);
@@ -30,20 +32,46 @@ Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
     plane->setStyleSheet("background-color: black; border: 1px solid gray;"); // Imposta lo stile di CartesianPlane
     layout->addWidget(plane);
 
+    int nButtons = 0;
+    int colorCounter = 0;
+    SimBarVisitor* simBarV = new SimBarVisitor(*layout, nButtons, colorCounter);
 
-
-    connect(simBar, &SimBar::add, this, &Simulation::addSensor);
-    connect(simBar, &SimBar::remove, this, &Simulation::removeSensor);
-    connect(simBar, &SimBar::updatePlane, this, &Simulation::updatePlane);
+    connect(simBarV, &SimBarVisitor::addDust, plane, &CartesianPlane::addDust);
+    connect(simBar, &SimBar::addW, plane, &CartesianPlane::addWind);
+    connect(simBar, &SimBar::addT, plane, &CartesianPlane::addTermometer);
+    connect(simBar, &SimBar::addH, plane, &CartesianPlane::addHumidity);
+    connect(simBar, &SimBar::addA, plane, &CartesianPlane::addAirQuality);
+    connect(simBar, &SimBar::rem, this, &Simulation::removeSensor);
+    connect(simBar, &SimBar::updateD, this, &Simulation::updateDust);
+    connect(simBar, &SimBar::updateW, this, &Simulation::updateWind);
+    connect(simBar, &SimBar::updateT, this, &Simulation::updateTermometer);
+    connect(simBar, &SimBar::updateH, this, &Simulation::updateHumidity);
+    connect(simBar, &SimBar::updateA, this, &Simulation::updateAirQuality);
 
 }
-void Simulation::addSensor(Sensor* s, int i, int n){
-   plane->addSensor(s,i,n);
-}
+
+
 void Simulation::removeSensor(int n){
     plane->removeSensor(n);
 }
-void Simulation::updatePlane(Sensor* s, int i, int n){
-    plane->addSensor(s,i,n);//dovrebbe aggiornare con i valori più recenti ma essendo generati a caso la funzione sarebbe identica a addSensors
+
+void Simulation::updateDust(const Dust &s, int i, int n) {
+    plane->addDust(s, i, n);
+}
+
+void Simulation::updateWind(const Wind &s, int i, int n) {
+    plane->addWind(s, i, n);
+}
+
+void Simulation::updateTermometer(const Termometer &s, int i, int n) {
+    plane->addTermometer(s, i, n);
+}
+
+void Simulation::updateHumidity(const Humidity &s, int i, int n) {
+    plane->addHumidity(s, i, n);
+}
+
+void Simulation::updateAirQuality(const AirQuality &s, int i, int n) {
+    plane->addAirQuality(s, i, n);
 }
 

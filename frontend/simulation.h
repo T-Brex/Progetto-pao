@@ -16,9 +16,12 @@ public:
     Simulation(QVector<Sensor*> s, QWidget* parent=nullptr);
 
 public slots:
-    void addSensor(Sensor* s, int i, int n);
     void removeSensor(int n);
-    void updatePlane(Sensor* s, int i, int n);
+    void updateDust(const Dust& s, int i, int n);
+    void updateWind(const Wind& s, int i, int n);
+    void updateTermometer(const Termometer& s, int i, int n);
+    void updateHumidity(const Humidity& s, int i, int n);
+    void updateAirQuality(const AirQuality& s, int i, int n);
 
 };
 #endif

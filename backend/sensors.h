@@ -2,10 +2,10 @@
 #define SENSORS_H
 #include <QDateTime>
 #include <QString>
-#include<QVector>
-#include "measurement.h"
-#include "visitor.h"
-//Perchè non funziona l'include?
+#include <QVector>
+#include "backend/measurement.h"
+#include "backend/visitor.h"
+
 class Visitor;
 class Sensor{
 private:
@@ -20,7 +20,7 @@ public:
     virtual QVector<double> getValue() const = 0 ;
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
-    //virtual ~Sensor();
+    virtual ~Sensor();
     void updateType(const QString& s){type =s;}
     virtual QString getType() const {return type;}
 
@@ -39,11 +39,11 @@ private:
 public:
     Dust(const QString&);
     Dust(const Dust&);
-    void updateValue() ;
+    void updateValue()  override;
     Measurement getMpm10() const;
     Measurement getMpm25() const;
-    QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;
+    QVector<double> getValue() const override;
+    QVector<QString> getNameValues() const override;
 
     void accept(Visitor &) override;
 
@@ -62,9 +62,9 @@ public:
     Humidity(const Humidity&);
     Measurement getMhumidity() const;
     Measurement getMpercentage() const;
-    void updateValue() ;
-    QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;
+    void updateValue()  override;
+    QVector<double> getValue() const override;
+    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 
@@ -78,9 +78,9 @@ public:
     Wind(const Wind&);
 
     Measurement getMwind() const;
-    void updateValue() ;
-    QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;
+    void updateValue()  override;
+    QVector<double> getValue() const override;
+    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 
@@ -94,9 +94,9 @@ public:
     Termometer(const Termometer&);
 
     Measurement getMtemperature() const;
-    void updateValue() ;
-    QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;
+    void updateValue()  override;
+    QVector<double> getValue() const override;
+    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 
@@ -110,9 +110,9 @@ public:
     AirQuality(const AirQuality&);
 
     Measurement getMquality() const;
-    void updateValue() ;
-    QVector<double> getValue() const;
-    QVector<QString> getNameValues() const;        //restituisce tutti gli attributi
+    void updateValue() override;
+    QVector<double> getValue() const override;
+    QVector<QString> getNameValues() const override;        //restituisce tutti gli attributi
     void accept(Visitor &) override;
 
 };

@@ -12,7 +12,7 @@ void Sensor::modifyName(const QString& n){
     name=n;
 }
 
-//Sensor::~Sensor(){}
+Sensor::~Sensor(){}
 
 
 

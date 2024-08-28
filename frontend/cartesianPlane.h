@@ -19,10 +19,15 @@ public:
     void paintEvent(QPaintEvent *event);
     void drawPlane(QPainter& painter) const;
     void drawSensors(QPainter& painter,QVector<QPolygonF*> s) const;
-    void addSensor(Sensor * s, int i, int n);
     void removeSensor(int n);
     void wheelEvent(QWheelEvent *event) ;
     ~CartesianPlane();
+public slots:
+    void addDust(const Dust& s, int i, int n);
+    void addWind(const Wind& s, int i, int n);
+    void addTermometer(const Termometer& s, int i, int n);
+    void addHumidity(const Humidity& s, int i, int n);
+    void addAirQuality(const AirQuality& s, int i, int n);
 
 
 };

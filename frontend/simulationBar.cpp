@@ -1,15 +1,20 @@
 #include "frontend/simulationBar.h"
+#include "frontend/simBarVisitor.h"
 #include "qlabel.h"
 #include <QToolButton>
 #include<QFrame>
 #include <QColor>
 
-int SimBar::nButtons = 0;
-SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
+
+SimBar::SimBar(QVector<Sensor*>& s, QWidget* parent)
+    : QWidget(parent) {
+
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addStretch();
-    int hue,colorCounter=0;
+    int colorCounter = 0;
+    int nButtons = 0;
 
+    // Itera sui sensori e crea SimBarVisitor
     for (int i = 0; i < s.size(); ++i) {
         QFrame *panel = new QFrame(this);
         QHBoxLayout *panelLayout = new QHBoxLayout(panel);
@@ -23,53 +28,76 @@ SimBar::SimBar(const QVector<Sensor *> &s, QWidget* parent) : QWidget(parent) {
         QLabel *name = new QLabel(s[i]->getName(), panel);
         labelsLayout->addWidget(name);
 
-        QWidget *buttons = new QWidget(panel);
-        QVBoxLayout *buttonLayout = new QVBoxLayout(buttons);
-
-        for(unsigned int j = 0; j < s[i]->getValue().size(); j++){
-            int n = nButtons;
-            QWidget *slot = new QWidget(buttons);
-            QHBoxLayout *slotLayout = new QHBoxLayout(slot);
-            QToolButton *toggleButton = new QToolButton(panel);
-            toggleButton->setText("Toggle Button");
-            toggleButton->setCheckable(true);
 
 
-            hue = (colorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
-            colorCounter++;
 
-            toggleButton->setStyleSheet(QString("background-color: %1").arg(QColor::fromHsv(hue, 255, 255).name()));
-            toggleButton->setText(s[i]->getNameValues()[j]);
-
-            connect(toggleButton, &QToolButton::clicked, this,[=](bool checked) {
-                if(checked){
-                    emit add(s[i], j, n);
-                } else {
-                    emit remove(n);
-                }
-            });
-            nButtons++;
-            slotLayout->addWidget(toggleButton);
-
-            QPushButton *updateButton = new QPushButton("Update");
-            slotLayout->addWidget(updateButton);
-            connect(updateButton, &QPushButton::clicked,this, [=](){
-                if(toggleButton->isChecked())
-                    emit updatePlane(s[i], j, n);
-            });
-            buttonLayout->addWidget(slot);
-
-        }
+        SimBarVisitor* visitor = new SimBarVisitor(*panelLayout, nButtons, colorCounter);
+        visitors.push_back(visitor);
 
         panelLayout->addWidget(labels);
-        panelLayout->addWidget(buttons);
+        s[i]->accept(*visitor);//visitor aggiunge i bottoni direttamente in panelLayout
+
+        connect(visitor, &SimBarVisitor::addDust, this, &SimBar::addDust);
+        connect(visitor, &SimBarVisitor::addWind, this, &SimBar::addWind);
+        connect(visitor, &SimBarVisitor::addHumidity, this, &SimBar::addHumidity);
+        connect(visitor, &SimBarVisitor::addTermometer, this, &SimBar::addTermometer);
+        connect(visitor, &SimBarVisitor::addAirQuality, this, &SimBar::addAirQuality);
+        connect(visitor, &SimBarVisitor::remove, this, &SimBar::remove);
+        connect(visitor, &SimBarVisitor::updateDust, this, &SimBar::updateDust);
+        connect(visitor, &SimBarVisitor::updateWind, this, &SimBar::updateWind);
+        connect(visitor, &SimBarVisitor::updateTermometer, this, &SimBar::updateTermometer);
+        connect(visitor, &SimBarVisitor::updateHumidity, this, &SimBar::updateHumidity);
+        connect(visitor, &SimBarVisitor::updateAirQuality, this, &SimBar::updateAirQuality);
         mainLayout->addWidget(panel);
-
-
-
     }
+
+
+
+
     nButtons = 0;
     mainLayout->addStretch();
 }
 
+SimBar::~SimBar() {
+    for (auto visitor : visitors) {
+        delete visitor;
+    }
+}
+void SimBar::addDust(const Dust& s, int i, int n){
+    emit addD( s, i, n);
+}
+void SimBar::addWind(const Wind& s, int i, int n){
+    emit addW( s, i, n);
+}
+void SimBar::addTermometer(const Termometer& s, int i, int n){
+    emit addT( s, i, n);
+}
+void SimBar::addAirQuality(const AirQuality& s, int i, int n){
+    emit addA( s, i, n);
+}
+void SimBar::addHumidity(const Humidity& s, int i, int n){
+    emit addH( s, i, n);
+}
+void SimBar::remove(int n){
+    emit rem( n);
+}
+void SimBar::updateDust(const Dust &s, int i, int n){
+    emit updateD(s,i,n);
+}
+
+void SimBar::updateWind(const Wind &s, int i, int n){
+    emit updateW(s,i,n);
+}
+
+void SimBar::updateTermometer(const Termometer &s, int i, int n){
+    emit updateT(s,i,n);
+}
+
+void SimBar::updateHumidity(const Humidity &s, int i, int n){
+    emit updateH(s,i,n);
+}
+
+void SimBar::updateAirQuality(const AirQuality &s, int i, int n){
+    emit updateA(s,i,n);
+}
 
