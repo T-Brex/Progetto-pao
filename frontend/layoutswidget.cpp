@@ -64,7 +64,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
-
+        modifyDialog->setSensor(sensor);
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
@@ -80,27 +80,53 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             delete item;
         }
 
-
         QVector<Measurement*> mVec;
         SensorGetter sg(mVec);
         const_cast<Sensor*>(sensor)->accept(sg);
 
-        modifyDialog->getParametriLayout()->addWidget(new QLabel("Misura"), 0, 0);
-        modifyDialog->getParametriLayout()->addWidget(new QLabel("Min"), 0, 1);
-        modifyDialog->getParametriLayout()->addWidget(new QLabel("Max"), 0, 2);
+        QLabel* misuraLabel = new QLabel("Misura");
+        misuraLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(misuraLabel, 0, 0);
 
-        // Aggiungi i dati del sensore alla griglia
+        QLabel* minLabel = new QLabel("Min");
+        minLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(minLabel, 0, 1);
+
+        QLabel* maxLabel = new QLabel("Max");
+        maxLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(maxLabel, 0, 2);
+
+        // Aggiungi i dati del sensore alla griglia, centrati
         for (int i = 0; i < mVec.size(); i++) {
-            modifyDialog->getParametriLayout()->addWidget(new QLabel(mVec[i]->getName()), i + 1, 0); // Colonna 0 per "Misura"
-            modifyDialog->getParametriLayout()->addWidget(new QLineEdit("22"), i + 1, 1);            // Colonna 1 per "Min"
-            modifyDialog->getParametriLayout()->addWidget(new QLineEdit("55"), i + 1, 2);            // Colonna 2 per "Max"
+            QLabel* misura = new QLabel(mVec[i]->getName());
+            misura->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
+
+            QLineEdit* minEdit = new QLineEdit("22");
+            minEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
+
+            QLineEdit* maxEdit = new QLineEdit("55");
+            maxEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
         }
         modifyDialog->show();
     });
 
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
+        Sensor* mainSensor=modifyDialog->getSensor();
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        mainSensor->accept(sg);
 
-        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+        QVector<double> minimi;
+        QVector<double> massimi;
+        //for(int i=0;i<mVec.size();i++){}
+
+        //QString n=sensor->getName();
+        minimi.push_back(22);
+        massimi.push_back(55);
+        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());

@@ -15,7 +15,7 @@ public:
     static QJsonArray leggiJson(const QString& fileName=path);
     static QString nuovoSensore(const QString& nome, const QString& tipo,const QString& fileName=path);
     static void nuoviSensori(const QVector<Sensor*>& nuoviSensori, const QString& fileName=path);
-    static QString modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo, const QString& fileName=path);
+    static QString modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo,const QVector<double>,const QVector<double>, const QString& fileName=path);
     static bool saveAs( const QVector<Sensor*>& sensori, const QString& newFileName);
     static void eliminaSensore( const QString& sensoreDaRimuovere,const QString& fileName=path);
     static void eliminaSensori(const QString& fileName=path);

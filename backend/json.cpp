@@ -83,7 +83,7 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
 return "0";
 }
 
-QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo, const QString& fileName) {
+QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo,const QVector<double>minimi,const QVector<double>massimi, const QString& fileName) {
     if (nuovoNome.isEmpty()) {
         qDebug() << "Il nuovo nome del sensore non può essere vuoto.";
         return "empty";
@@ -91,35 +91,36 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
 
     QJsonArray sensoriArray = Json::leggiJson(fileName);
 
-    bool nomeEsistente = false;
-    for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
+    bool nomeGiaEsistente = false;
+    for (auto it = sensoriArray.begin(); it != sensoriArray.end() && !nomeGiaEsistente; ++it) {
         QJsonObject sensoreObject = it->toObject();
-        if (sensoreObject["nome"] == nomeSensore) {
-
+        if (sensoreObject["nome"] == nomeSensore)
+        {
             if (sensoreObject["nome"] != nuovoNome) {
                 // Verifica se il nuovo nome del sensore esiste già
                 for (auto it2 = sensoriArray.begin(); it2 != sensoriArray.end(); ++it2) {
                     QJsonObject sensoreObject2 = it2->toObject();
                     if (sensoreObject2["nome"] == nuovoNome) {
-                        nomeEsistente = true;
-                        break;
+                        nomeGiaEsistente = true;
+                        return "already exsist";
                     }
                 }
             } else {
                 // Il nuovo nome è lo stesso del nome attuale del sensore
-                nomeEsistente = false;
+                nomeGiaEsistente = false;
             }
-            break;
+
         }
     }
 
-    if (!nomeEsistente) {
+    if (!nomeGiaEsistente) {
         // Modifica il nome e il tipo del sensore
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
             if (sensoreObject["nome"] == nomeSensore) {
                 sensoreObject["nome"] = nuovoNome;
                 sensoreObject["tipo"] = nuovoTipo;
+
                 *it = sensoreObject; // Aggiorna l'oggetto nell'array
                 break;
             }

@@ -3,6 +3,7 @@
 
 #include "adddialog.h"
 #include "qlabel.h"
+#include "backend/sensors.h"
 
 class ModifyDialog : public AddDialog
 {
@@ -14,14 +15,8 @@ private:
     QWidget* parametriWidget;
     QGridLayout* parametriLayout;
 
-    QWidget* misureWidget;
-    QVBoxLayout* misureLayout;
+    Sensor* mainSensor;
 
-    QWidget* minWidget;
-    QVBoxLayout* minLayout;
-
-    QWidget* maxWidget;
-    QVBoxLayout* maxLayout;
 public:
     QString getOldSensorName() const ;
     QString getOldSensorType() const ;
@@ -29,12 +24,8 @@ public:
     void setOldSensorType(const QString &type);
     QWidget* getParametriWidget() const;
     QGridLayout* getParametriLayout() const;
-    QWidget* getMisureWidget() const;
-    QVBoxLayout* getMisureLayout() const;
-    QWidget* getMinWidget() const;
-    QVBoxLayout* getMinLayout() const;
-    QWidget* getMaxWidget() const;
-    QVBoxLayout* getMaxLayout() const;
+    Sensor *getSensor();
+    void setSensor(const Sensor*);
     //QVector<QWidget*>& getDatiWidget();
     //QVector<QHBoxLayout*>& getDatiLayout();
     //QVector<QLabel*>& getMisure();

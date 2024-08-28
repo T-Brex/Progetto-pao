@@ -9,9 +9,9 @@
     {
         "creationDate": "2024-08-11T18:24:09",
         "humidity": 9.458325655442572,
-        "nome": "luigi",
+        "nome": "luigi XX",
         "percentage": 5.047041208499027,
-        "tipo": "Humidity"
+        "tipo": "Dust"
     },
     {
         "creationDate": "2024-08-11T18:24:15",
@@ -33,7 +33,7 @@
     },
     {
         "creationDate": "2024-08-19T18:32:24",
-        "nome": "salvini",
+        "nome": "salvino",
         "pm10": 19.6502646898473,
         "pm25": 8.345674039021414,
         "tipo": "Dust"

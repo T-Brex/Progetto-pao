@@ -28,12 +28,8 @@ void ModifyDialog::setOldSensorName(const QString &name){oldSensorName=name;}
 void ModifyDialog::setOldSensorType(const QString &type){oldSensorType=type;}
 QWidget* ModifyDialog::getParametriWidget() const {return parametriWidget;}
 QGridLayout* ModifyDialog::getParametriLayout() const {return parametriLayout;}
-QWidget* ModifyDialog::getMisureWidget() const {return misureWidget;}
-QVBoxLayout* ModifyDialog::getMisureLayout() const {return misureLayout;}
-QWidget* ModifyDialog::getMinWidget() const {return minWidget;}
-QVBoxLayout* ModifyDialog::getMinLayout() const {return minLayout;}
-QWidget* ModifyDialog::getMaxWidget() const {return maxWidget;}
-QVBoxLayout* ModifyDialog::getMaxLayout() const {return maxLayout;}
+Sensor* ModifyDialog::getSensor(){return mainSensor;}
+void ModifyDialog::setSensor(const Sensor *s){mainSensor=const_cast<Sensor*>(s);}
 //QVector<QWidget*>& ModifyDialog::getDatiWidget(){return datiWidget;}
 //QVector<QHBoxLayout*>& ModifyDialog::getDatiLayout(){return datiLayout;}
 //QVector<QLabel*>& ModifyDialog::getMisure(){return misure;}
