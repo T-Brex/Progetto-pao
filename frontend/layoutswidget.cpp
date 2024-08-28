@@ -8,6 +8,7 @@
 #include "backend/sensorgetter.h"
 
 
+
 #include "backend/json.h"
 #include <QScrollArea>
 #include <QFileDialog>
@@ -70,8 +71,8 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
         /*DA DEFINIRE I GET DI "mVec"
         for(int i=0;i<mVec.size();i++){
-            modifyDialog->getMinimiEdit().push_back(mVec[i]->get);
-            modifyDialog->getMassimiEdit().push_back(mVec[i]->get);
+            modifyDialog->getMinimiEdit().push_back(mVec[i]->getMin);
+            modifyDialog->getMassimiEdit().push_back(mVec[i]->getMax);
         }*/
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
@@ -88,8 +89,6 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             delete item;
         }
 
-
-
         QLabel* misuraLabel = new QLabel("Misura");
         misuraLabel->setAlignment(Qt::AlignCenter);
         modifyDialog->getParametriLayout()->addWidget(misuraLabel, 0, 0);
@@ -102,6 +101,8 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         maxLabel->setAlignment(Qt::AlignCenter);
         modifyDialog->getParametriLayout()->addWidget(maxLabel, 0, 2);
 
+        modifyDialog->getMassimiEdit().clear();
+        modifyDialog->getMinimiEdit().clear();
         // Aggiungi i dati del sensore alla griglia, centrati
         for (int i = 0; i < mVec.size(); i++) {
             QLabel* misura = new QLabel(mVec[i]->getName());
@@ -111,13 +112,11 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             QLineEdit* minEdit = new QLineEdit("22" /*mVec[i]->getMinDistribution()*/);
             minEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
-            modifyDialog->getMinimiEdit().clear();
             modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
 
             QLineEdit* maxEdit = new QLineEdit("55" /*mVec[i]->getMaxDistribution()*/);
             maxEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
-            modifyDialog->getMassimiEdit().clear();
             modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
         }
         modifyDialog->show();
@@ -127,16 +126,12 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         QVector<double> minimi;
         QVector<double> massimi;
         bool tuttiInt=true;
-        qDebug()<<"fuori for";
+        bool intero=true;
         for (int i = 0; i < modifyDialog->getMassimiEdit().size(); i++) {
-            qDebug()<<"dentro for";
-            bool intero=true;
-            if (modifyDialog->getMinimiEdit()[i] == nullptr || modifyDialog->getMassimiEdit()[i] == nullptr) {
-                qDebug() << "Error: QLineEdit is null at index" << i;
-                return;
-            }
+
+
             int min = modifyDialog->getMinimiEdit()[i]->text().toInt(&intero);
-            qDebug()<<"intero:"<<min;
+            qDebug()<<"intero:"<<min<<intero;
             if(intero){
                 minimi.push_back(min);
                 qDebug()<<"minimo intero:"<<min;
@@ -146,6 +141,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             }
 
             int max = modifyDialog->getMassimiEdit()[i]->text().toInt(&intero);
+            qDebug()<<"intero:"<<max<<intero;
             if(intero){
                 massimi.push_back(max);
                  qDebug()<<"massimo intero:"<<max;
@@ -187,6 +183,10 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
                 emptyName->show();
                 modifyDialog->getLineEdit()->setFocus();
             }
+        }else{
+            QMessageBox* notInt=new QMessageBox;
+            notInt->setText("La modifica di massimi/minimi richiede dei valori interi");
+            notInt->show();
         }
     });
 

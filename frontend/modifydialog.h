@@ -21,6 +21,7 @@ private:
     QVector<QLineEdit*> massimiEdit;
 
 public:
+    ModifyDialog(QWidget *parent);
     QString getOldSensorName() const ;
     QString getOldSensorType() const ;
     void setOldSensorName(const QString &name);
@@ -36,9 +37,10 @@ public:
     //QVector<QLabel*>& getMisure();
     //QVector<QLineEdit*>& getMinimi();
     //QVector<QLineEdit*>& getMassimi();
+private slots:
+    void onSceltaTipoChanged();
 
 
-    ModifyDialog(QWidget *parent);
 };
 
 #endif
