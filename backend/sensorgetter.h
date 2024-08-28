@@ -1,8 +1,12 @@
 #ifndef SENSORGETTER_H
 #define SENSORGETTER_H
 
-#include "visitor.h"
-#include "sensors.h"
+#include "backend/visitor.h"
+#include "backend/dustSensor.h"
+#include "backend/humiditySensor.h"
+#include "backend/termometerSensor.h"
+#include "backend/windSensor.h"
+#include "backend/airQualitySensor.h"
 
 class SensorGetter : public Visitor
 {

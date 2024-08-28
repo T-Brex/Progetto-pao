@@ -1,5 +1,4 @@
 #include "frontend/simulation.h"
-#include "frontend/simBarVisitor.h"
 #include "qscrollarea.h"
 
 Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
@@ -32,11 +31,7 @@ Simulation::Simulation(QVector<Sensor*> s, QWidget* parent):QWidget(parent){
     plane->setStyleSheet("background-color: black; border: 1px solid gray;"); // Imposta lo stile di CartesianPlane
     layout->addWidget(plane);
 
-    int nButtons = 0;
-    int colorCounter = 0;
-    SimBarVisitor* simBarV = new SimBarVisitor(*layout, nButtons, colorCounter);
-
-    connect(simBarV, &SimBarVisitor::addDust, plane, &CartesianPlane::addDust);
+    connect(simBar, &SimBar::addD, plane, &CartesianPlane::addDust);
     connect(simBar, &SimBar::addW, plane, &CartesianPlane::addWind);
     connect(simBar, &SimBar::addT, plane, &CartesianPlane::addTermometer);
     connect(simBar, &SimBar::addH, plane, &CartesianPlane::addHumidity);

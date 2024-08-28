@@ -4,7 +4,11 @@
 #include <QPoint>
 #include <QPainter>
 #include <QPolygonF>
-#include "backend/sensors.h"
+#include "backend/dustSensor.h"
+#include "backend/humiditySensor.h"
+#include "backend/termometerSensor.h"
+#include "backend/windSensor.h"
+#include "backend/airQualitySensor.h"
 #include <QWheelEvent>
 class CartesianPlane : public QWidget {
     Q_OBJECT

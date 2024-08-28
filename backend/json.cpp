@@ -4,7 +4,13 @@
 #include "sensorgetter.h"
 #include <QJsonArray>
 #include <QFile>
-#include <QDateTime> // Aggiunto per gestire la data e l'ora
+#include <QDateTime>
+// Aggiunto per gestire la data e l'ora
+#include "backend/dustSensor.h"
+#include "backend/humiditySensor.h"
+#include "backend/termometerSensor.h"
+#include "backend/windSensor.h"
+#include "backend/airQualitySensor.h"
 
 Json::Json() {}
 QString Json::path="dati.json";

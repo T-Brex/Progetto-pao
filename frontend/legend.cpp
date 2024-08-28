@@ -2,7 +2,7 @@
 
 Legend::Legend(QWidget* parent):QWidget(parent){
     QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel *title = new QLabel("Legenda :");
+    QLabel *title = new QLabel("Legenda :          (default)");
     layout->addWidget(title);
     QWidget *info = new QWidget(this);
     QHBoxLayout *infoLayout = new QHBoxLayout(info);

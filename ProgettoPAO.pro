@@ -14,6 +14,11 @@ SOURCES += \
     backend/sensorgetter.cpp \
     backend/sensors.cpp \
     backend/visitor.cpp \
+    backend/dustSensor.cpp \
+    backend/humiditySensor.cpp \
+    backend/windSensor.cpp \
+    backend/termometerSensor.cpp \
+    backend/airQualitySensor.cpp \
     frontend/adddialog.cpp \
     frontend/cartesianPlane.cpp \
     frontend/deletedialog.cpp \
@@ -38,6 +43,11 @@ HEADERS += \
     backend/sensorgetter.h \
     backend/sensors.h \
     backend/visitor.h \
+    backend/dustSensor.h \
+    backend/humiditySensor.h \
+    backend/windSensor.h \
+    backend/termometerSensor.h \
+    backend/airQualitySensor.h \
     frontend/adddialog.h \
     frontend/cartesianPlane.h \
     frontend/deletedialog.h \

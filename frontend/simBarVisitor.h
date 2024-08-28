@@ -4,7 +4,11 @@
 #include "backend/visitor.h"
 #include "qboxlayout.h"
 #include "qwidget.h"
-#include "backend/sensors.h"
+#include "backend/dustSensor.h"
+#include "backend/humiditySensor.h"
+#include "backend/termometerSensor.h"
+#include "backend/windSensor.h"
+#include "backend/airQualitySensor.h"
 
 class SimBarVisitor : public Visitor {
     Q_OBJECT
