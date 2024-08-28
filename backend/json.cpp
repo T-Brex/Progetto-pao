@@ -65,6 +65,8 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
 
             for (auto i = 0; i < measurements.size(); ++i) {
                 sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
+                //sensoreObject["min"+measurements[i]->getName()] = measurements[i]->getMin();
+                //sensoreObject["max"+measurements[i]->getName()] = measurements[i]->getMax();
             }
 
 
@@ -90,6 +92,7 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
     }
 
     QJsonArray sensoriArray = Json::leggiJson(fileName);
+    QVector<Sensor*> sensorVec = Json::caricaSensori(fileName);
 
     bool nomeGiaEsistente = false;
     for (auto it = sensoriArray.begin(); it != sensoriArray.end() && !nomeGiaEsistente; ++it) {
@@ -115,13 +118,21 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
 
     if (!nomeGiaEsistente) {
         // Modifica il nome e il tipo del sensore
-        for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
-            QJsonObject sensoreObject = it->toObject();
+        for(int i=0;i<sensoriArray.size();i++){
+            QJsonObject sensoreObject = sensoriArray[i].toObject();
             if (sensoreObject["nome"] == nomeSensore) {
                 sensoreObject["nome"] = nuovoNome;
                 sensoreObject["tipo"] = nuovoTipo;
 
-                *it = sensoreObject; // Aggiorna l'oggetto nell'array
+                QVector<Measurement*> mVec;
+                SensorGetter sg(mVec);
+                const_cast<Sensor*>(sensorVec[i])->accept(sg);
+                for(int i=0;i<mVec.size();i++){
+                    sensoreObject["min"+mVec[i]->getName()] = minimi[i];
+                    sensoreObject["max"+mVec[i]->getName()] = massimi[i];
+                }
+
+                sensoriArray[i] = sensoreObject; // Aggiorna l'oggetto nell'array
                 break;
             }
         }
@@ -161,6 +172,7 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
                 // Converte il valore numerico in QJsonValue
                 QJsonValue value = QJsonValue::fromVariant(measurements[i]->getValue());
                 sensoreObject[measurements[i]->getName()] = value;
+
             }
 
             sensoriArray.append(sensoreObject);

@@ -15,7 +15,10 @@ private:
     QWidget* parametriWidget;
     QGridLayout* parametriLayout;
 
-    Sensor* mainSensor;
+    //Sensor* mainSensor;//da eliminare?
+
+    QVector<QLineEdit*> minimiEdit;
+    QVector<QLineEdit*> massimiEdit;
 
 public:
     QString getOldSensorName() const ;
@@ -24,13 +27,16 @@ public:
     void setOldSensorType(const QString &type);
     QWidget* getParametriWidget() const;
     QGridLayout* getParametriLayout() const;
-    Sensor *getSensor();
-    void setSensor(const Sensor*);
+    QVector<QLineEdit*>& getMinimiEdit();
+    QVector<QLineEdit*>& getMassimiEdit();
+    //Sensor *getSensor();
+    //void setSensor(const Sensor*);
     //QVector<QWidget*>& getDatiWidget();
     //QVector<QHBoxLayout*>& getDatiLayout();
     //QVector<QLabel*>& getMisure();
     //QVector<QLineEdit*>& getMinimi();
     //QVector<QLineEdit*>& getMassimi();
+
 
     ModifyDialog(QWidget *parent);
 };

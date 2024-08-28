@@ -1,7 +1,11 @@
 [
     {
         "creationDate": "2024-08-11T18:24:01",
-        "nome": "Carlo VII",
+        "maxhumidity": 69,
+        "maxpercentage": 66,
+        "minhumidity": 11,
+        "minpercentage": 10,
+        "nome": "Carlo VIII",
         "pm10": 19.023902816256978,
         "pm25": 1.7758219034164346,
         "tipo": "Humidity"
@@ -9,9 +13,13 @@
     {
         "creationDate": "2024-08-11T18:24:09",
         "humidity": 9.458325655442572,
-        "nome": "luigi XX",
+        "maxpm10": 55,
+        "maxpm25": 55,
+        "minpm10": 22,
+        "minpm25": 22,
+        "nome": "luigi XXX",
         "percentage": 5.047041208499027,
-        "tipo": "Dust"
+        "tipo": "Humidity"
     },
     {
         "creationDate": "2024-08-11T18:24:15",
