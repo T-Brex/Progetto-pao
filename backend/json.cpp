@@ -128,8 +128,8 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
                 SensorGetter sg(mVec);
                 const_cast<Sensor*>(sensorVec[i])->accept(sg);
                 for(int i=0;i<mVec.size();i++){
-                    sensoreObject["min"+mVec[i]->getName()] = minimi[i];
-                    sensoreObject["max"+mVec[i]->getName()] = massimi[i];
+                    //sensoreObject["min"+mVec[i]->getName()] = minimi[i];
+                    //sensoreObject["max"+mVec[i]->getName()] = massimi[i];
                 }
 
                 sensoriArray[i] = sensoreObject; // Aggiorna l'oggetto nell'array
@@ -172,6 +172,8 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
                 // Converte il valore numerico in QJsonValue
                 QJsonValue value = QJsonValue::fromVariant(measurements[i]->getValue());
                 sensoreObject[measurements[i]->getName()] = value;
+                //sensoreObject["max"+measurements[i]->getName()]=measurements[i]->getMax();
+                //sensoreObject["min"+measurements[i]->getName()]=measurements[i]->getMin();
 
             }
 
@@ -232,6 +234,13 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
 
         Sensor* nuovoSensore = Json::costruttore(nome, tipo);
         if (nuovoSensore) {
+            QVector<Measurement*> measurements;
+            SensorGetter sg(measurements);
+            nuovoSensore->accept(sg);
+
+            //measurements[i]->setMax(sensoreObject["max"+measurements[i]->getName()]);
+            //measurements[i]->setMin(sensoreObject["min"+measurements[i]->getName()]);
+
             sensori.append(nuovoSensore);
         } else {
             qDebug() << "Tipo di sensore non valido: " << tipo;

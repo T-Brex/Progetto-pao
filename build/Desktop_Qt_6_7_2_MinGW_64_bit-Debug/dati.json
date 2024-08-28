@@ -8,7 +8,7 @@
         "nome": "Carlo VIII",
         "pm10": 19.023902816256978,
         "pm25": 1.7758219034164346,
-        "tipo": "Humidity"
+        "tipo": "Dust"
     },
     {
         "creationDate": "2024-08-11T18:24:09",
@@ -58,6 +58,6 @@
         "nome": "baldo",
         "pm10": 36.045663899619306,
         "pm25": 10.927778589833713,
-        "tipo": "Dust"
+        "tipo": "Humidity"
     }
 ]

@@ -111,11 +111,13 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             QLineEdit* minEdit = new QLineEdit("22" /*mVec[i]->getMinDistribution()*/);
             minEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
+            modifyDialog->getMinimiEdit().clear();
             modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
 
             QLineEdit* maxEdit = new QLineEdit("55" /*mVec[i]->getMaxDistribution()*/);
             maxEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
+            modifyDialog->getMassimiEdit().clear();
             modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
         }
         modifyDialog->show();
@@ -124,14 +126,22 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
         QVector<double> minimi;
         QVector<double> massimi;
-        bool intero=true;
+        bool tuttiInt=true;
+        qDebug()<<"fuori for";
         for (int i = 0; i < modifyDialog->getMassimiEdit().size(); i++) {
-
+            qDebug()<<"dentro for";
+            bool intero=true;
+            if (modifyDialog->getMinimiEdit()[i] == nullptr || modifyDialog->getMassimiEdit()[i] == nullptr) {
+                qDebug() << "Error: QLineEdit is null at index" << i;
+                return;
+            }
             int min = modifyDialog->getMinimiEdit()[i]->text().toInt(&intero);
+            qDebug()<<"intero:"<<min;
             if(intero){
                 minimi.push_back(min);
                 qDebug()<<"minimo intero:"<<min;
             }else{
+                tuttiInt=false;
                 qDebug()<<"minimo non intero";
             }
 
@@ -140,40 +150,43 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
                 massimi.push_back(max);
                  qDebug()<<"massimo intero:"<<max;
             }else{
+                tuttiInt=false;
                 qDebug()<<"massimo non intero";
             }
         }
+        if(tuttiInt)
+        {
+            QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
 
-        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
+            if (result == "ok") {
+                sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+                //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
+                deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
-        if (result == "ok") {
-            sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
-            //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
-            deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
+                // Rimuovere l'elemento dalla lista a discesa sceltaTipo
+                int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
+                if (indexToRemove != -1) {
+                    deleteDialog->getSceltaNome()->removeItem(indexToRemove);
+                }
 
-            // Rimuovere l'elemento dalla lista a discesa sceltaTipo
-            int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
-            if (indexToRemove != -1) {
-                deleteDialog->getSceltaNome()->removeItem(indexToRemove);
+
+                modifyDialog->getLineEdit()->clear();
+                modifyDialog->hide();
+                sensWindow->getSearchMenu()->updateSensori();
+                this->update();
+            } else if (result == "existing") {
+                QMessageBox *existingName = new QMessageBox(nullptr);
+                existingName->setIcon(QMessageBox::Warning);
+                existingName->setText("Il sensore '" + modifyDialog->getLineEdit()->text() + "' esiste già nel file");
+                existingName->show();
+                modifyDialog->getLineEdit()->setFocus();
+            } else if (result == "empty") {
+                QMessageBox *emptyName = new QMessageBox(nullptr);
+                emptyName->setIcon(QMessageBox::Warning);
+                emptyName->setText("Inserire un nome");
+                emptyName->show();
+                modifyDialog->getLineEdit()->setFocus();
             }
-
-
-            modifyDialog->getLineEdit()->clear();
-            modifyDialog->hide();
-            sensWindow->getSearchMenu()->updateSensori();
-            this->update();
-        } else if (result == "existing") {
-            QMessageBox *existingName = new QMessageBox(nullptr);
-            existingName->setIcon(QMessageBox::Warning);
-            existingName->setText("Il sensore '" + modifyDialog->getLineEdit()->text() + "' esiste già nel file");
-            existingName->show();
-            modifyDialog->getLineEdit()->setFocus();
-        } else if (result == "empty") {
-            QMessageBox *emptyName = new QMessageBox(nullptr);
-            emptyName->setIcon(QMessageBox::Warning);
-            emptyName->setText("Inserire un nome");
-            emptyName->show();
-            modifyDialog->getLineEdit()->setFocus();
         }
     });
 
