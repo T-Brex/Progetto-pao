@@ -238,7 +238,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
 
     }
 
-    void CartesianPlane::addWind(const Wind& s, int i, int n) {
+    void CartesianPlane::addWind(const Wind& s,int i, int n) {
         double Y;
         QPolygonF *fun = new QPolygonF();
         Wind* w = new Wind(s);
@@ -263,7 +263,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
         delete(w);
     }
 
-    void CartesianPlane::addTermometer(const Termometer& s, int i, int n) {
+    void CartesianPlane::addTermometer(const Termometer& s,int i, int n) {
         double Y;
         QPolygonF *fun = new QPolygonF();
         Termometer* t = new Termometer(s);
@@ -333,8 +333,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
         delete(h);
     }
 
-    void CartesianPlane::addAirQuality(const AirQuality& s, int i, int n) {
-        QPoint center = rect().center();
+    void CartesianPlane::addAirQuality(const AirQuality& s,int i, int n) {
         QPolygonF *fun = new QPolygonF();
         AirQuality* a = new AirQuality(s);
         for (int X = 0; X < dimFun; X+=50) {

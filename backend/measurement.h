@@ -23,7 +23,6 @@ public:
     double getRangeMin() const;
     double getRangeMax() const;
     void setRange(double min, double max);
-signals:
 };
 
 #endif // MEASUREMENT_H

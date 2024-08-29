@@ -1,4 +1,3 @@
-#include "backend/sensors.h"
 #include "frontend/simBarVisitor.h"
 #include "qboxlayout.h"
 #include "qpushbutton.h"

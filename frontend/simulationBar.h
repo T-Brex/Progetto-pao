@@ -1,10 +1,5 @@
 #ifndef SIMULATIONBAR_H
 #define SIMULATIONBAR_H
-#include "backend/dustSensor.h"
-#include "backend/humiditySensor.h"
-#include "backend/termometerSensor.h"
-#include "backend/windSensor.h"
-#include "backend/airQualitySensor.h"
 #include "frontend/simBarVisitor.h"
 #include <QPushButton>
 #include <QWidget>
