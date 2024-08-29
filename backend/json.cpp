@@ -71,8 +71,8 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
 
             for (auto i = 0; i < measurements.size(); ++i) {
                 sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
-                //sensoreObject["min"+measurements[i]->getName()] = measurements[i]->getMin();
-                //sensoreObject["max"+measurements[i]->getName()] = measurements[i]->getMax();
+                sensoreObject["min"+measurements[i]->getName()] = measurements[i]->getRangeMin();
+                sensoreObject["max"+measurements[i]->getName()] = measurements[i]->getRangeMax();
             }
 
 
@@ -134,8 +134,8 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
                 SensorGetter sg(mVec);
                 const_cast<Sensor*>(sensorVec[i])->accept(sg);
                 for(int i=0;i<mVec.size();i++){
-                    //sensoreObject["min"+mVec[i]->getName()] = minimi[i];
-                    //sensoreObject["max"+mVec[i]->getName()] = massimi[i];
+                    sensoreObject["min"+mVec[i]->getName()] = minimi[i];
+                    sensoreObject["max"+mVec[i]->getName()] = massimi[i];
                 }
 
                 sensoriArray[i] = sensoreObject; // Aggiorna l'oggetto nell'array
@@ -178,8 +178,8 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
                 // Converte il valore numerico in QJsonValue
                 QJsonValue value = QJsonValue::fromVariant(measurements[i]->getValue());
                 sensoreObject[measurements[i]->getName()] = value;
-                //sensoreObject["max"+measurements[i]->getName()]=measurements[i]->getMax();
-                //sensoreObject["min"+measurements[i]->getName()]=measurements[i]->getMin();
+                sensoreObject["max"+measurements[i]->getName()]=measurements[i]->getRangeMax();
+                sensoreObject["min"+measurements[i]->getName()]=measurements[i]->getRangeMin();
 
             }
 
@@ -243,9 +243,10 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
             QVector<Measurement*> measurements;
             SensorGetter sg(measurements);
             nuovoSensore->accept(sg);
-
-            //measurements[i]->setMax(sensoreObject["max"+measurements[i]->getName()]);
-            //measurements[i]->setMin(sensoreObject["min"+measurements[i]->getName()]);
+            for(int i=0;i<measurements.size();i++){
+            measurements[i]->setRange(sensoreObject["min"+measurements[i]->getName()].toDouble(),
+                                        sensoreObject["max"+measurements[i]->getName()].toDouble());
+            }
 
             sensori.append(nuovoSensore);
         } else {

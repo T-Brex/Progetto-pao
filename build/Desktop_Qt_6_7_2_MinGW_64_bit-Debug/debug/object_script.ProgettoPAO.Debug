@@ -3,6 +3,11 @@ debug/measurement.o
 debug/sensorgetter.o
 debug/sensors.o
 debug/visitor.o
+debug/dustSensor.o
+debug/humiditySensor.o
+debug/windSensor.o
+debug/termometerSensor.o
+debug/airQualitySensor.o
 debug/adddialog.o
 debug/cartesianPlane.o
 debug/deletedialog.o
@@ -14,6 +19,7 @@ debug/layoutswidget.o
 debug/menubar.o
 debug/sensorlayoutchooser.o
 debug/sensorwindow.o
+debug/simBarVisitor.o
 debug/main.o
 debug/mainwindow.o
 debug/simulation.o
@@ -35,6 +41,7 @@ debug/moc_searchMenu.o
 debug/moc_menubar.o
 debug/moc_sensorlayoutchooser.o
 debug/moc_sensorwindow.o
+debug/moc_simBarVisitor.o
 debug/moc_simulation.o
 debug/moc_sensorPanel.o
 debug/moc_simulationBar.o

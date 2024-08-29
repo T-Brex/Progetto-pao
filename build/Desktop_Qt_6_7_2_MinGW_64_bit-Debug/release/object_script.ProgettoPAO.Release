@@ -3,6 +3,11 @@ release/measurement.o
 release/sensorgetter.o
 release/sensors.o
 release/visitor.o
+release/dustSensor.o
+release/humiditySensor.o
+release/windSensor.o
+release/termometerSensor.o
+release/airQualitySensor.o
 release/adddialog.o
 release/cartesianPlane.o
 release/deletedialog.o
@@ -14,6 +19,7 @@ release/layoutswidget.o
 release/menubar.o
 release/sensorlayoutchooser.o
 release/sensorwindow.o
+release/simBarVisitor.o
 release/main.o
 release/mainwindow.o
 release/simulation.o
@@ -35,6 +41,7 @@ release/moc_searchMenu.o
 release/moc_menubar.o
 release/moc_sensorlayoutchooser.o
 release/moc_sensorwindow.o
+release/moc_simBarVisitor.o
 release/moc_simulation.o
 release/moc_sensorPanel.o
 release/moc_simulationBar.o

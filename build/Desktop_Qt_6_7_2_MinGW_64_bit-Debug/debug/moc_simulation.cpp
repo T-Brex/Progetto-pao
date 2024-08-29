@@ -37,14 +37,21 @@ namespace {
 struct qt_meta_stringdata_CLASSSimulationENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSSimulationENDCLASS = QtMocHelpers::stringData(
     "Simulation",
-    "addSensor",
+    "removeSensor",
     "",
-    "Sensor*",
+    "n",
+    "updateDust",
+    "Dust",
     "s",
     "i",
-    "n",
-    "removeSensor",
-    "updatePlane"
+    "updateWind",
+    "Wind",
+    "updateTermometer",
+    "Termometer",
+    "updateHumidity",
+    "Humidity",
+    "updateAirQuality",
+    "AirQuality"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -57,7 +64,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSimulationENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,14 +72,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSimulationENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   32,    2, 0x0a,    1 /* Public */,
-       7,    1,   39,    2, 0x0a,    5 /* Public */,
-       8,    3,   42,    2, 0x0a,    7 /* Public */,
+       1,    1,   50,    2, 0x0a,    1 /* Public */,
+       4,    3,   53,    2, 0x0a,    3 /* Public */,
+       8,    3,   60,    2, 0x0a,    7 /* Public */,
+      10,    3,   67,    2, 0x0a,   11 /* Public */,
+      12,    3,   74,    2, 0x0a,   15 /* Public */,
+      14,    3,   81,    2, 0x0a,   19 /* Public */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3, QMetaType::Int, QMetaType::Int,    4,    5,    6,
-    QMetaType::Void, QMetaType::Int,    6,
-    QMetaType::Void, 0x80000000 | 3, QMetaType::Int, QMetaType::Int,    4,    5,    6,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, 0x80000000 | 5, QMetaType::Int, QMetaType::Int,    6,    7,    3,
+    QMetaType::Void, 0x80000000 | 9, QMetaType::Int, QMetaType::Int,    6,    7,    3,
+    QMetaType::Void, 0x80000000 | 11, QMetaType::Int, QMetaType::Int,    6,    7,    3,
+    QMetaType::Void, 0x80000000 | 13, QMetaType::Int, QMetaType::Int,    6,    7,    3,
+    QMetaType::Void, 0x80000000 | 15, QMetaType::Int, QMetaType::Int,    6,    7,    3,
 
        0        // eod
 };
@@ -86,17 +99,32 @@ Q_CONSTINIT const QMetaObject Simulation::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSSimulationENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<Simulation, std::true_type>,
-        // method 'addSensor'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<Sensor *, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'removeSensor'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'updatePlane'
+        // method 'updateDust'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<Sensor *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const Dust &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateWind'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const Wind &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateTermometer'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const Termometer &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateHumidity'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const Humidity &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateAirQuality'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const AirQuality &, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
@@ -109,9 +137,12 @@ void Simulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<Simulation *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->addSensor((*reinterpret_cast< std::add_pointer_t<Sensor*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
-        case 1: _t->removeSensor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->updatePlane((*reinterpret_cast< std::add_pointer_t<Sensor*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 0: _t->removeSensor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 1: _t->updateDust((*reinterpret_cast< std::add_pointer_t<Dust>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 2: _t->updateWind((*reinterpret_cast< std::add_pointer_t<Wind>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 3: _t->updateTermometer((*reinterpret_cast< std::add_pointer_t<Termometer>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 4: _t->updateHumidity((*reinterpret_cast< std::add_pointer_t<Humidity>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 5: _t->updateAirQuality((*reinterpret_cast< std::add_pointer_t<AirQuality>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
         default: ;
         }
     }
@@ -136,13 +167,13 @@ int Simulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 3;
+        _id -= 6;
     }
     return _id;
 }
