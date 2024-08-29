@@ -19,7 +19,7 @@ void Wind::updateValue(){
     Mwind.setValue(distribution(generator));
 
 }
-
+Measurement& Wind::getMwindAddress(){return Mwind;}
 Measurement Wind::getMwind() const{
     return Mwind;
 }

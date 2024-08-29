@@ -1,9 +1,53 @@
 [
     {
+<<<<<<< Updated upstream
         "creationDate": "2024-08-29T22:56:33",
         "nome": "giuseppe",
         "pm10": 44.87460475552784,
         "pm25": 3.4255351636825466,
+=======
+        "creationDate": "2024-08-29T21:19:22",
+        "humidity": 22.65297439520989,
+        "maxhumidity": 99,
+        "maxpercentage": 9,
+        "minhumidity": 10,
+        "minpercentage": 1,
+        "nome": "gianlorenzo",
+        "percentage": 5.139440202654805,
+        "tipo": "Humidity"
+    },
+    {
+        "creationDate": "2024-08-29T21:22:43",
+        "humidity": 5.278048465920801,
+        "maxhumidity": 22,
+        "maxpercentage": 33,
+        "minhumidity": 2,
+        "minpercentage": 3,
+        "nome": "michele VI",
+        "percentage": 4.980198356689542,
+        "tipo": "Humidity"
+    },
+    {
+        "creationDate": "2024-08-29T22:48:23",
+        "maxpm10": 2,
+        "maxpm25": 4,
+        "minpm10": 1,
+        "minpm25": 3,
+        "nome": "Carlo",
+        "pm10": 0.6274055621001011,
+        "pm25": 17.883138193937274,
+        "tipo": "Dust"
+    },
+    {
+        "creationDate": "2024-08-29T22:50:06",
+        "maxpm10": 0,
+        "maxpm25": 0,
+        "minpm10": 20,
+        "minpm25": 10,
+        "nome": "Lucia",
+        "pm10": 32.54445296180661,
+        "pm25": 19.975866963959945,
+>>>>>>> Stashed changes
         "tipo": "Dust"
     }
 ]

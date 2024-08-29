@@ -1,3 +1,4 @@
+release/deepsensorgetter.o
 release/json.o
 release/measurement.o
 release/sensorgetter.o
@@ -26,6 +27,7 @@ release/simulation.o
 release/sensorPanel.o
 release/simulationBar.o
 release/qrc_resources.o
+release/moc_deepsensorgetter.o
 release/moc_measurement.o
 release/moc_sensorgetter.o
 release/moc_visitor.o

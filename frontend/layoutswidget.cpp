@@ -64,53 +64,52 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
+
+
+
+
+        /*for(int i=0;i<mVec.size();i++){
+            modifyDialog->getMinimiEdit().push_back(mVec[i]->getRangeMin());
+            modifyDialog->getMassimiEdit().push_back(mVec[i]->getRangeMax());
+        }*/
+        //qDebug()<<sensor->getName();
+        sensor=Json::trovaSensorePerNome(sensor->getName());
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+        //qDebug()<<sensor->getName();
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
 
-
-        qDebug()<<modifyDialog->getDatiWidget().size();
-        for (int i=0;i<modifyDialog->getDatiWidget().size();i++){
-            modifyDialog->getLayout()->removeWidget(modifyDialog->getDatiWidget()[i]);
-            delete modifyDialog->getDatiWidget()[i];  // Distrugge il w
+    QLayoutItem* item;
+    while ((item = modifyDialog->getParametriLayout()->takeAt(0)) != nullptr) {
+        if (QWidget* widget = item->widget()) {
+            widget->deleteLater();  // Elimina il widget associato
         }
-
-//Possibili problemi con il removeWidget
-
-        //qDebug()<<mVec.size();
-        modifyDialog->getMisure().clear();
-        modifyDialog->getMinimi().clear();
-        modifyDialog->getMassimi().clear();
-        modifyDialog->getDatiLayout().clear();
-        modifyDialog->getDatiWidget().clear();
-
-
-
-
-        QVector<Measurement*> mVec;
-        SensorGetter sg(mVec);
-        const_cast<Sensor*>(sensor)->accept(sg);
-        for(int i=0;i<mVec.size();i++){
-
+    }
+    delete item;  // Elimina l'item stesso
+        modifyDialog->getMassimiEdit().clear();
+        modifyDialog->getMinimiEdit().clear();
+        // Aggiungi i dati del sensore alla griglia, centrati
+        for (int i = 0; i < mVec.size(); i++) {
             //qDebug()<<mVec[i]->getName();
-            //qDebug()<<mVec[i]->getValue();
-            modifyDialog->getMisure().push_back(new QLabel (mVec[i]->getName()));
-            //modifyDialog->getMisure()[i]->setText(mVec[i]->getName());
-            modifyDialog->getMinimi().push_back(new QLineEdit("22"));
-            //modifyDialog->getMinimi()[i]->setText("22");
-            modifyDialog->getMassimi().push_back(new QLineEdit("55"));
+            QLabel* misura = new QLabel(mVec[i]->getName());
+            misura->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
 
+            //qDebug()<<"range Min:"<<mVec[i]->getRangeMin();
+            QLineEdit* minEdit = new QLineEdit(QString::number(mVec[i]->getRangeMin()));
+            minEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
+            modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
 
-            //qDebug()<<modifyDialog->getMisure().size();
-            modifyDialog->getDatiWidget().push_back(new QWidget);
-            modifyDialog->getDatiLayout().push_back(new QHBoxLayout(modifyDialog->getDatiWidget()[i]));
-
-            modifyDialog->getDatiLayout()[i]->addWidget(modifyDialog->getMisure()[i]);
-            modifyDialog->getDatiLayout()[i]->addWidget( modifyDialog->getMinimi()[i]);
-            modifyDialog->getDatiLayout()[i]->addWidget( modifyDialog->getMassimi()[i]);
-            modifyDialog->getLayout()->addWidget(modifyDialog->getDatiWidget()[i]);
-
+            //qDebug()<<"range Max:"<<mVec[i]->getRangeMax();
+            QLineEdit* maxEdit = new QLineEdit(QString::number(mVec[i]->getRangeMax()));
+            maxEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
+            modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
 
         }
         //modifyDialog->getLayout()->removeWidget(modifyDialog->getConfirmButton());
@@ -121,7 +120,37 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
 
-        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+        QVector<double> minimi;
+        QVector<double> massimi;
+bool tuttiInt = true;  // Flag per verificare se tutti i valori sono interi
+
+// Iterare attraverso i QLineEdit di Minimi
+for (int i = 0; i < modifyDialog->getMinimiEdit().size(); i++) {
+    bool isInt = false; // Variabile per controllare la conversione
+    int minValue = modifyDialog->getMinimiEdit()[i]->text().toInt(&isInt);
+
+    if (isInt) {
+        minimi.push_back(static_cast<double>(minValue)); // Aggiungi se è un intero
+    } else {
+        tuttiInt = false;  // Setta il flag a false se un valore non è intero
+    }
+
+    int maxValue = modifyDialog->getMassimiEdit()[i]->text().toInt(&isInt);
+
+    if (isInt) {
+        massimi.push_back(static_cast<double>(maxValue)); // Aggiungi se è un intero
+    } else {
+        tuttiInt = false;  // Setta il flag a false se un valore non è intero
+    }
+}
+
+    if (!tuttiInt) {
+        // Se qualche valore non è un intero, mostra un messaggio di avviso
+        QMessageBox* notInt = new QMessageBox;
+        notInt->setText("La modifica di massimi/minimi richiede dei valori interi.");
+        notInt->show();
+    } else {
+        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
 
         if (result == "ok") {
             sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
@@ -152,6 +181,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             emptyName->show();
             modifyDialog->getLineEdit()->setFocus();
         }
+}
     });
 
 

@@ -14,3 +14,5 @@ void Sensor::modifyName(const QString& n){
 Sensor::~Sensor(){}
 
 
+
+

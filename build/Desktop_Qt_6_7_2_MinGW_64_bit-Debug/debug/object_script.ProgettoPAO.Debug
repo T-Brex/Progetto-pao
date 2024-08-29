@@ -1,3 +1,4 @@
+debug/deepsensorgetter.o
 debug/json.o
 debug/measurement.o
 debug/sensorgetter.o
@@ -26,6 +27,7 @@ debug/simulation.o
 debug/sensorPanel.o
 debug/simulationBar.o
 debug/qrc_resources.o
+debug/moc_deepsensorgetter.o
 debug/moc_measurement.o
 debug/moc_sensorgetter.o
 debug/moc_visitor.o

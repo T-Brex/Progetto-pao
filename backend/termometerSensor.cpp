@@ -18,10 +18,13 @@ void Termometer::updateValue(){
     Mtemperature.setValue(distribution(generator));
 
 }
+Measurement& Termometer::getMtemperatureAddress(){return Mtemperature;}
 
 Measurement Termometer::getMtemperature() const{
     return Mtemperature;
 }
+
+
 
 
 QVector<QString> Termometer::getNameValues() const{

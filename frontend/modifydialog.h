@@ -10,9 +10,9 @@ class ModifyDialog : public AddDialog
 private:
     QString oldSensorName;
     QString oldSensorType;
-    QVector<QWidget*> datiWidget;
-    QVector<QHBoxLayout*> datiLayout;
-    QVector<QLabel*> misure;
+    QWidget* parametriWidget;
+    QGridLayout *parametriLayout;
+    //QVector<QLabel*> misure;
     QVector<QLineEdit*> minimi;
     QVector<QLineEdit*> massimi;
 public:
@@ -20,11 +20,11 @@ public:
     QString getOldSensorType() const ;
     void setOldSensorName(const QString &name);
     void setOldSensorType(const QString &type);
-    QVector<QWidget*>& getDatiWidget();
-    QVector<QHBoxLayout*>& getDatiLayout();
-    QVector<QLabel*>& getMisure();
-    QVector<QLineEdit*>& getMinimi();
-    QVector<QLineEdit*>& getMassimi();
+    QWidget* getParametriWidget();
+    QGridLayout* getParametriLayout();
+    //QVector<QLabel*>& getMisure();
+    QVector<QLineEdit*>& getMinimiEdit();
+    QVector<QLineEdit*>& getMassimiEdit();
 
     ModifyDialog(QWidget *parent);
 };
