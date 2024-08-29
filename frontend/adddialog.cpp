@@ -15,26 +15,20 @@ AddDialog::AddDialog(QWidget *parent) : QDialog(parent),
     sceltaTipo->addItem("Termometer");
     sceltaTipo->addItem("AirQuality");
 
-    // Creazione del layout per la QDialog
-    //QVBoxLayout *layout = new QVBoxLayout(this);
-
-    // Aggiunta del QLineEdit al layout
     layout->addWidget(lineEdit);
     layout->addWidget(sceltaTipo);
-    //confirmButton->
-    //QHBoxLayout* confirmButtonLayout=new QHBoxLayout(confirmButton);
-    //confirmButtonLayout->addSpacerItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
     layout->addWidget(confirmButton);
 
     this->setMaximumSize(200,100);
     this->setModal(true);
     this->setFocus();
-    //this->setPalette(Qt::yellow);
     this->setAutoFillBackground(true);
 
-    // Imposta il layout per la QDialog
     setLayout(layout);
-
-
 }
+
+QLineEdit* AddDialog::getLineEdit() const { return lineEdit; }
+QComboBox* AddDialog::getSceltaTipo() const { return sceltaTipo; }
+QPushButton* AddDialog::getConfirmButton() const { return confirmButton; }
+QVBoxLayout *AddDialog::getLayout() const { return layout; }
 

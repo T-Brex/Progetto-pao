@@ -8,6 +8,7 @@
 #include "backend/sensorgetter.h"
 
 
+
 #include "backend/json.h"
 #include <QScrollArea>
 #include <QFileDialog>
@@ -64,14 +65,12 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
+/*<<<<<<< HEAD
 
 
 
 
-        /*for(int i=0;i<mVec.size();i++){
-            modifyDialog->getMinimiEdit().push_back(mVec[i]->getRangeMin());
-            modifyDialog->getMassimiEdit().push_back(mVec[i]->getRangeMax());
-        }*/
+
         //qDebug()<<sensor->getName();
         sensor=Json::trovaSensorePerNome(sensor->getName());
         QVector<Measurement*> mVec;
@@ -98,6 +97,12 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             QLabel* misura = new QLabel(mVec[i]->getName());
             misura->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
+=======*/
+        /*
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+
 
             //qDebug()<<"range Min:"<<mVec[i]->getRangeMin();
             QLineEdit* minEdit = new QLineEdit(QString::number(mVec[i]->getRangeMin()));
@@ -105,6 +110,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
             modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
 
+<<<<<<< HEAD
             //qDebug()<<"range Max:"<<mVec[i]->getRangeMax();
             QLineEdit* maxEdit = new QLineEdit(QString::number(mVec[i]->getRangeMax()));
             maxEdit->setAlignment(Qt::AlignCenter);
@@ -115,11 +121,72 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         //modifyDialog->getLayout()->removeWidget(modifyDialog->getConfirmButton());
         modifyDialog->getLayout()->addWidget(modifyDialog->getConfirmButton());
         modifyDialog->show();
+=======*/
+        /*for(int i=0;i<mVec.size();i++){
+            modifyDialog->getMinimiEdit().push_back(mVec[i]->getRangeMin());
+            modifyDialog->getMassimiEdit().push_back(mVec[i]->getRangeMax());
+        }*/
+        modifyDialog->setOldSensorName(sensor->getName());
+        modifyDialog->setOldSensorType(sensor->getType());
+        modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+//>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
         modifyDialog->getLineEdit()->setFocus();
+        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
+
+        //Svuotamento modifyDialog.parametriLayout
+        QLayoutItem* item;
+        while ((item = modifyDialog->getParametriLayout()->takeAt(0)) != nullptr) {
+            if (QWidget* widget = item->widget()) {
+                widget->deleteLater();
+            }
+            delete item;
+        }
+
+        QLabel* misuraLabel = new QLabel("Misura");
+        misuraLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(misuraLabel, 0, 0);
+
+        QLabel* minLabel = new QLabel("Min");
+        minLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(minLabel, 0, 1);
+
+        QLabel* maxLabel = new QLabel("Max");
+        maxLabel->setAlignment(Qt::AlignCenter);
+        modifyDialog->getParametriLayout()->addWidget(maxLabel, 0, 2);
+
+        modifyDialog->getMassimiEdit().clear();
+        modifyDialog->getMinimiEdit().clear();
+
+        sensor=Json::trovaSensorePerNome(sensor->getName());
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+
+        // Aggiungi i dati del sensore alla griglia, centrati
+        for (int i = 0; i < mVec.size(); i++) {
+            QLabel* misura = new QLabel(mVec[i]->getName());
+            misura->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
+
+            QLineEdit* minEdit = new QLineEdit(QString::number(mVec[i]->getRangeMin()));
+            minEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
+            modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
+
+            QLineEdit* maxEdit = new QLineEdit(QString::number(mVec[i]->getRangeMax()));
+            maxEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
+            modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
+        }
+        modifyDialog->show();
     });
 
     connect(modifyDialog->getConfirmButton(), &QPushButton::clicked, this, [&]() {
+        QVector<double> minimi;
+        QVector<double> massimi;
+        bool tuttiInt=true;
 
+/*<<<<<<< HEAD
         QVector<double> minimi;
         QVector<double> massimi;
 bool tuttiInt = true;  // Flag per verificare se tutti i valori sono interi
@@ -161,27 +228,68 @@ for (int i = 0; i < modifyDialog->getMinimiEdit().size(); i++) {
             int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
             if (indexToRemove != -1) {
                 deleteDialog->getSceltaNome()->removeItem(indexToRemove);
+//=======*/
+        for (int i = 0; i < modifyDialog->getMassimiEdit().size(); i++) {
+            bool intero;
+            int min = modifyDialog->getMinimiEdit()[i]->text().toInt(&intero);
+            //qDebug()<<"intero:"<<min<<intero;
+            if(intero){
+                minimi.push_back(min);
+                //qDebug()<<"minimo intero:"<<min;
+            }else{
+                tuttiInt=false;
+                //qDebug()<<"minimo non intero";
+//>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
             }
 
-
-            modifyDialog->getLineEdit()->clear();
-            modifyDialog->hide();
-            sensWindow->getSearchMenu()->updateSensori();
-            this->update();
-        } else if (result == "existing") {
-            QMessageBox *existingName = new QMessageBox(nullptr);
-            existingName->setIcon(QMessageBox::Warning);
-            existingName->setText("Il sensore '" + modifyDialog->getLineEdit()->text() + "' esiste già nel file");
-            existingName->show();
-            modifyDialog->getLineEdit()->setFocus();
-        } else if (result == "empty") {
-            QMessageBox *emptyName = new QMessageBox(nullptr);
-            emptyName->setIcon(QMessageBox::Warning);
-            emptyName->setText("Inserire un nome");
-            emptyName->show();
-            modifyDialog->getLineEdit()->setFocus();
+            int max = modifyDialog->getMassimiEdit()[i]->text().toInt(&intero);
+            //qDebug()<<"intero:"<<max<<intero;
+            if(intero){
+                massimi.push_back(max);
+                 //qDebug()<<"massimo intero:"<<max;
+            }else{
+                tuttiInt=false;
+                //qDebug()<<"massimo non intero";
+            }
         }
-}
+        if(tuttiInt)
+        {
+            QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
+
+            if (result == "ok") {
+                sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+                //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
+                deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
+
+                // Rimuovere l'elemento dalla lista a discesa sceltaTipo
+                int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
+                if (indexToRemove != -1) {
+                    deleteDialog->getSceltaNome()->removeItem(indexToRemove);
+                }
+
+
+                modifyDialog->getLineEdit()->clear();
+                modifyDialog->hide();
+                sensWindow->getSearchMenu()->updateSensori();
+                this->update();
+            } else if (result == "existing") {
+                QMessageBox *existingName = new QMessageBox(nullptr);
+                existingName->setIcon(QMessageBox::Warning);
+                existingName->setText("Il sensore '" + modifyDialog->getLineEdit()->text() + "' esiste già nel file");
+                existingName->show();
+                modifyDialog->getLineEdit()->setFocus();
+            } else if (result == "empty") {
+                QMessageBox *emptyName = new QMessageBox(nullptr);
+                emptyName->setIcon(QMessageBox::Warning);
+                emptyName->setText("Inserire un nome");
+                emptyName->show();
+                modifyDialog->getLineEdit()->setFocus();
+            }
+        }else{
+            QMessageBox* notInt=new QMessageBox;
+            notInt->setText("La modifica di massimi/minimi richiede dei valori interi");
+            notInt->show();
+        }
     });
 
 
@@ -242,129 +350,4 @@ connect(deleteAllWarning,&DeleteWarning::confirmed, deleteAllWarning,[&]() {
 
 
 
-
-
-
-
-
-
-
-
-
-/*Eliminabile(?)
-LayoutsWidget::LayoutsWidget(QVector<Sensor*> s,QWidget *parent):QStackedWidget(parent),
-    //sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow)),
-    //sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)),
-    searchMenu(new SearchMenu(nullptr)),simuWindow(new QWidget),
-    simuLayout(new QHBoxLayout(simuWindow)), addDialog(new AddDialog(nullptr)),
-    deleteDialog(new DeleteDialog(nullptr))
-{
-
-    //QVector<Sensor*> sensors=Json::caricaSensori();
-    for(auto it=s.begin();it!=s.end();++it){
-        sensWindow->addSensor(*it);
-    }
-
-    this->addWidget(sensWindow);
-    simuWidget = new Simulation(sensors);
-    //costruzione layout simulazione
-<<<<<<< HEAD
-    //simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWidget);
-=======
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWindow);
->>>>>>> main
-
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensScrollArea);
-
-
-
-    connect(searchMenu,&SearchMenu::showAddDialog, addDialog, [&]()
-            {
-
-                addDialog->show();
-                addDialog->lineEdit->setFocus();
-            });
-
-    connect(addDialog->newButton,&QPushButton::clicked, this, [&]()
-
-            {
-
-                QString result=Json::nuovoSensore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText());
-
-                if(result=="ok"){
-                    sensWindow->addSensor(Json::costruttore(addDialog->lineEdit->text(), addDialog->sceltaTipo->currentText()));
-                    deleteDialog->getSceltaNome()->addItem(addDialog->lineEdit->text());
-                    addDialog->lineEdit->clear();
-                    addDialog->close();
-
-                }
-            });
-
-
-    connect(deleteDialog->getDeleteButton(),&QPushButton::clicked,this,[&]()
-            {
-
-                Json::eliminaSensore(deleteDialog->getSceltaNome()->currentText());
-                sensWindow->deleteSensor(deleteDialog->getSceltaNome()->currentText());
-                deleteDialog->close();
-                deleteDialog->getSceltaNome()->removeItem(deleteDialog->getSceltaNome()->currentIndex());
-            });
-
-
-    connect(searchMenu,&SearchMenu::showDeleteDialog, deleteDialog, &DeleteDialog::show);
-
-}
-//Eliminabile(?)
-LayoutsWidget::LayoutsWidget(QVector<QWidget*> frame,QWidget *parent):QStackedWidget(parent)
-//,sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
-{
-
-
-
-    //costruzione layout sensori
-    //searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensScrollArea);
-
-
-    for(auto i=0;i<frame.size();i++){
-        sensLayout->addWidget(frame[i]);
-    }
-    this->addWidget(sensWindow);
-
-    //costruzione layout simulazione
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWindow);
-
-
-}
-
-
-//Eliminabile(?)
-LayoutsWidget::LayoutsWidget(QVector<SensorPanel*> sp,QWidget *parent):QStackedWidget(parent)
-//,sensWindow(new QWidget),sensWindowLayout(new QHBoxLayout(sensWindow))//,sensScrollArea(new QWidget),sensLayout(new QVBoxLayout(sensScrollArea)), simuWidget(new QWidget), simuLayout(new QHBoxLayout(simuWidget))
-{
-    SearchMenu *searchMenu=new SearchMenu;
-
-    //costruzione layout sensori
-    searchMenu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    sensWindowLayout->addWidget(searchMenu);
-    sensWindowLayout->addWidget(sensScrollArea);
-
-
-    for(auto i=0;i<sp.size();i++){
-        sensLayout->addWidget(sp[i]);
-    }
-    this->addWidget(sensWindow);
-
-    //costruzione layout simulazione
-    simuLayout->addWidget(new QPushButton("SUCA"));
-    this->addWidget(simuWindow);
-}
-*/
-LayoutsWidget::~LayoutsWidget(){};
+LayoutsWidget::~LayoutsWidget(){}

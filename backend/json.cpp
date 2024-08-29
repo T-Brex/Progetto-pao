@@ -71,8 +71,9 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
             sensore->accept(sg);
 
             for (auto i = 0; i < measurements.size(); ++i) {
-                //qDebug()<<measurements[i]->getName()<<" : "<<measurements[i]->getValue();
                 sensoreObject[measurements[i]->getName()] = measurements[i]->getValue();
+                sensoreObject["min"+measurements[i]->getName()] = measurements[i]->getRangeMin();
+                sensoreObject["max"+measurements[i]->getName()] = measurements[i]->getRangeMax();
             }
 
 
@@ -91,7 +92,11 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
 return "0";
 }
 
+
 QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo, const QVector<double>& minimi, const QVector<double>& massimi, const QString& fileName) {
+
+
+//QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo,const QVector<double>minimi,const QVector<double>massimi, const QString& fileName) {
 
     if (nuovoNome.isEmpty()) {
         qDebug() << "Il nuovo nome del sensore non può essere vuoto.";
@@ -100,6 +105,8 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
 
     // Carica i sensori dal file JSON
     QJsonArray sensoriArray = Json::leggiJson(fileName);
+    QVector<Sensor*> sensorVec = Json::caricaSensori(fileName);
+
 
     // Trova ed elimina il sensore esistente
     bool sensoreTrovato = false;
@@ -118,6 +125,49 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
         return "not found";
     }
 
+    bool nomeGiaEsistente = false;
+    for (auto it = sensoriArray.begin(); it != sensoriArray.end() && !nomeGiaEsistente; ++it) {
+        QJsonObject sensoreObject = it->toObject();
+        if (sensoreObject["nome"] == nomeSensore)
+        {
+            if (sensoreObject["nome"] != nuovoNome) {
+                // Verifica se il nuovo nome del sensore esiste già
+                for (auto it2 = sensoriArray.begin(); it2 != sensoriArray.end(); ++it2) {
+                    QJsonObject sensoreObject2 = it2->toObject();
+                    if (sensoreObject2["nome"] == nuovoNome) {
+                        nomeGiaEsistente = true;
+                        return "already exsist";
+                    }
+                }
+            } else {
+                // Il nuovo nome è lo stesso del nome attuale del sensore
+                nomeGiaEsistente = false;
+            }
+
+        }
+    }
+
+    if (!nomeGiaEsistente) {
+        // Modifica il nome e il tipo del sensore
+        /*for(int i=0;i<sensoriArray.size();i++){
+            QJsonObject sensoreObject = sensoriArray[i].toObject();
+            if (sensoreObject["nome"] == nomeSensore) {
+                sensoreObject["nome"] = nuovoNome;
+                sensoreObject["tipo"] = nuovoTipo;
+
+                QVector<Measurement*> mVec;
+                SensorGetter sg(mVec);
+                const_cast<Sensor*>(sensorVec[i])->accept(sg);
+                for(int i=0;i<mVec.size();i++){
+                    sensoreObject["min"+mVec[i]->getName()] = minimi[i];
+                    sensoreObject["max"+mVec[i]->getName()] = massimi[i];
+                }
+
+                sensoriArray[i] = sensoreObject; // Aggiorna l'oggetto nell'array
+                break;
+            }
+        }*/
+
     // Creazione del nuovo sensore
     Sensor* nuovoSensore = Json::costruttore(nuovoNome, nuovoTipo);
     if (!nuovoSensore) {
@@ -131,7 +181,7 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
     nuovoSensoreObject["creationDate"] = nuovoSensore->getCreationDate().toString(Qt::ISODate);
 
     QVector<Measurement*> mVec;
-    SensorGetter sg(mVec);
+    /*Deep??*/SensorGetter sg(mVec);
     nuovoSensore->accept(sg);
 
     for (int i = 0; i < mVec.size(); ++i) {
@@ -142,7 +192,7 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
 
     // Aggiunge il nuovo sensore all'array
     sensoriArray.append(nuovoSensoreObject);
-
+}
     // Scrive il JSON aggiornato sul file
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly)) {
@@ -154,6 +204,7 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
         qDebug() << "Impossibile aprire il file per la scrittura.";
         return "fileError";
     }
+    return "0";
 }
 bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
     QFile file(newFileName);
@@ -174,6 +225,9 @@ bool Json::saveAs(const QVector<Sensor*>& sensori, const QString& newFileName) {
                 // Converte il valore numerico in QJsonValue
                 QJsonValue value = QJsonValue::fromVariant(measurements[i]->getValue());
                 sensoreObject[measurements[i]->getName()] = value;
+                sensoreObject["max"+measurements[i]->getName()]=measurements[i]->getRangeMax();
+                sensoreObject["min"+measurements[i]->getName()]=measurements[i]->getRangeMin();
+
             }
 
             sensoriArray.append(sensoreObject);
@@ -286,8 +340,6 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
                 //qDebug()<<"rangeMax:"<<measurements[i]->getRangeMax();
 
             }
-
-
             sensori.append(nuovoSensore);
         } else {
             qDebug() << "Tipo di sensore non valido: " << tipo;

@@ -8,6 +8,7 @@ QMAKE_CXX.COMPILER_MACROS = \
     QMAKE_GCC_MINOR_VERSION \
     QMAKE_GCC_PATCH_VERSION
 QMAKE_CXX.INCDIRS = \
+<<<<<<< HEAD
     C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ \
     C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 \
     C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward \
@@ -19,3 +20,16 @@ QMAKE_CXX.LIBDIRS = \
     C:/Qt/Tools/mingw1120_64/lib/gcc \
     C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/lib \
     C:/Qt/Tools/mingw1120_64/lib
+=======
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/x86_64-w64-mingw32/include
+QMAKE_CXX.LIBDIRS = \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0 \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib/gcc \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/x86_64-w64-mingw32/lib \
+    C:/Users/Mauri/Desktop/Ale/Qt_cartella_installazione/Tools/mingw1120_64/lib
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9

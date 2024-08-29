@@ -11,7 +11,13 @@ void Sensor::modifyName(const QString& n){
     name=n;
 }
 
+
 Sensor::~Sensor(){}
+
+void Sensor::updateType(const QString& s){type =s;}
+QString Sensor::getType() const {return type;}
+
+
 
 
 

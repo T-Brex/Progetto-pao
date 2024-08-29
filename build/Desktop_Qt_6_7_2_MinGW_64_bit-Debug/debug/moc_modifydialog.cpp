@@ -36,7 +36,13 @@ namespace {
 #ifdef QT_MOC_HAS_STRINGDATA
 struct qt_meta_stringdata_CLASSModifyDialogENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSModifyDialogENDCLASS = QtMocHelpers::stringData(
+<<<<<<< HEAD
     "ModifyDialog"
+=======
+    "ModifyDialog",
+    "onSceltaTipoChanged",
+    ""
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -49,13 +55,26 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSModifyDialogENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
+<<<<<<< HEAD
        0,    0, // methods
+=======
+       1,   14, // methods
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+<<<<<<< HEAD
+=======
+ // slots: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   20,    2, 0x08,    1 /* Private */,
+
+ // slots: parameters
+    QMetaType::Void,
+
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
        0        // eod
 };
 
@@ -67,16 +86,33 @@ Q_CONSTINIT const QMetaObject ModifyDialog::staticMetaObject = { {
     nullptr,
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSModifyDialogENDCLASS_t,
         // Q_OBJECT / Q_GADGET
+<<<<<<< HEAD
         QtPrivate::TypeAndForceComplete<ModifyDialog, std::true_type>
+=======
+        QtPrivate::TypeAndForceComplete<ModifyDialog, std::true_type>,
+        // method 'onSceltaTipoChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
     >,
     nullptr
 } };
 
 void ModifyDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+<<<<<<< HEAD
     (void)_o;
     (void)_id;
     (void)_c;
+=======
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<ModifyDialog *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->onSceltaTipoChanged(); break;
+        default: ;
+        }
+    }
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
     (void)_a;
 }
 
@@ -96,6 +132,20 @@ void *ModifyDialog::qt_metacast(const char *_clname)
 int ModifyDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = AddDialog::qt_metacall(_c, _id, _a);
+<<<<<<< HEAD
+=======
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 1;
+    }
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
     return _id;
 }
 QT_WARNING_POP

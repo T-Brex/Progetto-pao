@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 release/deepsensorgetter.o
+=======
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 release/json.o
 release/measurement.o
 release/sensorgetter.o
@@ -27,7 +30,10 @@ release/simulation.o
 release/sensorPanel.o
 release/simulationBar.o
 release/qrc_resources.o
+<<<<<<< HEAD
 release/moc_deepsensorgetter.o
+=======
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 release/moc_measurement.o
 release/moc_sensorgetter.o
 release/moc_visitor.o

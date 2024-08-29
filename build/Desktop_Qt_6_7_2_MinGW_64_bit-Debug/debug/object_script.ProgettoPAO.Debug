@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 debug/deepsensorgetter.o
+=======
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 debug/json.o
 debug/measurement.o
 debug/sensorgetter.o
@@ -27,7 +30,10 @@ debug/simulation.o
 debug/sensorPanel.o
 debug/simulationBar.o
 debug/qrc_resources.o
+<<<<<<< HEAD
 debug/moc_deepsensorgetter.o
+=======
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 debug/moc_measurement.o
 debug/moc_sensorgetter.o
 debug/moc_visitor.o

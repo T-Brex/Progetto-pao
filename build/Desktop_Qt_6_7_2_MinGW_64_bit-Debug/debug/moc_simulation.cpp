@@ -7,6 +7,10 @@
 *****************************************************************************/
 
 #include "../../../frontend/simulation.h"
+<<<<<<< HEAD
+=======
+#include <QtGui/qtextcursor.h>
+>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
