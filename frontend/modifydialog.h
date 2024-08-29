@@ -3,6 +3,7 @@
 
 #include "adddialog.h"
 #include "qlabel.h"
+#include "backend/sensors.h"
 
 class ModifyDialog : public AddDialog
 {
@@ -10,23 +11,36 @@ class ModifyDialog : public AddDialog
 private:
     QString oldSensorName;
     QString oldSensorType;
-    QVector<QWidget*> datiWidget;
-    QVector<QHBoxLayout*> datiLayout;
-    QVector<QLabel*> misure;
-    QVector<QLineEdit*> minimi;
-    QVector<QLineEdit*> massimi;
+
+    QWidget* parametriWidget;
+    QGridLayout* parametriLayout;
+
+    //Sensor* mainSensor;//da eliminare?
+
+    QVector<QLineEdit*> minimiEdit;
+    QVector<QLineEdit*> massimiEdit;
+
 public:
+    ModifyDialog(QWidget *parent);
     QString getOldSensorName() const ;
     QString getOldSensorType() const ;
     void setOldSensorName(const QString &name);
     void setOldSensorType(const QString &type);
-    QVector<QWidget*>& getDatiWidget();
-    QVector<QHBoxLayout*>& getDatiLayout();
-    QVector<QLabel*>& getMisure();
-    QVector<QLineEdit*>& getMinimi();
-    QVector<QLineEdit*>& getMassimi();
+    QWidget* getParametriWidget() const;
+    QGridLayout* getParametriLayout() const;
+    QVector<QLineEdit*>& getMinimiEdit();
+    QVector<QLineEdit*>& getMassimiEdit();
+    //Sensor *getSensor();
+    //void setSensor(const Sensor*);
+    //QVector<QWidget*>& getDatiWidget();
+    //QVector<QHBoxLayout*>& getDatiLayout();
+    //QVector<QLabel*>& getMisure();
+    //QVector<QLineEdit*>& getMinimi();
+    //QVector<QLineEdit*>& getMassimi();
+private slots:
+    void onSceltaTipoChanged();
 
-    ModifyDialog(QWidget *parent);
+
 };
 
 #endif

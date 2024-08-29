@@ -29,17 +29,13 @@ MainWindow::MainWindow(QWidget *parent)
                 if (!fileName.isEmpty()) {
                     // Effettua qui il salvataggio dei dati nel file JSON utilizzando il nome del file 'fileName'
                     bool success = Json::saveAs(Json::caricaSensori(), fileName);
-
                     if (success) {
                         qDebug() << "Sensori salvati in:" << fileName;
-                        // Eventuali altre azioni da eseguire dopo il salvataggio
                     } else {
                         qDebug() << "Errore durante il salvataggio dei sensori.";
-                        // Gestione dell'errore, ad esempio mostrare un messaggio all'utente
                     }
                 } else {
                     qDebug() << "Operazione di salvataggio annullata dall'utente.";
-                    // L'utente ha annullato la selezione del file
                 }
             });
 
