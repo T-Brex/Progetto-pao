@@ -14,7 +14,7 @@ SimBar::SimBar(QVector<Sensor*>& s, QWidget* parent)
     int colorCounter = 0;
     int nButtons = 0;
 
-    // Itera sui sensori e crea SimBarVisitor
+
     for (int i = 0; i < s.size(); ++i) {
         QFrame *panel = new QFrame(this);
         QHBoxLayout *panelLayout = new QHBoxLayout(panel);
@@ -35,7 +35,7 @@ SimBar::SimBar(QVector<Sensor*>& s, QWidget* parent)
         visitors.push_back(visitor);
 
         panelLayout->addWidget(labels);
-        s[i]->accept(*visitor);//visitor aggiunge i bottoni direttamente in panelLayout
+        s[i]->accept(*visitor);
 
         connect(visitor, &SimBarVisitor::addDust, this, &SimBar::addDust);
         connect(visitor, &SimBarVisitor::addWind, this, &SimBar::addWind);
