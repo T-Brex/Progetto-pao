@@ -15,7 +15,7 @@ private:
     QVector<Measurement*> &measurementVec;
 public:
     explicit SensorGetter(QObject *parent = nullptr);
-    SensorGetter(QVector<Measurement*> &);
+    SensorGetter(QVector<Measurement*> &,QObject *parent = nullptr);
     SensorGetter(Measurement);
     void visit(Dust&);
     void visit(Wind&);

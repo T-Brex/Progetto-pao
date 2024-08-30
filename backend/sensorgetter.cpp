@@ -3,7 +3,7 @@
 SensorGetter::SensorGetter(QObject *parent)
     : Visitor(parent), measurementVec(*(new QVector<Measurement*>())) {}
 
-SensorGetter::SensorGetter(QVector<Measurement*>& mv):measurementVec(mv){}
+SensorGetter::SensorGetter(QVector<Measurement*>& mv, QObject *parent):Visitor(parent),measurementVec(mv){}
 //SensorGetter::SensorGetter(Measurement* m){measurementVec.push_back(m);}
 void SensorGetter::visit(Dust& d){
     measurementVec.push_back(new Measurement (d.getMpm10()));

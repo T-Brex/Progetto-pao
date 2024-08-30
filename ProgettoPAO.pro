@@ -12,6 +12,8 @@ SOURCES += \
     backend/deepsensorgetter.cpp \
     backend/json.cpp \
     backend/measurement.cpp \
+    backend/measurementsaver.cpp \
+    backend/measurementsetter.cpp \
     backend/sensorgetter.cpp \
     backend/sensors.cpp \
     backend/visitor.cpp \
@@ -42,6 +44,8 @@ HEADERS += \
     backend/deepsensorgetter.h \
     backend/json.h \
     backend/measurement.h \
+    backend/measurementsaver.h \
+    backend/measurementsetter.h \
     backend/sensorgetter.h \
     backend/sensors.h \
     backend/visitor.h \

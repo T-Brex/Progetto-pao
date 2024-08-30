@@ -33,10 +33,6 @@ QVector<QLineEdit*> &ModifyDialog::getMinimiEdit() {return minimiEdit;}
 QVector<QLineEdit *> &ModifyDialog::getMassimiEdit() {return massimiEdit;}
 void ModifyDialog::onSceltaTipoChanged(){
 
-    Sensor *sensor=Json::costruttore("momentaneo",sceltaTipo->currentText());
-    QVector<Measurement*> mVec;
-    SensorGetter sg(mVec);
-    sensor->accept(sg);
 
     QLayoutItem* item;
     while ((item = parametriLayout->takeAt(0)) != nullptr) {
@@ -60,6 +56,12 @@ void ModifyDialog::onSceltaTipoChanged(){
 
     massimiEdit.clear();
     minimiEdit.clear();
+
+    Sensor *sensor=Json::costruttore("momentaneo",sceltaTipo->currentText());
+    QVector<Measurement*> mVec;
+    SensorGetter sg(mVec);
+    sensor->accept(sg);
+
     // Aggiungi i dati del sensore alla griglia, centrati
     for (int i = 0; i < mVec.size(); i++) {
         QLabel* misura = new QLabel(mVec[i]->getName());
