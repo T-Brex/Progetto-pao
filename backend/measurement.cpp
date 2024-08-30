@@ -1,7 +1,8 @@
-#include "measurement.h"
+#include "backend/measurement.h"
 /*Measurement::Measurement(QObject *parent)
     : QObject{parent}
 {}*/
+
 
 
 Measurement::Measurement(const QString& name, double v, double min, double max) : name(name), value(v), rangeMin(min), rangeMax(max) {}
@@ -10,13 +11,14 @@ Measurement::Measurement(const Measurement& m):QObject(m.parent()){
     value=m.getValue();
     rangeMax = m.getRangeMax();
     rangeMin = m.getRangeMin();
-    ////////////////////////fare getrange M-m
 }
+
 
 Measurement::Measurement(const QString& name, double value, QObject *parent) :QObject(parent), name(name), value(value) {}
 //Measurement::Measurement(const Measurement& m):QObject(m.parent()),name(m.getName()), value(m.getValue()) {}
 
 QString Measurement::getName() const { return name; }
+
 
 double Measurement::getValue() const { return value; }
 
