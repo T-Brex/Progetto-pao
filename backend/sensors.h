@@ -18,16 +18,16 @@ public:
     void modifyName(const QString&);
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
-<<<<<<< HEAD
-    virtual ~Sensor();
-    void updateType(const QString& s){type =s;}
-    virtual QString getType() const {return type;}
 
-=======
-    //virtual ~Sensor();
-    void updateType(const QString&);
+    virtual ~Sensor();
+    void updateType(const QString& );
     virtual QString getType() const;
->>>>>>> 2cd819f69459d430b2163cad621507adaf986d08
+
+
+
+    //void updateType(const QString&);
+    //virtual QString getType() const;
+
     virtual void accept(Visitor&) = 0;
 
 
