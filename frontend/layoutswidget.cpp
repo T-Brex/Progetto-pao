@@ -65,18 +65,71 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
     });
 
     connect(sensWindow, &sensorWindow::showModifyDialog, this, [&](const Sensor* sensor) {
+/*<<<<<<< HEAD
+
+
+
+
+
+        //qDebug()<<sensor->getName();
+        sensor=Json::trovaSensorePerNome(sensor->getName());
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+        //qDebug()<<sensor->getName();
+        modifyDialog->setOldSensorName(sensor->getName());
+        modifyDialog->setOldSensorType(sensor->getType());
+        modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+        modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
+
+    QLayoutItem* item;
+    while ((item = modifyDialog->getParametriLayout()->takeAt(0)) != nullptr) {
+        if (QWidget* widget = item->widget()) {
+            widget->deleteLater();  // Elimina il widget associato
+        }
+    }
+    delete item;  // Elimina l'item stesso
+        modifyDialog->getMassimiEdit().clear();
+        modifyDialog->getMinimiEdit().clear();
+        // Aggiungi i dati del sensore alla griglia, centrati
+        for (int i = 0; i < mVec.size(); i++) {
+            //qDebug()<<mVec[i]->getName();
+            QLabel* misura = new QLabel(mVec[i]->getName());
+            misura->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
+=======*/
+        /*
         QVector<Measurement*> mVec;
         SensorGetter sg(mVec);
         const_cast<Sensor*>(sensor)->accept(sg);
 
-        /*DA DEFINIRE I GET DI "mVec"
-        for(int i=0;i<mVec.size();i++){
-            modifyDialog->getMinimiEdit().push_back(mVec[i]->getMin);
-            modifyDialog->getMassimiEdit().push_back(mVec[i]->getMax);
+
+            //qDebug()<<"range Min:"<<mVec[i]->getRangeMin();
+            QLineEdit* minEdit = new QLineEdit(QString::number(mVec[i]->getRangeMin()));
+            minEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
+            modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
+
+<<<<<<< HEAD
+            //qDebug()<<"range Max:"<<mVec[i]->getRangeMax();
+            QLineEdit* maxEdit = new QLineEdit(QString::number(mVec[i]->getRangeMax()));
+            maxEdit->setAlignment(Qt::AlignCenter);
+            modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
+            modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
+
+        }
+        //modifyDialog->getLayout()->removeWidget(modifyDialog->getConfirmButton());
+        modifyDialog->getLayout()->addWidget(modifyDialog->getConfirmButton());
+        modifyDialog->show();
+=======*/
+        /*for(int i=0;i<mVec.size();i++){
+            modifyDialog->getMinimiEdit().push_back(mVec[i]->getRangeMin());
+            modifyDialog->getMassimiEdit().push_back(mVec[i]->getRangeMax());
         }*/
         modifyDialog->setOldSensorName(sensor->getName());
         modifyDialog->setOldSensorType(sensor->getType());
         modifyDialog->getLineEdit()->setText(modifyDialog->getOldSensorName());
+//>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
         modifyDialog->getLineEdit()->setFocus();
         modifyDialog->getSceltaTipo()->setCurrentText(modifyDialog->getOldSensorType());
 
@@ -103,18 +156,24 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
         modifyDialog->getMassimiEdit().clear();
         modifyDialog->getMinimiEdit().clear();
+
+        sensor=Json::trovaSensorePerNome(sensor->getName());
+        QVector<Measurement*> mVec;
+        SensorGetter sg(mVec);
+        const_cast<Sensor*>(sensor)->accept(sg);
+
         // Aggiungi i dati del sensore alla griglia, centrati
         for (int i = 0; i < mVec.size(); i++) {
             QLabel* misura = new QLabel(mVec[i]->getName());
             misura->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(misura, i + 1, 0); // Colonna 0 per "Misura"
 
-            QLineEdit* minEdit = new QLineEdit("22" /*mVec[i]->getMinDistribution()*/);
+            QLineEdit* minEdit = new QLineEdit(QString::number(mVec[i]->getRangeMin()));
             minEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(minEdit, i + 1, 1); // Colonna 1 per "Min"
             modifyDialog->getMinimiEdit().push_back(minEdit); // Aggiungi QLineEdit al QVector
 
-            QLineEdit* maxEdit = new QLineEdit("55" /*mVec[i]->getMaxDistribution()*/);
+            QLineEdit* maxEdit = new QLineEdit(QString::number(mVec[i]->getRangeMax()));
             maxEdit->setAlignment(Qt::AlignCenter);
             modifyDialog->getParametriLayout()->addWidget(maxEdit, i + 1, 2); // Colonna 2 per "Max"
             modifyDialog->getMassimiEdit().push_back(maxEdit); // Aggiungi QLineEdit al QVector
@@ -126,28 +185,71 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         QVector<double> minimi;
         QVector<double> massimi;
         bool tuttiInt=true;
-        bool intero=true;
+
+/*<<<<<<< HEAD
+        QVector<double> minimi;
+        QVector<double> massimi;
+bool tuttiInt = true;  // Flag per verificare se tutti i valori sono interi
+
+// Iterare attraverso i QLineEdit di Minimi
+for (int i = 0; i < modifyDialog->getMinimiEdit().size(); i++) {
+    bool isInt = false; // Variabile per controllare la conversione
+    int minValue = modifyDialog->getMinimiEdit()[i]->text().toInt(&isInt);
+
+    if (isInt) {
+        minimi.push_back(static_cast<double>(minValue)); // Aggiungi se è un intero
+    } else {
+        tuttiInt = false;  // Setta il flag a false se un valore non è intero
+    }
+
+    int maxValue = modifyDialog->getMassimiEdit()[i]->text().toInt(&isInt);
+
+    if (isInt) {
+        massimi.push_back(static_cast<double>(maxValue)); // Aggiungi se è un intero
+    } else {
+        tuttiInt = false;  // Setta il flag a false se un valore non è intero
+    }
+}
+
+    if (!tuttiInt) {
+        // Se qualche valore non è un intero, mostra un messaggio di avviso
+        QMessageBox* notInt = new QMessageBox;
+        notInt->setText("La modifica di massimi/minimi richiede dei valori interi.");
+        notInt->show();
+    } else {
+        QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
+
+        if (result == "ok") {
+            sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+            //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
+            deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
+
+            // Rimuovere l'elemento dalla lista a discesa sceltaTipo
+            int indexToRemove = deleteDialog->getSceltaNome()->findText(modifyDialog->getOldSensorName());
+            if (indexToRemove != -1) {
+                deleteDialog->getSceltaNome()->removeItem(indexToRemove);
+//=======*/
         for (int i = 0; i < modifyDialog->getMassimiEdit().size(); i++) {
-
-
+            bool intero;
             int min = modifyDialog->getMinimiEdit()[i]->text().toInt(&intero);
-            qDebug()<<"intero:"<<min<<intero;
+            //qDebug()<<"intero:"<<min<<intero;
             if(intero){
                 minimi.push_back(min);
-                qDebug()<<"minimo intero:"<<min;
+                //qDebug()<<"minimo intero:"<<min;
             }else{
                 tuttiInt=false;
-                qDebug()<<"minimo non intero";
+                //qDebug()<<"minimo non intero";
+//>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
             }
 
             int max = modifyDialog->getMassimiEdit()[i]->text().toInt(&intero);
-            qDebug()<<"intero:"<<max<<intero;
+            //qDebug()<<"intero:"<<max<<intero;
             if(intero){
                 massimi.push_back(max);
-                 qDebug()<<"massimo intero:"<<max;
+                 //qDebug()<<"massimo intero:"<<max;
             }else{
                 tuttiInt=false;
-                qDebug()<<"massimo non intero";
+                //qDebug()<<"massimo non intero";
             }
         }
         if(tuttiInt)

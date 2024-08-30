@@ -8,7 +8,7 @@ AirQuality::AirQuality(const QString& n, double minQu, double maxQu):
 AirQuality::AirQuality(const AirQuality& a):
     Sensor(a.getName()), Dust(a), Humidity(a), Wind(a), Termometer(a), Mquality(a.Mquality)
 {this->updateType("AirQuality");}
-
+Measurement& AirQuality::getMqualityAddress(){return Mquality;}
 Measurement AirQuality::getMquality() const{
     return Mquality;
 }

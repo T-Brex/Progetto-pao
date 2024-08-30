@@ -11,7 +11,6 @@ class ModifyDialog : public AddDialog
 private:
     QString oldSensorName;
     QString oldSensorType;
-
     QWidget* parametriWidget;
     QGridLayout* parametriLayout;
 
@@ -20,12 +19,14 @@ private:
     QVector<QLineEdit*> minimiEdit;
     QVector<QLineEdit*> massimiEdit;
 
+
 public:
     ModifyDialog(QWidget *parent);
     QString getOldSensorName() const ;
     QString getOldSensorType() const ;
     void setOldSensorName(const QString &name);
     void setOldSensorType(const QString &type);
+
     QWidget* getParametriWidget() const;
     QGridLayout* getParametriLayout() const;
     QVector<QLineEdit*>& getMinimiEdit();
@@ -39,6 +40,7 @@ public:
     //QVector<QLineEdit*>& getMassimi();
 private slots:
     void onSceltaTipoChanged();
+
 
 
 };

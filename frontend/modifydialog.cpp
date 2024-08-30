@@ -80,11 +80,5 @@ void ModifyDialog::onSceltaTipoChanged(){
     }
     show();
 }
-//Sensor* ModifyDialog::getSensor(){return mainSensor;}
-//void ModifyDialog::setSensor(const Sensor *s){mainSensor=const_cast<Sensor*>(s);}
-//QVector<QWidget*>& ModifyDialog::getDatiWidget(){return datiWidget;}
-//QVector<QHBoxLayout*>& ModifyDialog::getDatiLayout(){return datiLayout;}
-//QVector<QLabel*>& ModifyDialog::getMisure(){return misure;}
-//QVector<QLineEdit*>& ModifyDialog::getMinimi(){return minimi;}
-//QVector<QLineEdit*>& ModifyDialog::getMassimi(){return massimi;}
+
 
