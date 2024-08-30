@@ -20,3 +20,5 @@ QString Sensor::getType() const {return type;}
 
 
 
+
+

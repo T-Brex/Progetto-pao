@@ -9,7 +9,7 @@ SimBarVisitor::SimBarVisitor(QHBoxLayout &main, int &n, int &c)
 
 
 void SimBarVisitor::visit(Dust &sensor) {
-
+    // Crea variabili temporanee per nButtons e colorCounter
     int currentNButtons = nButtons;
     int currentColorCounter = colorCounter;
 
@@ -54,7 +54,7 @@ void SimBarVisitor::visit(Dust &sensor) {
     QToolButton *toggleButton2 = new QToolButton(layout);
     toggleButton2->setCheckable(true);
 
-    int hue2 = (currentColorCounter * 360 / 15) % 360;
+    int hue2 = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 
@@ -96,7 +96,7 @@ void SimBarVisitor::visit(Humidity &sensor) {
     QToolButton *toggleButton = new QToolButton(layout);
     toggleButton->setCheckable(true);
 
-    int hue = (currentColorCounter * 360 / 15) % 360;
+    int hue = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 
@@ -128,7 +128,7 @@ void SimBarVisitor::visit(Humidity &sensor) {
     QToolButton *toggleButton2 = new QToolButton(layout);
     toggleButton2->setCheckable(true);
 
-    int hue2 = (currentColorCounter * 360 / 15) % 360;
+    int hue2 = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 
@@ -170,7 +170,7 @@ void SimBarVisitor::visit(Wind &sensor) {
     QToolButton *toggleButton = new QToolButton(layout);
     toggleButton->setCheckable(true);
 
-    int hue = (currentColorCounter * 360 / 15) % 360;
+    int hue = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 
@@ -211,7 +211,7 @@ void SimBarVisitor::visit(Termometer &sensor) {
     QToolButton *toggleButton = new QToolButton(layout);
     toggleButton->setCheckable(true);
 
-    int hue = (currentColorCounter * 360 / 15) % 360;
+    int hue = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 
@@ -252,7 +252,7 @@ void SimBarVisitor::visit(AirQuality &sensor) {
     QToolButton *toggleButton = new QToolButton(layout);
     toggleButton->setCheckable(true);
 
-    int hue = (currentColorCounter * 360 / 15) % 360;
+    int hue = (currentColorCounter * 360 / 15) % 360; // Variazione dell'indice di tonalità
     colorCounter++;
     currentColorCounter++;
 

@@ -12,7 +12,7 @@ class SensorGetter : public Visitor
 {
     Q_OBJECT
 private:
-    QVector<Measurement*> *measurementVec;
+    QVector<Measurement*> &measurementVec;
 public:
     explicit SensorGetter(QObject *parent = nullptr);
     SensorGetter(QVector<Measurement*> &);

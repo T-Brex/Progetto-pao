@@ -176,7 +176,7 @@ void CartesianPlane::drawSensors(QPainter& painter, QVector<QPolygonF*> s) const
 
         painter.translate(width() / 2, height() / 2);
         for (int i=0; i<s.size(); i++) {
-            hue = (i * 360 / 15) % 360;
+            hue = (i * 360 / 15) % 360; // Variazione dell'indice di tonalità
 
             QPen pen(QColor::fromHsv(hue, 255, 255));
             pen.setWidth(2);

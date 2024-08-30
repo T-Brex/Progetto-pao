@@ -24,6 +24,8 @@ void Dust::updateValue(){
     Mpm25.setValue(distributionPm25(generator));
     Mpm10.setValue(distributionPm10(generator));
 }
+Measurement& Dust::getMpm10Address(){return Mpm10;}
+Measurement& Dust::getMpm25Address(){return Mpm25;}
 
 Measurement Dust::getMpm10() const{
     return Mpm10;
