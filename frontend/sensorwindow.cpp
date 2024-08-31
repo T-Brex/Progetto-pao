@@ -1,7 +1,10 @@
 #include "sensorwindow.h"
+#include "backend/deepsensorgetter.h"
 #include "backend/json.h"
 #include <QScrollBar>
 #include "SensorLayoutChooser.h"
+#include "backend/measurement.h"
+#include "backend/sensorgetter.h"
 
 sensorWindow::sensorWindow(QWidget *parent)
     : QWidget(parent),
@@ -106,7 +109,19 @@ void sensorWindow::deleteAllSensors() {
 
 void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
     deleteSensor(oldName);
-    addSensor(Json::costruttore(newName, newType)); 
+    /*Sensor* oldSensor = Json::trovaSensorePerNome(oldName);
+    QVector<Measurement*> mVec;
+    SensorGetter sg(mVec);
+    oldSensor->accept(sg);
+
+    Sensor* newSensor=Json::costruttore(newName, newType);
+    QVector<Measurement*> mVec2;
+    DeepSensorGetter dsg(mVec2);
+    newSensor->accept(sg);*/
+    Sensor* newSensor=Json::trovaSensorePerNome(oldName);
+    newSensor->updateValue();
+
+    addSensor(newSensor);
     this->update();
 
 }

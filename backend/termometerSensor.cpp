@@ -15,8 +15,7 @@ void Termometer::updateValue(){
     std::uniform_real_distribution<double> distribution(Mtemperature.getRangeMin(),Mtemperature.getRangeMax());
 
 
-    Mtemperature.setValue(distribution(generator));
-
+    Mtemperature.setValue(distribution(generator));    
 }
 Measurement& Termometer::getMtemperatureAddress(){return Mtemperature;}
 

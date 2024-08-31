@@ -136,7 +136,6 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             }else{
                 tuttiInt=false;
                 //qDebug()<<"minimo non intero";
-//>>>>>>> 5cca1299b97e7a0bb260807bdee161a5baa294d9
             }
 
             int max = modifyDialog->getMassimiEdit()[i]->text().toInt(&intero);

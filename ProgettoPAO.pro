@@ -28,6 +28,7 @@ SOURCES += \
     frontend/legend.cpp \
     frontend/deletewarning.cpp \
     frontend/modifydialog.cpp \
+    frontend/modifydialogsetter.cpp \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     frontend/legend.h \
     frontend/mainwindow.h \
     frontend/modifydialog.h \
+    frontend/modifydialogsetter.h \
     frontend/searchMenu.h \
     frontend/menubar.h \
     frontend/sensorlayoutchooser.h \

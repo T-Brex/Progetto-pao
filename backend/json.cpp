@@ -1,5 +1,4 @@
 #include "backend/json.h"
-#include "backend/deepsensorgetter.h"
 #include "backend/measurementsetter.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
@@ -255,30 +254,8 @@ Sensor* Json::trovaSensorePerNome(const QString& nomeSensore, const QString& fil
             QString tipo = sensoreObject["tipo"].toString();
             Sensor* nuovoSensore = costruttore(nome, tipo);
             if (nuovoSensore) {
-
-                QVector<Measurement*> measurements;
-                DeepSensorGetter sg(measurements);
-                nuovoSensore->accept(sg);
-
-                for(int i = 0; i < measurements.size(); i++) {
-                    //qDebug()<<"min"<<sensoreObject["min" + measurements[i]->getName()].toDouble()<<"max"<<sensoreObject["max" + measurements[i]->getName()].toDouble();
-                    measurements[i]->setRange(sensoreObject["min" + measurements[i]->getName()].toDouble(),
-                                              sensoreObject["max" + measurements[i]->getName()].toDouble());
-
-                } /*
-                    MeasurementSetter ms(sensoreObject);
+                MeasurementSetter ms(sensoreObject);
                 nuovoSensore->accept(ms);
-
-
-
-                QVector<Measurement*> measurements;
-                SensorGetter sg(measurements);
-                nuovoSensore->accept(sg);
-                    for(int i = 0; i < measurements.size(); i++) {
-                    qDebug()<<"MIN"<<measurements[i]->getRangeMin();
-                    qDebug()<<"MAX"<<measurements[i]->getRangeMax();
-                }*/
-
 
                 return nuovoSensore; // Restituisce il sensore trovato
             } else {
@@ -303,30 +280,8 @@ QVector<Sensor*> Json::caricaSensori(const QString& fileName) {
         Sensor* nuovoSensore = Json::costruttore(nome, tipo);
         if (nuovoSensore) {
 
-            QVector<Measurement*> measurements;
-            DeepSensorGetter dsg(measurements);
-            nuovoSensore->accept(dsg);
-
-            for(int i=0;i<measurements.size();i++){
-                measurements[i]->setRange(sensoreObject["min"+measurements[i]->getName()].toDouble(),
-                                        sensoreObject["max"+measurements[i]->getName()].toDouble());
-                //qDebug()<<"rangeMin:"<<measurements[i]->getRangeMin();
-                //qDebug()<<"rangeMax:"<<measurements[i]->getRangeMax();
-
-            }/*
             MeasurementSetter ms(sensoreObject);
             nuovoSensore->accept(ms);
-
-            QVector<Measurement*> measurements;
-            SensorGetter sg(measurements);
-            nuovoSensore->accept(sg);
-            for(int i=0;i<measurements.size();i++){
-                //measurements[i]->setRange(sensoreObject["min"+measurements[i]->getName()].toDouble(),
-                  //                        sensoreObject["max"+measurements[i]->getName()].toDouble());
-                qDebug()<<"rangeMin:"<<measurements[i]->getRangeMin();
-                qDebug()<<"rangeMax:"<<measurements[i]->getRangeMax();
-
-            }*/
             sensori.append(nuovoSensore);
         } else {
             qDebug() << "Tipo di sensore non valido: " << tipo;
