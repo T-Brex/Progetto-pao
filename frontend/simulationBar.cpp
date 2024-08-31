@@ -54,7 +54,7 @@ SimBar::SimBar(QVector<Sensor*>& s, QWidget* parent)
 
 
 
-    nButtons = 0;
+
     mainLayout->addStretch();
 }
 
