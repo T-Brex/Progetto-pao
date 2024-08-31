@@ -9,7 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    backend/deepsensorgetter.cpp \
     backend/json.cpp \
     backend/measurement.cpp \
     backend/measurementsaver.cpp \
@@ -42,7 +41,6 @@ SOURCES += \
     frontend/simulationBar.cpp
 
 HEADERS += \
-    backend/deepsensorgetter.h \
     backend/json.h \
     backend/measurement.h \
     backend/measurementsaver.h \

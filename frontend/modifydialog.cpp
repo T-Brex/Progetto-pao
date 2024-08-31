@@ -6,16 +6,7 @@
 ModifyDialog::ModifyDialog(QWidget *parent):AddDialog(parent),oldSensorName(),oldSensorType(),
     parametriWidget(new QWidget(this)),
     parametriLayout(new QGridLayout (parametriWidget))
-    //misureWidget(new QWidget(parametriWidget)),
-    //misureLayout(new QVBoxLayout (misureWidget)),
-    //minWidget(new QWidget(parametriWidget)),
-    //minLayout(new QVBoxLayout (minWidget)),
-    //maxWidget(new QWidget(parametriWidget)),
-    //maxLayout(new QVBoxLayout (maxWidget))
 {
-    //parametriLayout->addWidget(misureWidget);
-    //parametriLayout->addWidget(minWidget);
-    //parametriLayout->addWidget(maxWidget);
     connect(sceltaTipo, QOverload<int>::of(&QComboBox::currentIndexChanged),this, &ModifyDialog::onSceltaTipoChanged);
     layout->addWidget(parametriWidget);
     layout->addWidget(confirmButton);

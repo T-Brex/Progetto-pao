@@ -18,7 +18,6 @@ public:
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
 
-
     virtual ~Sensor();
     void updateType(const QString&);
     virtual QString getType() const;

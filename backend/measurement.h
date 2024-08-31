@@ -24,7 +24,6 @@ public:
     double getRangeMax() const;
     void setRange(double min, double max);
 
-
 };
 
 #endif // MEASUREMENT_H

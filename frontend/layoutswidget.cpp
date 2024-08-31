@@ -129,23 +129,17 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
         for (int i = 0; i < modifyDialog->getMassimiEdit().size(); i++) {
             bool intero;
             int min = modifyDialog->getMinimiEdit()[i]->text().toInt(&intero);
-            //qDebug()<<"intero:"<<min<<intero;
             if(intero){
                 minimi.push_back(min);
-                //qDebug()<<"minimo intero:"<<min;
             }else{
                 tuttiInt=false;
-                //qDebug()<<"minimo non intero";
             }
 
             int max = modifyDialog->getMassimiEdit()[i]->text().toInt(&intero);
-            //qDebug()<<"intero:"<<max<<intero;
             if(intero){
                 massimi.push_back(max);
-                 //qDebug()<<"massimo intero:"<<max;
             }else{
                 tuttiInt=false;
-                //qDebug()<<"massimo non intero";
             }
         }
         if(tuttiInt)
@@ -154,7 +148,6 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
 
             if (result == "ok") {
                 sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text());
-                //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
                 deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 
                 // Rimuovere l'elemento dalla lista a discesa sceltaTipo
