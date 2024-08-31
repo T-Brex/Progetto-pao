@@ -45,7 +45,6 @@ MainWindow::MainWindow(QWidget *parent)
 
                 // Verifica se l'utente ha selezionato un file
                 if (!fileName.isEmpty()) {
-                    qDebug() << "Hai selezionato il file:" << fileName;
                     QVector<Sensor*>nuoviSensori=Json::caricaSensori(fileName);
                     for(auto i=nuoviSensori.begin();i!=nuoviSensori.end();++i){
                         if(Json::nuovoSensore((*i)->getName(),(*i)->getType())=="ok"){

@@ -14,12 +14,17 @@ private:
 public:
     Sensor(const QString&);
     const QString& getName() const;
-    virtual QVector<QString> getNameValues() const = 0;
-    void modifyName(const QString&);
+    void setName(const QString&);
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
+<<<<<<< HEAD
     virtual ~Sensor();
     void updateType(const QString& s);
+=======
+
+    virtual ~Sensor();
+    void updateType(const QString&);
+>>>>>>> 89224e0cdad36821b178c40e5e6c7d4f59df6551
     virtual QString getType() const;
     virtual void accept(Visitor&) = 0;
 

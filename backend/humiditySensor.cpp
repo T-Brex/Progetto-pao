@@ -28,7 +28,8 @@ void Humidity::updateValue(){
     Mpercentage.setValue(distributionPer(generator));
 
 }
-
+Measurement& Humidity::getMhumidityAddress(){return Mhumidity;}
+Measurement& Humidity::getMpercentageAddress(){return Mpercentage;}
 Measurement Humidity::getMhumidity() const{
     return Mhumidity;
 }
@@ -37,10 +38,6 @@ Measurement Humidity::getMpercentage() const{
 }
 
 
-QVector<QString> Humidity::getNameValues() const{
-    QVector<QString> v = {"humidity","percentage"};
-    return v;
-}
 void Humidity::accept(Visitor &visitor){
     visitor.visit(*this);
 }

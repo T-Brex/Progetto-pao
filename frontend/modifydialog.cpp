@@ -6,16 +6,7 @@
 ModifyDialog::ModifyDialog(QWidget *parent):AddDialog(parent),oldSensorName(),oldSensorType(),
     parametriWidget(new QWidget(this)),
     parametriLayout(new QGridLayout (parametriWidget))
-    //misureWidget(new QWidget(parametriWidget)),
-    //misureLayout(new QVBoxLayout (misureWidget)),
-    //minWidget(new QWidget(parametriWidget)),
-    //minLayout(new QVBoxLayout (minWidget)),
-    //maxWidget(new QWidget(parametriWidget)),
-    //maxLayout(new QVBoxLayout (maxWidget))
 {
-    //parametriLayout->addWidget(misureWidget);
-    //parametriLayout->addWidget(minWidget);
-    //parametriLayout->addWidget(maxWidget);
     connect(sceltaTipo, QOverload<int>::of(&QComboBox::currentIndexChanged),this, &ModifyDialog::onSceltaTipoChanged);
     layout->addWidget(parametriWidget);
     layout->addWidget(confirmButton);
@@ -33,10 +24,6 @@ QVector<QLineEdit*> &ModifyDialog::getMinimiEdit() {return minimiEdit;}
 QVector<QLineEdit *> &ModifyDialog::getMassimiEdit() {return massimiEdit;}
 void ModifyDialog::onSceltaTipoChanged(){
 
-    Sensor *sensor=Json::costruttore("momentaneo",sceltaTipo->currentText());
-    QVector<Measurement*> mVec;
-    SensorGetter sg(mVec);
-    sensor->accept(sg);
 
     QLayoutItem* item;
     while ((item = parametriLayout->takeAt(0)) != nullptr) {
@@ -60,6 +47,12 @@ void ModifyDialog::onSceltaTipoChanged(){
 
     massimiEdit.clear();
     minimiEdit.clear();
+
+    Sensor *sensor=Json::costruttore("momentaneo",sceltaTipo->currentText());
+    QVector<Measurement*> mVec;
+    SensorGetter sg(mVec);
+    sensor->accept(sg);
+
     // Aggiungi i dati del sensore alla griglia, centrati
     for (int i = 0; i < mVec.size(); i++) {
         QLabel* misura = new QLabel(mVec[i]->getName());
@@ -80,11 +73,5 @@ void ModifyDialog::onSceltaTipoChanged(){
     }
     show();
 }
-//Sensor* ModifyDialog::getSensor(){return mainSensor;}
-//void ModifyDialog::setSensor(const Sensor *s){mainSensor=const_cast<Sensor*>(s);}
-//QVector<QWidget*>& ModifyDialog::getDatiWidget(){return datiWidget;}
-//QVector<QHBoxLayout*>& ModifyDialog::getDatiLayout(){return datiLayout;}
-//QVector<QLabel*>& ModifyDialog::getMisure(){return misure;}
-//QVector<QLineEdit*>& ModifyDialog::getMinimi(){return minimi;}
-//QVector<QLineEdit*>& ModifyDialog::getMassimi(){return massimi;}
+
 

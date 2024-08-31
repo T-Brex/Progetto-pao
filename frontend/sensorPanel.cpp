@@ -41,10 +41,10 @@ SensorPanel::SensorPanel(Sensor& sensor, QWidget* parent): QWidget(parent),butto
     type->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(type);
 
+    sensor.updateValue();
     QVector<Measurement*> measurements;
     SensorGetter sg(measurements);
-    Sensor *ps(&sensor);
-    ps->accept(sg);
+    sensor.accept(sg);
 
     for(unsigned int i = 0; i < measurements.size(); i++){
         valuesName = new QLabel(measurements[i]->getName());

@@ -1,6 +1,8 @@
-#ifndef SENSORGETTER_H
-#define SENSORGETTER_H
+#ifndef MEASUREMENTSAVER_H
+#define MEASUREMENTSAVER_H
 
+#include "qjsonobject.h"
+#include "visitor.h"
 #include "backend/visitor.h"
 #include "backend/dustSensor.h"
 #include "backend/humiditySensor.h"
@@ -8,15 +10,14 @@
 #include "backend/windSensor.h"
 #include "backend/airQualitySensor.h"
 
-class SensorGetter : public Visitor
+class MeasurementSaver : public Visitor
 {
     Q_OBJECT
 private:
-    QVector<Measurement*> &measurementVec;
+    QJsonObject &sensoreObject;
 public:
-    explicit SensorGetter(QObject *parent = nullptr);
-    SensorGetter(QVector<Measurement*> &,QObject *parent = nullptr);
-    SensorGetter(Measurement);
+    MeasurementSaver(QJsonObject&,Visitor *parent=nullptr);
+
     void visit(Dust&);
     void visit(Wind&);
     void visit(Termometer&);
@@ -24,4 +25,4 @@ public:
     void visit(AirQuality&);
 };
 
-#endif // SENSORGETTER_H
+#endif // MEASUREMENTSAVER_H

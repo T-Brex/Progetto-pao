@@ -24,18 +24,14 @@ void Dust::updateValue(){
     Mpm25.setValue(distributionPm25(generator));
     Mpm10.setValue(distributionPm10(generator));
 }
+Measurement& Dust::getMpm10Address(){return Mpm10;}
+Measurement& Dust::getMpm25Address(){return Mpm25;}
 
 Measurement Dust::getMpm10() const{
     return Mpm10;
 }
 Measurement Dust::getMpm25() const{
     return Mpm25;
-}
-
-
-QVector<QString> Dust::getNameValues() const{
-    QVector<QString> v = {"pm10","pm25"};
-    return v;
 }
 void Dust::accept(Visitor &visitor){
     visitor.visit(*this);

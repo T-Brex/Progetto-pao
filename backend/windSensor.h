@@ -8,10 +8,9 @@ private:
 public:
     Wind(const QString&, double minWind = 0, double maxWind = 10);
     Wind(const Wind&);
-
+    Measurement& getMwindAddress();
     Measurement getMwind() const;
     void updateValue()  override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 

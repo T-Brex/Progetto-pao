@@ -11,6 +11,8 @@ CONFIG += c++17
 SOURCES += \
     backend/json.cpp \
     backend/measurement.cpp \
+    backend/measurementsaver.cpp \
+    backend/measurementsetter.cpp \
     backend/sensorgetter.cpp \
     backend/sensors.cpp \
     backend/visitor.cpp \
@@ -25,6 +27,7 @@ SOURCES += \
     frontend/legend.cpp \
     frontend/deletewarning.cpp \
     frontend/modifydialog.cpp \
+    frontend/modifydialogsetter.cpp \
     frontend/searchMenu.cpp \
     frontend/layoutswidget.cpp \
     frontend/menubar.cpp \
@@ -40,6 +43,8 @@ SOURCES += \
 HEADERS += \
     backend/json.h \
     backend/measurement.h \
+    backend/measurementsaver.h \
+    backend/measurementsetter.h \
     backend/sensorgetter.h \
     backend/sensors.h \
     backend/visitor.h \
@@ -56,6 +61,7 @@ HEADERS += \
     frontend/legend.h \
     frontend/mainwindow.h \
     frontend/modifydialog.h \
+    frontend/modifydialogsetter.h \
     frontend/searchMenu.h \
     frontend/menubar.h \
     frontend/sensorlayoutchooser.h \

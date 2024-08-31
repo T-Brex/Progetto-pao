@@ -9,10 +9,11 @@ private:
 public:
     Humidity(const QString&, double minHum = 0, double maxHum = 23, double minPer = 0, double maxPer = 10);
     Humidity(const Humidity&);
+    Measurement& getMhumidityAddress();
+    Measurement& getMpercentageAddress();
     Measurement getMhumidity() const;
     Measurement getMpercentage() const;
     void updateValue()  override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 
