@@ -23,4 +23,4 @@ public:
 signals:
 };
 
-#endif // VISITOR_H
+#endif
