@@ -17,7 +17,6 @@ public:
 
     Measurement getMpm10() const;
     Measurement getMpm25() const;
-    QVector<QString> getNameValues() const override;
 
     void accept(Visitor &) override;
 

@@ -14,7 +14,6 @@ public:
     Measurement getMhumidity() const;
     Measurement getMpercentage() const;
     void updateValue()  override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 

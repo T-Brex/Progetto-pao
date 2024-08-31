@@ -12,7 +12,6 @@ public:
     Measurement& getMtemperatureAddress();
     Measurement getMtemperature() const;
     void updateValue()  override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 

@@ -11,7 +11,6 @@ public:
     Measurement& getMwindAddress();
     Measurement getMwind() const;
     void updateValue()  override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 };
 

@@ -14,8 +14,7 @@ private:
 public:
     Sensor(const QString&);
     const QString& getName() const;
-    virtual QVector<QString> getNameValues() const = 0;
-    void modifyName(const QString&);
+    void setName(const QString&);
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
 

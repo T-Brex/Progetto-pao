@@ -58,7 +58,7 @@ public:
 
 public slots:
     void addSensor(Sensor *s);
-    void modifySensor(const QString& oldName, const QString& newName, const QString& newType);
+    void modifySensor(const QString& oldName, const QString& newName);
     void deleteSensor(QString s);
     void deleteAllSensors();
     void filterSensors(const QString& searchText);

@@ -38,10 +38,6 @@ Measurement Humidity::getMpercentage() const{
 }
 
 
-QVector<QString> Humidity::getNameValues() const{
-    QVector<QString> v = {"humidity","percentage"};
-    return v;
-}
 void Humidity::accept(Visitor &visitor){
     visitor.visit(*this);
 }

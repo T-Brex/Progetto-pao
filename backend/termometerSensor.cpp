@@ -24,12 +24,6 @@ Measurement Termometer::getMtemperature() const{
 }
 
 
-
-
-QVector<QString> Termometer::getNameValues() const{
-    QVector<QString> v = {"temperature"};
-    return v;
-}
 void Termometer::accept(Visitor &visitor){
     visitor.visit(*this);
 }

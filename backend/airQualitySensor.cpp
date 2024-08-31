@@ -32,10 +32,6 @@ void AirQuality::updateValue(){
 
 }
 
-QVector<QString> AirQuality::getNameValues() const{
-    QVector<QString> v = {"quality"};
-    return v;
-}
 void AirQuality::accept(Visitor &visitor){
     visitor.visit(*this);
 }

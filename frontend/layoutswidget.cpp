@@ -153,7 +153,7 @@ LayoutsWidget::LayoutsWidget(QWidget *parent) : QStackedWidget(parent),
             QString result = Json::modificaSensore(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText(),minimi,massimi);
 
             if (result == "ok") {
-                sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text(), modifyDialog->getSceltaTipo()->currentText());
+                sensWindow->modifySensor(modifyDialog->getOldSensorName(), modifyDialog->getLineEdit()->text());
                 //qDebug() << "dentro if"<<modifyDialog->getOldSensorName()<<modifyDialog->getLineEdit()->text()<<modifyDialog->getSceltaTipo()->currentText();
                 deleteDialog->getSceltaNome()->addItem(modifyDialog->getLineEdit()->text());
 

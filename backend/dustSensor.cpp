@@ -33,12 +33,6 @@ Measurement Dust::getMpm10() const{
 Measurement Dust::getMpm25() const{
     return Mpm25;
 }
-
-
-QVector<QString> Dust::getNameValues() const{
-    QVector<QString> v = {"pm10","pm25"};
-    return v;
-}
 void Dust::accept(Visitor &visitor){
     visitor.visit(*this);
 }

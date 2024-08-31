@@ -7,7 +7,7 @@ const QString& Sensor::getName() const{return name;}
 QDateTime Sensor::getCreationDate() const {
     return creationDate;
 }
-void Sensor::modifyName(const QString& n){
+void Sensor::setName(const QString& n){
     name=n;
 }
 

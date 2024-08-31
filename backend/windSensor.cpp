@@ -24,11 +24,6 @@ Measurement Wind::getMwind() const{
     return Mwind;
 }
 
-
-QVector<QString> Wind::getNameValues() const{
-    QVector<QString> v = {"wind"};
-    return v;
-}
 void Wind::accept(Visitor &visitor){
     visitor.visit(*this);
 }

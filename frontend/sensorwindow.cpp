@@ -107,20 +107,10 @@ void sensorWindow::deleteAllSensors() {
 }
 
 
-void sensorWindow::modifySensor(const QString& oldName, const QString& newName, const QString& newType) {
+void sensorWindow::modifySensor(const QString& oldName, const QString& newName) {
+
+    Sensor* newSensor=Json::trovaSensorePerNome(newName);
     deleteSensor(oldName);
-    /*Sensor* oldSensor = Json::trovaSensorePerNome(oldName);
-    QVector<Measurement*> mVec;
-    SensorGetter sg(mVec);
-    oldSensor->accept(sg);
-
-    Sensor* newSensor=Json::costruttore(newName, newType);
-    QVector<Measurement*> mVec2;
-    DeepSensorGetter dsg(mVec2);
-    newSensor->accept(sg);*/
-    Sensor* newSensor=Json::trovaSensorePerNome(oldName);
-    newSensor->updateValue();
-
     addSensor(newSensor);
     this->update();
 

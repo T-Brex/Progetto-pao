@@ -44,7 +44,6 @@ SensorPanel::SensorPanel(Sensor& sensor, QWidget* parent): QWidget(parent),butto
     sensor.updateValue();
     QVector<Measurement*> measurements;
     SensorGetter sg(measurements);
-    //Sensor *ps(&sensor);
     sensor.accept(sg);
 
     for(unsigned int i = 0; i < measurements.size(); i++){

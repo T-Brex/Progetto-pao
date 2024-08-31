@@ -15,7 +15,6 @@ public:
     Measurement getMquality() const;
     Measurement& getMqualityAddress();
     void updateValue() override;
-    QVector<QString> getNameValues() const override;
     void accept(Visitor &) override;
 
 };
