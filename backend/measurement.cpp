@@ -13,8 +13,16 @@ Measurement::Measurement(const Measurement& m):QObject(m.parent()){
     ////////////////////////fare getrange M-m
 }
 
+<<<<<<< HEAD
 Measurement::Measurement(const QString& name, double value, QObject *parent) :QObject(parent), name(name), value(value) {}
 //Measurement::Measurement(const Measurement& m):QObject(m.parent()),name(m.getName()), value(m.getValue()) {}
+=======
+
+Measurement::Measurement(const QString& name, double value, QObject *parent) :QObject(parent), name(name), value(value) {}
+//Measurement::Measurement(const Measurement& m):QObject(m.parent()),name(m.getName()), value(m.getValue()) {}
+
+QString Measurement::getName() const { return name; }
+>>>>>>> 221da924192030d167b70c6140358250f921580a
 
 QString Measurement::getName() const { return name; }
 

@@ -19,12 +19,17 @@ public:
     QDateTime getCreationDate() const;
     virtual void updateValue() = 0 ;
 
+
     virtual ~Sensor();
 
     //virtual ~Sensor();
     void updateType(const QString&);
     virtual QString getType() const;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 221da924192030d167b70c6140358250f921580a
     virtual void accept(Visitor&) = 0;
 
 
