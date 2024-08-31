@@ -17,7 +17,7 @@ class MeasurementSetter : public Visitor
 private:
     QJsonObject &sensoreObject;
 public:
-    MeasurementSetter(QJsonObject&,QObject *parent = nullptr);
+    MeasurementSetter(QJsonObject&,Visitor *parent=nullptr);
 
     void visit(Dust&);
     void visit(Wind&);

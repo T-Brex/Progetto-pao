@@ -6,7 +6,7 @@
 #include <QJsonArray>
 #include <QFile>
 #include <QDateTime>
-// Aggiunto per gestire la data e l'ora
+
 #include "backend/dustSensor.h"
 #include "backend/humiditySensor.h"
 #include "backend/termometerSensor.h"
@@ -52,7 +52,6 @@ QString Json::nuovoSensore(const QString& nome, const QString& tipo, const QStri
         bool sensorePresente = false;
         for (auto it = sensoriArray.begin(); it != sensoriArray.end(); ++it) {
             QJsonObject sensoreObject = it->toObject();
-            //qDebug()<<sensoreObject["nome"]<<"=="<<nome;
             if (sensoreObject["nome"] == nome) {
                 sensorePresente = true;
                 return "existing";
@@ -106,7 +105,6 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
         if (sensoreObject["nome"] == nomeSensore) {
             sensoriArray.erase(it); // Rimuove il sensore esistente
             sensoreTrovato = true;
-
             break;
         }
     }
@@ -312,8 +310,6 @@ QVector<Sensor*> Json::trovaSensoriPerNome(const QString& substrNome, const QStr
 
 Sensor* Json::costruttore(const QString& nome, const QString& tipo) {
     Sensor* nuovoSensore = nullptr;
-//avrei bisogno di un sensor che chiami l'accept(sensorConstructor), ma quale dovrebbe essere il sensor in questione?
-//in questo caso credo si debba lasciare così dato che non esiste un sensor finchè non lo creo con il new
     if (tipo == "Dust") {
         nuovoSensore = new Dust(nome);
     } else if (tipo == "Humidity") {

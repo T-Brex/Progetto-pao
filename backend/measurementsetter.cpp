@@ -2,7 +2,7 @@
 #include "backend/dustSensor.h"
 
 
-MeasurementSetter::MeasurementSetter(QJsonObject& so,QObject *parent):sensoreObject(so){}
+MeasurementSetter::MeasurementSetter(QJsonObject& so,Visitor *parent):Visitor(parent),sensoreObject(so){}
 void MeasurementSetter::visit(Dust& d){
     d.getMpm10Address().setRange(sensoreObject["min"+d.getMpm10().getName()].toDouble(),sensoreObject["max"+d.getMpm10().getName()].toDouble());
     d.getMpm25Address().setRange(sensoreObject["min"+d.getMpm25().getName()].toDouble(),sensoreObject["max"+d.getMpm25().getName()].toDouble());

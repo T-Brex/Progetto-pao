@@ -2,7 +2,7 @@
 #include "backend/dustSensor.h"
 
 
-MeasurementSaver::MeasurementSaver(QJsonObject& so,QObject *parent):sensoreObject(so){}
+MeasurementSaver::MeasurementSaver(QJsonObject& so,Visitor *parent):Visitor(parent),sensoreObject(so){}
 void MeasurementSaver::visit(Dust& d){
     sensoreObject[d.getMpm10().getName()]=d.getMpm10().getValue();
     sensoreObject["min"+d.getMpm10().getName()]=d.getMpm10().getRangeMin();

@@ -16,7 +16,7 @@ class MeasurementSaver : public Visitor
 private:
     QJsonObject &sensoreObject;
 public:
-    MeasurementSaver(QJsonObject&,QObject *parent = nullptr);
+    MeasurementSaver(QJsonObject&,Visitor *parent=nullptr);
 
     void visit(Dust&);
     void visit(Wind&);

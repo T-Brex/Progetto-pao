@@ -19,7 +19,6 @@ private:
 public:
     explicit DeepSensorGetter(QObject *parent = nullptr);
     DeepSensorGetter(QVector<Measurement*> &);
-    //DeepSensorGetter(Measurement);
     void visit(Dust&);
     void visit(Wind&);
     void visit(Termometer&);

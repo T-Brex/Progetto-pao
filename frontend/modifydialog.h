@@ -29,13 +29,6 @@ public:
     QGridLayout* getParametriLayout() const;
     QVector<QLineEdit*>& getMinimiEdit();
     QVector<QLineEdit*>& getMassimiEdit();
-    //Sensor *getSensor();
-    //void setSensor(const Sensor*);
-    //QVector<QWidget*>& getDatiWidget();
-    //QVector<QHBoxLayout*>& getDatiLayout();
-    //QVector<QLabel*>& getMisure();
-    //QVector<QLineEdit*>& getMinimi();
-    //QVector<QLineEdit*>& getMassimi();
 private slots:
     void onSceltaTipoChanged();
 
