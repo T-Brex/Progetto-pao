@@ -91,9 +91,6 @@ return "0";
 
 QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo, const QVector<double>& minimi, const QVector<double>& massimi, const QString& fileName) {
 
-
-//QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNome, const QString& nuovoTipo,const QVector<double>minimi,const QVector<double>massimi, const QString& fileName) {
-
     if (nuovoNome.isEmpty()) {
         qDebug() << "Il nuovo nome del sensore non può essere vuoto.";
         return "empty";
@@ -101,8 +98,6 @@ QString Json::modificaSensore(const QString& nomeSensore, const QString& nuovoNo
 
     // Carica i sensori dal file JSON
     QJsonArray sensoriArray = Json::leggiJson(fileName);
-    //QVector<Sensor*> sensorVec = Json::caricaSensori(fileName);
-
 
     // Trova ed elimina il sensore esistente
     bool sensoreTrovato = false;

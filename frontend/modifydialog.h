@@ -14,8 +14,6 @@ private:
     QWidget* parametriWidget;
     QGridLayout* parametriLayout;
 
-    //Sensor* mainSensor;//da eliminare?
-
     QVector<QLineEdit*> minimiEdit;
     QVector<QLineEdit*> massimiEdit;
 

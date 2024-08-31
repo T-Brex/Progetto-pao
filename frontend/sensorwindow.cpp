@@ -1,10 +1,7 @@
 #include "sensorwindow.h"
-#include "backend/deepsensorgetter.h"
 #include "backend/json.h"
 #include <QScrollBar>
 #include "SensorLayoutChooser.h"
-#include "backend/measurement.h"
-#include "backend/sensorgetter.h"
 
 sensorWindow::sensorWindow(QWidget *parent)
     : QWidget(parent),

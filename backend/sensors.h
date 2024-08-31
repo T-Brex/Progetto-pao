@@ -20,8 +20,6 @@ public:
 
 
     virtual ~Sensor();
-
-    //virtual ~Sensor();
     void updateType(const QString&);
     virtual QString getType() const;
 
